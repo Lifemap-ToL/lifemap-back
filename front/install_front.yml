@@ -1,0 +1,18 @@
+---
+- name: Base lifemap-front install
+  hosts: lifemap-front
+
+  tasks:
+      - name: Rsync html
+        become: true
+        ansible.posix.synchronize:
+            src: "HTTP-NCBI/"
+            dest: "{{ front_root_dir }}/"
+
+      - name: Copy server-address.js
+        become: true
+        ansible.builtin.template:
+            src: templates/server-address.js.j2
+            dest: "{{ front_root_dir }}/server-address.js"
+            mode: preserve
+            force: true

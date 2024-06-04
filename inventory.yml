@@ -1,0 +1,23 @@
+---
+lifemap:
+    vars:
+        lifemap_dev_ip: 134.214.213.174
+        backend_ip: "{{ lifemap_dev_ip }}"
+        backend_hostname: lifemap-back.dev.lhst.eu
+        frontend_ip: "{{ lifemap_dev_ip }}"
+        frontend_hostname: lifemap-front.dev.lhst.eu
+    hosts:
+        lifemap-back:
+            ansible_user: ubuntu
+            ansible_host: "{{ backend_ip }}"
+            builder_dir: "/home/{{ ansible_user }}/builder"
+            build_results_dir: "/home/{{ ansible_user }}/builder_results/"
+            docker_dir: "/home/{{ ansible_user }}/back"
+            static_root_dir: "/var/www/lifemap_back"
+            postgresql_db: "tree"
+            postgresql_user: "lm"
+            postgresql_password: "CHANGE_ME"
+        lifemap-front:
+            ansible_user: ubuntu
+            ansible_host: "{{ frontend_ip }}"
+            front_root_dir: "/var/www/lifemap_front"

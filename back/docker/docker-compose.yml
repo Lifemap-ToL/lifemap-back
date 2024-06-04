@@ -1,0 +1,38 @@
+services:
+    postgis:
+        image: postgis/postgis:14-3.4
+        container_name: lifemap-postgis
+        restart: always
+        env_file:
+            - path: .env
+              required: true
+        environment:
+            - POSTGRES_USER=${PG_USER}
+            - POSTGRES_PASSWORD=${PG_PASSWD}
+            - POSTGRES_DB=${PG_DB}
+        volumes:
+            - postgis_data:/var/lib/postgresql/data
+        ports:
+            - 5432:5432
+    solr:
+        image: lifemap_solr
+        container_name: lifemap-solr
+        build:
+            context: ./solr
+        volumes:
+            - solr_data:/var/solr
+        ports:
+            - 8983:8983
+    mod_tile:
+        image: lifemap_mod_tile
+        container_name: lifemap-mod_tile
+        build:
+            context: ./mod_tile_deepzoom
+        ports:
+            - 8080:80
+        volumes:
+            - $HOME/build_results:/opt/build_results
+
+volumes:
+    solr_data:
+    postgis_data:

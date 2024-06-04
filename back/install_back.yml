@@ -1,0 +1,54 @@
+---
+- name: Base lifemap-back install
+  hosts: lifemap-back
+
+  tasks:
+      - name: Copy env to docker-compose directory
+        ansible.builtin.template:
+            src: templates/env.j2
+            dest: "{{ docker_dir }}/.env"
+            mode: "0600"
+            force: true
+
+      - name: Check if docker-compose.yml already exists
+        ansible.builtin.stat:
+            path: "{{ docker_dir }}/docker-compose.yml"
+        register: docker_compose
+
+      - name: Stop containers if needed
+        ansible.builtin.command:
+            chdir: "{{ docker_dir }}"
+            cmd: docker compose -f docker-compose.yml down
+        changed_when: true
+        when: docker_compose.stat.exists
+
+      - name: Copy docker files
+        ansible.builtin.copy:
+            src: "docker/"
+            dest: "{{ docker_dir }}"
+            mode: preserve
+            force: true
+
+      - name: Rsync fonts
+        ansible.posix.synchronize:
+            src: "fonts"
+            dest: "{{ docker_dir }}/mod_tile_deepzoom/"
+
+      - name: Rsync style
+        ansible.posix.synchronize:
+            src: "style"
+            dest: "{{ docker_dir }}/mod_tile_deepzoom/"
+
+      - name: Copy datasource-settings to style directory
+        become: true
+        ansible.builtin.template:
+            src: templates/datasource-settings.xml.inc.j2
+            dest: "{{ docker_dir }}/mod_tile_deepzoom/style/inc/datasource-settings.xml.inc"
+            mode: preserve
+            force: true
+
+      - name: Build and launch containers
+        ansible.builtin.command:
+            chdir: "{{ docker_dir }}"
+            cmd: docker compose -f docker-compose.yml up -d --build
+        changed_when: true

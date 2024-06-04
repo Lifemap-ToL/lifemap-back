@@ -1,0 +1,125 @@
+---
+- name: Apt update
+  become: true
+  ansible.builtin.apt:
+      cache_valid_time: 3600
+      update_cache: true
+
+- name: Apt full-upgrade
+  become: true
+  ansible.builtin.apt:
+      upgrade: "full"
+
+- name: Install common packages
+  become: true
+  ansible.builtin.apt:
+      name:
+          - locales-all
+          - micro
+          - htop
+          - tmux
+          - ca-certificates
+          - curl
+          - gnupg
+          - apt-transport-https
+          - bzip2
+          - git
+          - netcat-traditional
+          - rsync
+          - zip
+          - ufw
+          - unattended-upgrades
+      state: present
+
+- name: Set timezone to Europe/Paris
+  become: true
+  community.general.timezone:
+      name: Europe/Paris
+
+- name: Transfer 50unattended-upgrades
+  become: true
+  ansible.builtin.copy:
+      src: files/apt.conf.d/50unattended-upgrades
+      dest: /etc/apt/apt.conf.d/
+      force: true
+      mode: preserve
+
+- name: Transfer 20auto-upgrades
+  become: true
+  ansible.builtin.copy:
+      src: files/apt.conf.d/20auto-upgrades
+      dest: /etc/apt/apt.conf.d/
+      force: true
+      mode: preserve
+
+- name: Transfer .tmux.conf
+  ansible.builtin.copy:
+      src: files/tmux.conf
+      dest: ~/.tmux.conf
+      force: false
+      mode: preserve
+
+- name: Transfer ufw after.rules for docker compatibility
+  become: true
+  ansible.builtin.copy:
+      src: files/ufw/after.rules
+      dest: /etc/ufw/
+      force: true
+      mode: preserve
+
+- name: Deny everything and enable UFW
+  become: true
+  community.general.ufw:
+      state: enabled
+      policy: deny
+
+- name: Allow SSH
+  become: true
+  community.general.ufw:
+      rule: allow
+      name: OpenSSH
+
+- name: Allow HTTP
+  become: true
+  community.general.ufw:
+      rule: allow
+      port: 80
+
+- name: Allow HTTPS
+  become: true
+  community.general.ufw:
+      rule: allow
+      port: 443
+
+- name: Add Caddy Repository Key
+  become: true
+  ansible.builtin.apt_key:
+      url: https://dl.cloudsmith.io/public/caddy/stable/gpg.key
+      state: present
+
+- name: Add Caddy Repository
+  become: true
+  ansible.builtin.apt_repository:
+      repo: deb https://dl.cloudsmith.io/public/caddy/stable/deb/debian any-version main
+      state: present
+
+- name: Install Caddy
+  become: true
+  ansible.builtin.apt:
+      update_cache: true
+      name: caddy
+      state: present
+
+- name: Copy Caddy config
+  become: true
+  ansible.builtin.copy:
+      src: files/Caddyfile
+      dest: /etc/caddy/
+      mode: preserve
+      force: true
+
+- name: Reload Caddy
+  become: true
+  ansible.builtin.service:
+      name: caddy
+      state: reloaded

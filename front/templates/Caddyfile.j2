@@ -1,0 +1,19 @@
+(logging) {
+        log {
+                output file /var/log/caddy/access_front.log
+        }
+}
+
+
+{{ frontend_hostname }} {
+
+    import logging
+
+    handle /data/* {
+        redir https://{{ backend_hostname }}/static/{uri}
+    }
+
+    root * {{ front_root_dir }}
+    file_server
+
+}

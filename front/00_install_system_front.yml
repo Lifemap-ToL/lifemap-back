@@ -1,0 +1,45 @@
+---
+- name: Base server install
+  hosts: lifemap-front
+
+  tasks:
+      - name: Run initial setup tasks
+        ansible.builtin.import_tasks:
+            file: ../common/install.yml
+
+      - name: Create Caddy sites.d directory
+        become: true
+        ansible.builtin.file:
+            path: /etc/caddy/sites.d
+            state: directory
+            mode: "0755"
+
+      - name: Copy Caddy config
+        become: true
+        ansible.builtin.template:
+            src: templates/Caddyfile.j2
+            dest: /etc/caddy/sites.d/lifemap_front
+            mode: preserve
+            force: true
+
+      - name: Reload Caddy
+        become: true
+        ansible.builtin.service:
+            name: caddy
+            state: reloaded
+
+      - name: Add user to Caddy group
+        become: true
+        ansible.builtin.user:
+            name: "{{ ansible_user }}"
+            append: true
+            groups: caddy
+
+      - name: Create /var/www/lifemap_front
+        become: true
+        ansible.builtin.file:
+            path: "{{ front_root_dir }}"
+            state: directory
+            mode: "0775"
+            owner: caddy
+            group: caddy

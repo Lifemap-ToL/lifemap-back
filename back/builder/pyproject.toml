@@ -1,0 +1,24 @@
+[project]
+name = "lifemap-builder"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "Damien de Vienne", email = "damien.de-vienne@univ-lyon1.fr" }
+]
+dependencies = [
+    "ete3>=3.1.3",
+    "numpy>=1.26.4",
+    "psycopg[binary]>=3.1.19",
+    "six>=1.16.0",
+    "python-dotenv>=1.0.1",
+]
+readme = "README.md"
+requires-python = ">= 3.11"
+
+[tool.rye]
+managed = true
+virtual = true
+dev-dependencies = []
+
+[tool.rye.scripts]
+build = "python tree/Main.py --lang EN --simplify False"

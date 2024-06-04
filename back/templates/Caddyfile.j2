@@ -1,0 +1,28 @@
+(logging_back) {
+        log {
+                output file /var/log/caddy/access_back.log
+        }
+}
+
+
+{{ backend_hostname }} {
+
+    import logging_back
+
+    header {
+        Access-Control-Allow-Origin *
+        Access-Control-Allow-Methods *
+        Access-Control-Allow-Headers *
+    }
+
+    reverse_proxy /solr/* localhost:8983
+    reverse_proxy /osm_tiles/* localhost:8080
+    reverse_proxy /nolabels/* localhost:8080
+    reverse_proxy /onlylabels/* localhost:8080
+
+    handle_path /static/* {
+        root {{ static_root_dir }}
+        file_server
+    }
+
+}

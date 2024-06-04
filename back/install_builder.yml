@@ -1,0 +1,58 @@
+---
+- name: Lifemap builder install
+  hosts: lifemap-back
+
+  tasks:
+      - name: Rsync builder
+        ansible.posix.synchronize:
+            src: "builder/"
+            dest: "{{ builder_dir }}"
+
+      - name: Copy env to builder repo
+        ansible.builtin.template:
+            src: templates/env.j2
+            dest: "{{ builder_dir }}/.env"
+            mode: "0600"
+            force: true
+
+      - name: Create results directory if needed
+        ansible.builtin.file:
+            path: "{{ build_results_dir }}"
+            state: directory
+            mode: "0755"
+
+      - name: Apt update
+        become: true
+        ansible.builtin.apt:
+            cache_valid_time: 3600
+            update_cache: true
+
+      - name: Install apt packages for builder
+        become: true
+        ansible.builtin.apt:
+            name:
+                - python3-pip
+                - r-base-core
+                - r-cran-jsonlite
+                - unzip
+                - curl
+            state: present
+
+      - name: Install python packages for builder
+        ansible.builtin.shell:
+            chdir: "{{ builder_dir }}"
+            cmd: python3 -m pip install -r requirements.lock
+            executable: /bin/bash
+        changed_when: true
+
+      - name: Copy taxonomy file
+        ansible.builtin.copy:
+            src: builder/taxo/TAXREF_INPN_v11.zip
+            dest: "{{ build_results_dir }}/taxo/"
+            mode: preserve
+
+      - name: Copy ranks file
+        ansible.builtin.copy:
+            src: builder/taxo/ranks.txt
+            dest: "{{ build_results_dir }}/taxo/"
+            mode: preserve
