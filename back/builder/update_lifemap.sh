@@ -1,6 +1,6 @@
 #!/bin/sh
 
-BUILD_DIRECTORY=~/build_results
+BUILD_DIRECTORY=~/builder_results
 SOLR_CONTAINER=lifemap-solr
 MOD_TILE_CONTAINER=lifemap-mod_tile
 PRERENDER_THREADS=7
