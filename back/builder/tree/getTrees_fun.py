@@ -1,160 +1,139 @@
 import logging
-from ete3 import Tree
+from dataclasses import dataclass, field
+
 from config import TAXO_DIRECTORY
+from ete3 import Tree
+from utils import get_ranks_fr, get_translations_fr
 
 logger = logging.getLogger("LifemapBuilder")
 
 
-def getTheTrees():
-    ##DOWNLOAD taxdump and store in taxo folder
-    ##DOWNLOAD TAXREF BY HAND! and put it in taxo/
+@dataclass
+class Taxid:
+    sci_name: str = ""
+    authority: str = ""
+    synonym: str = ""
+    common_name_en: list = field(default_factory=list)
+    common_name_fr: list = field(default_factory=list)
 
-    class Trans:
-        def __init__(self):
-            self.common_name_FR = []
 
-    logger.info("Getting french translations...")
-    TRANS = {}  ##translations in french
-    with open(TAXO_DIRECTORY / "TAXREFv11.txt") as f:
-        for line in f:
-            sciname = line.split("\t")[14]
-            comnameFR = line.split("\t")[19]
-            if (sciname not in TRANS) and line.split("\t")[19] != "":
-                TRANS[sciname] = Trans()
-            if line.split("\t")[19] != "":
-                TRANS[sciname].common_name_FR.append(comnameFR)
+def get_attributes() -> dict:
+    """
+    List attributes of each species per taxid
 
-    # get translation of ranks
-    logger.info("\nGetting rank names in french...")
-    RANKS = {}
-    with open(TAXO_DIRECTORY / "ranks.txt") as f:
-        for line in f:
-            rank_en = line.split("\t")[0]
-            rank_fr = line.split("\t")[1].rstrip()  ##to remove \n
-            RANKS[rank_en] = rank_fr
+    Returns
+    -------
+    dict
+        attributes dictionary.
+    """
 
-    class Taxid:
-        def __init__(self):
-            self.sci_name = ""
-            self.authority = ""
-            self.synonym = ""
-            # 			self.common_name = ""
-            self.common_name = []
-            # 			self.common_name_FR = ""
-            self.common_name_FR = []
-
-    cpt = 0
-    cptfr = 0
-    ATTR = {}  ##here we will list attribute of each species per taxid
     logger.info("Reading NCBI taxonomy...")
+
+    taxo_fr_translations = get_translations_fr()
+
+    attr = {}  ##here we will list attribute of each species per taxid
     with open(TAXO_DIRECTORY / "names.dmp") as f:
         for line in f:
             taxid = line.split("|")[0].replace("\t", "")
             tid_val = line.split("|")[1].replace("\t", "")
             tid_type = line.split("|")[3].replace("\t", "")
-            if taxid not in ATTR:
-                ATTR[taxid] = Taxid()
-            if tid_type == "scientific name":
-                ATTR[taxid].sci_name = tid_val
-                # and get translation in french (if any)
-                if tid_val in TRANS:
-                    ATTR[taxid].common_name_FR = TRANS[tid_val].common_name_FR
-                    cptfr += 1
-            if tid_type == "authority":
-                if ATTR[taxid].authority != "":
-                    ATTR[taxid].authority = ATTR[taxid].authority + ", " + tid_val
-                else:
-                    ATTR[taxid].authority = tid_val
-            if tid_type == "synonym":
-                if ATTR[taxid].synonym != "":
-                    ATTR[taxid].synonym = ATTR[taxid].synonym + ", " + tid_val
-                else:
-                    ATTR[taxid].synonym = tid_val
+            if taxid not in attr:
+                attr[taxid] = Taxid()
             if tid_type == "common name":
-                cpt += 1
-                ATTR[taxid].common_name.append(tid_val)
-                # if (ATTR[taxid].common_name!=""):
-                # 	ATTR[taxid].common_name = ATTR[taxid].common_name + ", " + tid_val
-                # else:
-                # 	ATTR[taxid].common_name = tid_val
+                attr[taxid].common_name_en.append(tid_val)
+            if tid_type == "scientific name":
+                attr[taxid].sci_name = tid_val
+                # and get translation in french (if any)
+                if tid_val in taxo_fr_translations:
+                    attr[taxid].common_name_fr = taxo_fr_translations[tid_val]
+            if tid_type == "authority":
+                if attr[taxid].authority != "":
+                    attr[taxid].authority = attr[taxid].authority + ", " + tid_val
+                else:
+                    attr[taxid].authority = tid_val
+            if tid_type == "synonym":
+                if attr[taxid].synonym != "":
+                    attr[taxid].synonym = attr[taxid].synonym + ", " + tid_val
+                else:
+                    attr[taxid].synonym = tid_val
 
-    T = {}
+    for tax_id in attr:
+        attr[tax_id].sci_name = attr[tax_id].sci_name.replace("'", "''")
+        if len(attr[tax_id].common_name_en) > 0:
+            attr[tax_id].common_name_long_en = (
+                "(" + ", ".join(attr[tax_id].common_name_en) + ")"
+            )
+            attr[tax_id].common_name_en = (
+                attr[tax_id].common_name_en[0].replace("'", "''")
+            )
+            attr[tax_id].common_name_en = "(" + attr[tax_id].common_name_en + ")"
+        else:
+            attr[tax_id].common_name_en = ""
+            attr[tax_id].common_name_long_en = ""
+
+        if len(attr[tax_id].common_name_fr) > 0:
+            attr[tax_id].common_name_long_fr = (
+                "(" + ", ".join(attr[tax_id].common_name_fr) + ")"
+            )
+            attr[tax_id].common_name_fr = (
+                attr[tax_id].common_name_fr[0].replace("'", "''")
+            )
+            attr[tax_id].common_name_fr = "(" + attr[tax_id].common_name_fr + ")"
+        else:
+            attr[tax_id].common_name_fr = ""
+            attr[tax_id].common_name_long_fr = ""
+
+    return attr
+
+
+def getTheTrees():
+
+    attr = get_attributes()
+
+    tree = {}
+
+    logger.info("Building the NCBI taxonomy tree...")
+
+    ranks_fr_translations = get_ranks_fr()
 
     filepath = TAXO_DIRECTORY / "nodes.dmp"
-    logger.info("Building the NCBI taxonomy tree...")
     with open(filepath) as fp:
         _ = fp.readline()  ## remove the 1 | 1 edge
         for line in fp:
-            dad = line.split("|")[1].replace("\t", "")
-            son = line.split("|")[0].replace("\t", "")
-            rank = line.split("|")[2].replace("\t", "")
-            if dad not in T:
-                T[dad] = Tree()
-                T[dad].name = dad
-                # 				T[dad].rank = rank
-                # 				T[dad].rank_FR = RANKS[rank]
-                T[dad].taxid = dad
-                T[dad].sci_name = ATTR[dad].sci_name
-                T[dad].common_name = ATTR[dad].common_name
-                T[dad].synonym = ATTR[dad].synonym
-                T[dad].authority = ATTR[dad].authority
-                T[dad].common_name_FR = ATTR[dad].common_name_FR
-            if son not in T:
-                T[son] = Tree()
-                T[son].name = son
-                T[son].rank = rank
-                T[son].rank_FR = RANKS[rank]
-                T[son].taxid = son
-                T[son].sci_name = ATTR[son].sci_name
-                T[son].common_name = ATTR[son].common_name
-                T[son].synonym = ATTR[son].synonym
-                T[son].authority = ATTR[son].authority
-                T[son].common_name_FR = ATTR[son].common_name_FR
+            line = line.split("|")
+            dad = line[1].replace("\t", "")
+            son = line[0].replace("\t", "")
+            rank = line[2].replace("\t", "")
+            rank_en = rank.replace("'", "''")
+            rank_fr = ranks_fr_translations[rank].replace("'", "''")
+
+            if dad not in tree:
+                tree[dad] = Tree()
+                tree[dad].name = dad
+                tree[dad].taxid = dad
+                tree[dad].sci_name = attr[dad].sci_name
+                tree[dad].common_name_en = attr[dad].common_name_en
+                tree[dad].common_name_fr = attr[dad].common_name_fr
+                tree[dad].common_name_long_en = attr[dad].common_name_long_en
+                tree[dad].common_name_long_fr = attr[dad].common_name_long_fr
+                tree[dad].synonym = attr[dad].synonym
+                tree[dad].authority = attr[dad].authority
+            if son not in tree:
+                tree[son] = Tree()
+                tree[son].name = son
+                tree[son].rank_en = rank_en
+                tree[son].rank_fr = rank_fr
+                tree[son].taxid = son
+                tree[son].sci_name = attr[son].sci_name
+                tree[son].common_name_en = attr[son].common_name_en
+                tree[son].common_name_fr = attr[son].common_name_fr
+                tree[son].common_name_long_en = attr[son].common_name_long_en
+                tree[son].common_name_long_fr = attr[son].common_name_long_fr
+                tree[son].synonym = attr[son].synonym
+                tree[son].authority = attr[son].authority
             else:
-                if not hasattr(T[son], "rank"):
-                    T[son].rank = rank
-            # 					T[son].rank_FR = RANKS[rank]
-            T[dad].add_child(T[son])
-    return T
-
-
-# ##we save T entirely so that we do not hacve to write it to a file.
-# logger.info("\n>>> Writing ARCHAEA tree...")
-# with open('ARCHAEA.pkl', 'wb') as output:
-#     pickle.dump(T['2157'], output, pickle.HIGHEST_PROTOCOL)
-# logger.info("\n>>> Writing BACTERIA tree...")
-# with open('BACTERIA.pkl', 'wb') as output:
-#     pickle.dump(T['2'], output, pickle.HIGHEST_PROTOCOL)
-# logger.info("\n>>> Writing EUKA tree...")
-# with open('EUKARYOTES.pkl', 'wb') as output:
-#     pickle.dump(T['2759'], output, pickle.HIGHEST_PROTOCOL)
-# logger.info(">>> DONE")
-
-
-# #t = T['1']
-# tarc = T['2157']
-# tbac = T['2']
-# teuc = T['2759']
-
-# logger.info("\n>>> Writing ARCHAEA tree...")
-# tarc.write(outfile = "ARCHAEA", features = ["name", "taxid", "sci_name","common_name","rank", "authority","synonym","common_name_FR", "rank_FR"], format_root_node=True)
-# logger.info("\n>>> Writing BACTERIA tree...")
-# tbac.write(outfile = "BACTERIA", features = ["name", "taxid", "sci_name","common_name","rank", "authority","synonym","common_name_FR", "rank_FR"], format_root_node=True)
-# logger.info("\n>>> Writing EUKA tree...")
-# teuc.write(outfile = "EUKARYOTES", features = ["name", "taxid", "sci_name","common_name","rank", "authority","synonym","common_name_FR", "rank_FR"], format_root_node=True)
-# logger.info(">>> DONE")
-
-
-# RANKS = {}
-
-# for n in t.traverse():
-# 	if RANKS.has_key(n.rank)== False:
-# 		RANKS[n.rank] = 1
-# 	else:
-# 		RANKS[n.rank] = RANKS[n.rank] + 1
-
-# ranks = open("ranks.txt", "w")
-# for k in RANKS:
-# 	ranks.write("%s\t%s\n" % (k,RANKS[k]))
-
-# ranks.close()
+                if not hasattr(tree[son], "rank"):
+                    tree[son].rank_en = rank_en
+                    tree[son].rank_fr = rank_fr
+            tree[dad].add_child(tree[son])
+    return tree

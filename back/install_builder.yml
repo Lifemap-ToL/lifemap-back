@@ -47,7 +47,7 @@
 
       - name: Copy taxonomy file
         ansible.builtin.copy:
-            src: builder/taxo/TAXREF_INPN_v11.zip
+            src: builder/taxo/TAXONOMIC-VERNACULAR-FR.txt
             dest: "{{ build_results_dir }}/taxo/"
             mode: preserve
 

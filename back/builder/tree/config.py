@@ -1,7 +1,7 @@
 from pathlib import Path
 from dotenv import dotenv_values
 
-BUILD_DIRECTORY = Path.home() / ("build_results")
+BUILD_DIRECTORY = Path.home() / ("builder_results")
 TAXO_DIRECTORY = BUILD_DIRECTORY / "taxo"
 GENOMES_DIRECTORY = BUILD_DIRECTORY / "genomes"
 

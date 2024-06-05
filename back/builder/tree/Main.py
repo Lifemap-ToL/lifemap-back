@@ -4,12 +4,12 @@ import sys
 from argparse import ArgumentParser
 from datetime import datetime
 from pathlib import Path
-from typing import Literal
 
 import AdditionalInfo
 import CombineJsons
 import CreateIndex
 import GetAllTilesCoord
+import getTrees_fun
 import PrepareRdata
 import Traverse_To_Pgsql_2
 from config import (
@@ -32,7 +32,6 @@ logger.setLevel(logging.DEBUG)
 
 
 def lifemap_build(
-    lang: Literal["EN", "FR"],
     simplify: bool,
     skip_traversal: bool = False,
     skip_add_info: bool = False,
@@ -50,20 +49,20 @@ def lifemap_build(
         logger.info("--- Skipping tree traversal as requested ---")
     else:
         logger.info("-- CREATING DATABASE")
+        logger.info("---- Updating NCBI database...")
+        Traverse_To_Pgsql_2.updateDB()
+        logger.info("---- Building NCBI tree...")
+        tree = getTrees_fun.getTheTrees()
+        if simplify:
+            tree = Traverse_To_Pgsql_2.simplify_tree(tree)
         logger.info("---- Doing Archaeal tree...")
-        ndid = Traverse_To_Pgsql_2.traverse_tree(
-            groupnb="1", starti=1, simplify=simplify, lang=lang, updatedb=True
-        )
+        ndid = Traverse_To_Pgsql_2.traverse_tree(tree, groupnb="1", starti=1)
         logger.info("---- Done")
         logger.info("---- Doing Eukaryotic tree... start at id: %s" % ndid)
-        ndid = Traverse_To_Pgsql_2.traverse_tree(
-            groupnb="2", starti=ndid, simplify=simplify, lang=lang, updatedb=False
-        )
+        ndid = Traverse_To_Pgsql_2.traverse_tree(tree, groupnb="2", starti=ndid)
         logger.info("---- Done")
         logger.info("---- Doing Bact tree... start at id:%s " % ndid)
-        ndid = Traverse_To_Pgsql_2.traverse_tree(
-            groupnb="3", starti=ndid, simplify=simplify, lang=lang, updatedb=False
-        )
+        ndid = Traverse_To_Pgsql_2.traverse_tree(tree, groupnb="3", starti=ndid)
         logger.info("---- Done")
 
     ## Get additional info from NCBI
@@ -79,10 +78,6 @@ def lifemap_build(
         logger.info("-- Getting additional Bacter info...")
         AdditionalInfo.add_info(groupnb="3")
         logger.info("-- Done")
-
-    ##2.1. Get FULL info from NCBI (new sept 2019)
-    # os.system('python StoreWholeNcbiInSolr.py')
-    # logger.info '  ...Done'
 
     ## Merge Additionaljson and TreeFeatures json
     if skip_merge_jsons:
@@ -132,13 +127,6 @@ if __name__ == "__main__":
         description="Perform all Lifemap tree analysis cleaning previous data if any."
     )
     parser.add_argument(
-        "--lang",
-        action="store",
-        default="EN",
-        help="Language chosen. FR for french, EN (default) for english",
-        choices=["EN", "FR"],
-    )
-    parser.add_argument(
         "--simplify",
         action="store_true",
         help="Should the tree be simplified by removing environmental and unindentified species?",
@@ -159,7 +147,6 @@ if __name__ == "__main__":
 
     # Build or update tree
     lifemap_build(
-        lang=args.lang,
         simplify=args.simplify,
         skip_traversal=args.skip_traversal,
         skip_add_info=args.skip_add_info,

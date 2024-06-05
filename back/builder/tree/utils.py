@@ -3,8 +3,14 @@ Utility functions
 """
 
 import os
+import logging
 from datetime import datetime
 from ftplib import FTP
+from collections import defaultdict
+
+from config import TAXO_DIRECTORY
+
+logger = logging.getLogger("LifemapBuilder")
 
 
 def download_file_if_newer(host, remote_file, local_file) -> bool:
@@ -39,3 +45,41 @@ def download_file_if_newer(host, remote_file, local_file) -> bool:
         print(f"Error downloading file: {e}")
 
     return downloaded
+
+
+def get_translations_fr() -> dict:
+    """
+    Import french translations of taxonomy as dictionary from TAXONOMIC-VERNACULAR-FR.txt
+
+    There can be several common names for one sciname, so each dict value is a list.
+
+    Returns
+    -------
+    dict
+        dictionary of translations.
+    """
+    logger.info("  Importing french common names")
+    trans = defaultdict(list)
+    with open(TAXO_DIRECTORY / "TAXONOMIC-VERNACULAR-FR.txt") as f:
+        lines = f.readlines()
+    lines = [line.split("\t") for line in lines]
+    for k, v in lines:
+        trans[k.strip()].append(v.strip())
+    return trans
+
+
+def get_ranks_fr() -> dict:
+    """
+    Import french translations of ranks as dictionary from ranks.txt
+
+    Returns
+    -------
+    dict
+        dictionary of translations.
+    """
+    logger.info("  Importing french rank names")
+    with open(TAXO_DIRECTORY / "ranks.txt") as f:
+        lines = f.readlines()
+    lines = [line.split("\t") for line in lines]
+    trans = {k.strip(): v.strip() for k, v in lines}
+    return trans

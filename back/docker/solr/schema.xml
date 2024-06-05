@@ -458,13 +458,15 @@
   <field name="_version_" type="plong" indexed="false" stored="false"/>
   <field name="all" type="string"/>
   <field name="authority" type="text_general"/>
-  <field name="common_name" type="text_general"/>
+  <field name="common_name_en" type="text_general"/>
+  <field name="common_name_fr" type="text_general"/>
   <field name="coordinates" type="pdoubles"/>
   <field name="id" type="string" multiValued="false" indexed="true" required="true" stored="true"/>
   <field name="lat" type="pdoubles"/>
   <field name="lon" type="pdoubles"/>
   <field name="nbdesc" type="plongs"/>
-  <field name="rank" type="text_general"/>
+  <field name="rank_en" type="text_general"/>
+  <field name="rank_fr" type="text_general"/>
   <field name="sci_name" type="text_general"/>
   <field name="synonym" type="text_general"/>
   <field name="taxid" type="plongs"/>
@@ -543,7 +545,9 @@
   <copyField source="all" dest="all-search" maxChars="256"/>
   <copyField source="synonym" dest="synonym_str" maxChars="256"/>
   <copyField source="authority" dest="authority_str" maxChars="256"/>
-  <copyField source="rank" dest="rank_str" maxChars="256"/>
+  <copyField source="rank_en" dest="rank_en_str" maxChars="256"/>
+  <copyField source="rank_fr" dest="rank_fr_str" maxChars="256"/>
   <copyField source="sci_name" dest="sci_name_str" maxChars="256"/>
-  <copyField source="common_name" dest="common_name_str" maxChars="256"/>
+  <copyField source="common_name_en" dest="common_name_en_str" maxChars="256"/>
+  <copyField source="common_name_fr" dest="common_name_fr_str" maxChars="256"/>
 </schema>

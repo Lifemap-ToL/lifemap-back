@@ -20,211 +20,211 @@
     <Filter>[zoomview] = 0</Filter>
     &maxscale_zoom2;
     &minscale_zoom4;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 1</Filter>
     &maxscale_zoom3;
     &minscale_zoom5;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 2</Filter>
     &maxscale_zoom4;
     &minscale_zoom6;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 3</Filter>
     &maxscale_zoom5;
     &minscale_zoom7;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 4</Filter>
     &maxscale_zoom6;
     &minscale_zoom8;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 5</Filter>
     &maxscale_zoom7;
     &minscale_zoom9;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 6</Filter>
     &maxscale_zoom8;
     &minscale_zoom10;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 7</Filter>
     &maxscale_zoom9;
     &minscale_zoom11;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 8</Filter>
     &maxscale_zoom10;
     &minscale_zoom12;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 9</Filter>
     &maxscale_zoom11;
     &minscale_zoom13;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 10</Filter>
     &maxscale_zoom12;
     &minscale_zoom14;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 11</Filter>
     &maxscale_zoom13;
     &minscale_zoom15;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 12</Filter>
     &maxscale_zoom14;
     &minscale_zoom16;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 13</Filter>
     &maxscale_zoom15;
     &minscale_zoom17;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 14</Filter>
     &maxscale_zoom16;
     &minscale_zoom18;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 15</Filter>
     &maxscale_zoom17;
     &minscale_zoom19;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 16</Filter>
     &maxscale_zoom18;
     &minscale_zoom20;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 17</Filter>
     &maxscale_zoom19;
     &minscale_zoom21;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 18</Filter>
     &maxscale_zoom20;
     &minscale_zoom22;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 19</Filter>
     &maxscale_zoom21;
     &minscale_zoom23;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 20</Filter>
     &maxscale_zoom22;
     &minscale_zoom24;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 21</Filter>
     &maxscale_zoom23;
     &minscale_zoom25;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 22</Filter>
     &maxscale_zoom24;
     &minscale_zoom26;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 23</Filter>
     &maxscale_zoom25;
     &minscale_zoom27;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 24</Filter>
     &maxscale_zoom26;
     &minscale_zoom28;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 25</Filter>
     &maxscale_zoom27;
     &minscale_zoom29;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 26</Filter>
     &maxscale_zoom28;
     &minscale_zoom30;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 27</Filter>
     &maxscale_zoom29;
     &minscale_zoom31;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 28</Filter>
     &maxscale_zoom30;
     &minscale_zoom32;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 29</Filter>
     &maxscale_zoom31;
     &minscale_zoom33;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 30</Filter>
     &maxscale_zoom32;
     &minscale_zoom34;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 31</Filter>
     &maxscale_zoom33;
     &minscale_zoom35;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 32</Filter>
     &maxscale_zoom34;
     &minscale_zoom36;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 33</Filter>
     &maxscale_zoom35;
     &minscale_zoom37;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 34</Filter>
     &maxscale_zoom36;
     &minscale_zoom38;
-    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#aaffee" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.22" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
 </Style>
 <Style name="ranknames2">
@@ -232,211 +232,211 @@
     <Filter>[zoomview] = 0</Filter>
     &maxscale_zoom2;
     &minscale_zoom4;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 1</Filter>
     &maxscale_zoom3;
     &minscale_zoom5;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 2</Filter>
     &maxscale_zoom4;
     &minscale_zoom6;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 3</Filter>
     &maxscale_zoom5;
     &minscale_zoom7;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 4</Filter>
     &maxscale_zoom6;
     &minscale_zoom8;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 5</Filter>
     &maxscale_zoom7;
     &minscale_zoom9;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 6</Filter>
     &maxscale_zoom8;
     &minscale_zoom10;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 7</Filter>
     &maxscale_zoom9;
     &minscale_zoom11;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 8</Filter>
     &maxscale_zoom10;
     &minscale_zoom12;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 9</Filter>
     &maxscale_zoom11;
     &minscale_zoom13;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 10</Filter>
     &maxscale_zoom12;
     &minscale_zoom14;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 11</Filter>
     &maxscale_zoom13;
     &minscale_zoom15;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 12</Filter>
     &maxscale_zoom14;
     &minscale_zoom16;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 13</Filter>
     &maxscale_zoom15;
     &minscale_zoom17;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 14</Filter>
     &maxscale_zoom16;
     &minscale_zoom18;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 15</Filter>
     &maxscale_zoom17;
     &minscale_zoom19;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 16</Filter>
     &maxscale_zoom18;
     &minscale_zoom20;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 17</Filter>
     &maxscale_zoom19;
     &minscale_zoom21;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 18</Filter>
     &maxscale_zoom20;
     &minscale_zoom22;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 19</Filter>
     &maxscale_zoom21;
     &minscale_zoom23;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 20</Filter>
     &maxscale_zoom22;
     &minscale_zoom24;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 21</Filter>
     &maxscale_zoom23;
     &minscale_zoom25;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 22</Filter>
     &maxscale_zoom24;
     &minscale_zoom26;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 23</Filter>
     &maxscale_zoom25;
     &minscale_zoom27;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 24</Filter>
     &maxscale_zoom26;
     &minscale_zoom28;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 25</Filter>
     &maxscale_zoom27;
     &minscale_zoom29;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 26</Filter>
     &maxscale_zoom28;
     &minscale_zoom30;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 27</Filter>
     &maxscale_zoom29;
     &minscale_zoom31;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 28</Filter>
     &maxscale_zoom30;
     &minscale_zoom32;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 29</Filter>
     &maxscale_zoom31;
     &minscale_zoom33;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 30</Filter>
     &maxscale_zoom32;
     &minscale_zoom34;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 31</Filter>
     &maxscale_zoom33;
     &minscale_zoom35;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 32</Filter>
     &maxscale_zoom34;
     &minscale_zoom36;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 33</Filter>
     &maxscale_zoom35;
     &minscale_zoom37;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 34</Filter>
     &maxscale_zoom36;
     &minscale_zoom38;
-    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#6599ff" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.25" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
 </Style>
 <Style name="ranknames3">
@@ -444,211 +444,211 @@
     <Filter>[zoomview] = 0</Filter>
     &maxscale_zoom2;
     &minscale_zoom4;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 1</Filter>
     &maxscale_zoom3;
     &minscale_zoom5;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 2</Filter>
     &maxscale_zoom4;
     &minscale_zoom6;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 3</Filter>
     &maxscale_zoom5;
     &minscale_zoom7;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 4</Filter>
     &maxscale_zoom6;
     &minscale_zoom8;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 5</Filter>
     &maxscale_zoom7;
     &minscale_zoom9;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 6</Filter>
     &maxscale_zoom8;
     &minscale_zoom10;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 7</Filter>
     &maxscale_zoom9;
     &minscale_zoom11;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 8</Filter>
     &maxscale_zoom10;
     &minscale_zoom12;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 9</Filter>
     &maxscale_zoom11;
     &minscale_zoom13;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 10</Filter>
     &maxscale_zoom12;
     &minscale_zoom14;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 11</Filter>
     &maxscale_zoom13;
     &minscale_zoom15;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 12</Filter>
     &maxscale_zoom14;
     &minscale_zoom16;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 13</Filter>
     &maxscale_zoom15;
     &minscale_zoom17;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 14</Filter>
     &maxscale_zoom16;
     &minscale_zoom18;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 15</Filter>
     &maxscale_zoom17;
     &minscale_zoom19;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 16</Filter>
     &maxscale_zoom18;
     &minscale_zoom20;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 17</Filter>
     &maxscale_zoom19;
     &minscale_zoom21;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 18</Filter>
     &maxscale_zoom20;
     &minscale_zoom22;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 19</Filter>
     &maxscale_zoom21;
     &minscale_zoom23;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 20</Filter>
     &maxscale_zoom22;
     &minscale_zoom24;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 21</Filter>
     &maxscale_zoom23;
     &minscale_zoom25;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 22</Filter>
     &maxscale_zoom24;
     &minscale_zoom26;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 23</Filter>
     &maxscale_zoom25;
     &minscale_zoom27;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 24</Filter>
     &maxscale_zoom26;
     &minscale_zoom28;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 25</Filter>
     &maxscale_zoom27;
     &minscale_zoom29;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 26</Filter>
     &maxscale_zoom28;
     &minscale_zoom30;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 27</Filter>
     &maxscale_zoom29;
     &minscale_zoom31;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 28</Filter>
     &maxscale_zoom30;
     &minscale_zoom32;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 29</Filter>
     &maxscale_zoom31;
     &minscale_zoom33;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 30</Filter>
     &maxscale_zoom32;
     &minscale_zoom34;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 31</Filter>
     &maxscale_zoom33;
     &minscale_zoom35;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 32</Filter>
     &maxscale_zoom34;
     &minscale_zoom36;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 33</Filter>
     &maxscale_zoom35;
     &minscale_zoom37;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 34</Filter>
     &maxscale_zoom36;
     &minscale_zoom38;
-    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank]</TextSymbolizer>
+    <TextSymbolizer fill="#ff8080" size="9" dy="-5" face-name="Sinkin Sans 600 SemiBold" opacity="0.2" placement="line" >[rank_en]</TextSymbolizer>
   </Rule>
 </Style>
 
@@ -1296,631 +1296,631 @@
     <Filter>[zoomview] = 0</Filter>
     &maxscale_zoom1;
     &minscale_zoom1;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 0</Filter>
     &maxscale_zoom2;
     &minscale_zoom2;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 0</Filter>
     &maxscale_zoom3;
     &minscale_zoom3;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 1</Filter>
     &maxscale_zoom2;
     &minscale_zoom2;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 1</Filter>
     &maxscale_zoom3;
     &minscale_zoom3;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 1</Filter>
     &maxscale_zoom4;
     &minscale_zoom4;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 2</Filter>
     &maxscale_zoom3;
     &minscale_zoom3;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 2</Filter>
     &maxscale_zoom4;
     &minscale_zoom4;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 2</Filter>
     &maxscale_zoom5;
     &minscale_zoom5;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 3</Filter>
     &maxscale_zoom4;
     &minscale_zoom4;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 3</Filter>
     &maxscale_zoom5;
     &minscale_zoom5;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 3</Filter>
     &maxscale_zoom6;
     &minscale_zoom6;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 4</Filter>
     &maxscale_zoom5;
     &minscale_zoom5;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 4</Filter>
     &maxscale_zoom6;
     &minscale_zoom6;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 4</Filter>
     &maxscale_zoom7;
     &minscale_zoom7;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 5</Filter>
     &maxscale_zoom6;
     &minscale_zoom6;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 5</Filter>
     &maxscale_zoom7;
     &minscale_zoom7;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 5</Filter>
     &maxscale_zoom8;
     &minscale_zoom8;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 6</Filter>
     &maxscale_zoom7;
     &minscale_zoom7;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 6</Filter>
     &maxscale_zoom8;
     &minscale_zoom8;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 6</Filter>
     &maxscale_zoom9;
     &minscale_zoom9;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 7</Filter>
     &maxscale_zoom8;
     &minscale_zoom8;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 7</Filter>
     &maxscale_zoom9;
     &minscale_zoom9;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 7</Filter>
     &maxscale_zoom10;
     &minscale_zoom10;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 8</Filter>
     &maxscale_zoom9;
     &minscale_zoom9;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 8</Filter>
     &maxscale_zoom10;
     &minscale_zoom10;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 8</Filter>
     &maxscale_zoom11;
     &minscale_zoom11;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 9</Filter>
     &maxscale_zoom10;
     &minscale_zoom10;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 9</Filter>
     &maxscale_zoom11;
     &minscale_zoom11;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 9</Filter>
     &maxscale_zoom12;
     &minscale_zoom12;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 10</Filter>
     &maxscale_zoom11;
     &minscale_zoom11;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 10</Filter>
     &maxscale_zoom12;
     &minscale_zoom12;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 10</Filter>
     &maxscale_zoom13;
     &minscale_zoom13;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 11</Filter>
     &maxscale_zoom12;
     &minscale_zoom12;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 11</Filter>
     &maxscale_zoom13;
     &minscale_zoom13;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 11</Filter>
     &maxscale_zoom14;
     &minscale_zoom14;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 12</Filter>
     &maxscale_zoom13;
     &minscale_zoom13;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 12</Filter>
     &maxscale_zoom14;
     &minscale_zoom14;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 12</Filter>
     &maxscale_zoom15;
     &minscale_zoom15;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 13</Filter>
     &maxscale_zoom14;
     &minscale_zoom14;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 13</Filter>
     &maxscale_zoom15;
     &minscale_zoom15;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 13</Filter>
     &maxscale_zoom16;
     &minscale_zoom16;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 14</Filter>
     &maxscale_zoom15;
     &minscale_zoom15;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 14</Filter>
     &maxscale_zoom16;
     &minscale_zoom16;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 14</Filter>
     &maxscale_zoom17;
     &minscale_zoom17;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 15</Filter>
     &maxscale_zoom16;
     &minscale_zoom16;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 15</Filter>
     &maxscale_zoom17;
     &minscale_zoom17;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 15</Filter>
     &maxscale_zoom18;
     &minscale_zoom18;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 16</Filter>
     &maxscale_zoom17;
     &minscale_zoom17;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 16</Filter>
     &maxscale_zoom18;
     &minscale_zoom18;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 16</Filter>
     &maxscale_zoom19;
     &minscale_zoom19;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 17</Filter>
     &maxscale_zoom18;
     &minscale_zoom18;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 17</Filter>
     &maxscale_zoom19;
     &minscale_zoom19;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 17</Filter>
     &maxscale_zoom20;
     &minscale_zoom20;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 18</Filter>
     &maxscale_zoom19;
     &minscale_zoom19;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 18</Filter>
     &maxscale_zoom20;
     &minscale_zoom20;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 18</Filter>
     &maxscale_zoom21;
     &minscale_zoom21;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 19</Filter>
     &maxscale_zoom20;
     &minscale_zoom20;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 19</Filter>
     &maxscale_zoom21;
     &minscale_zoom21;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 19</Filter>
     &maxscale_zoom22;
     &minscale_zoom22;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 20</Filter>
     &maxscale_zoom21;
     &minscale_zoom21;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 20</Filter>
     &maxscale_zoom22;
     &minscale_zoom22;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 20</Filter>
     &maxscale_zoom23;
     &minscale_zoom23;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 21</Filter>
     &maxscale_zoom22;
     &minscale_zoom22;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 21</Filter>
     &maxscale_zoom23;
     &minscale_zoom23;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 21</Filter>
     &maxscale_zoom24;
     &minscale_zoom24;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 22</Filter>
     &maxscale_zoom23;
     &minscale_zoom23;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 22</Filter>
     &maxscale_zoom24;
     &minscale_zoom24;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 22</Filter>
     &maxscale_zoom25;
     &minscale_zoom25;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 23</Filter>
     &maxscale_zoom24;
     &minscale_zoom24;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 23</Filter>
     &maxscale_zoom25;
     &minscale_zoom25;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 23</Filter>
     &maxscale_zoom26;
     &minscale_zoom26;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 24</Filter>
     &maxscale_zoom25;
     &minscale_zoom25;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 24</Filter>
     &maxscale_zoom26;
     &minscale_zoom26;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 24</Filter>
     &maxscale_zoom27;
     &minscale_zoom27;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 25</Filter>
     &maxscale_zoom26;
     &minscale_zoom26;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 25</Filter>
     &maxscale_zoom27;
     &minscale_zoom27;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 25</Filter>
     &maxscale_zoom28;
     &minscale_zoom28;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 26</Filter>
     &maxscale_zoom27;
     &minscale_zoom27;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 26</Filter>
     &maxscale_zoom28;
     &minscale_zoom28;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 26</Filter>
     &maxscale_zoom29;
     &minscale_zoom29;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 27</Filter>
     &maxscale_zoom28;
     &minscale_zoom28;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 27</Filter>
     &maxscale_zoom29;
     &minscale_zoom29;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 27</Filter>
     &maxscale_zoom30;
     &minscale_zoom30;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 28</Filter>
     &maxscale_zoom29;
     &minscale_zoom29;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 28</Filter>
     &maxscale_zoom30;
     &minscale_zoom30;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 28</Filter>
     &maxscale_zoom31;
     &minscale_zoom31;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 29</Filter>
     &maxscale_zoom30;
     &minscale_zoom30;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 29</Filter>
     &maxscale_zoom31;
     &minscale_zoom31;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 29</Filter>
     &maxscale_zoom32;
     &minscale_zoom32;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 30</Filter>
     &maxscale_zoom31;
     &minscale_zoom31;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 30</Filter>
     &maxscale_zoom32;
     &minscale_zoom32;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 30</Filter>
     &maxscale_zoom33;
     &minscale_zoom33;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 31</Filter>
     &maxscale_zoom32;
     &minscale_zoom32;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 31</Filter>
     &maxscale_zoom33;
     &minscale_zoom33;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 31</Filter>
     &maxscale_zoom34;
     &minscale_zoom34;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 32</Filter>
     &maxscale_zoom33;
     &minscale_zoom33;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 32</Filter>
     &maxscale_zoom34;
     &minscale_zoom34;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 32</Filter>
     &maxscale_zoom35;
     &minscale_zoom35;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 33</Filter>
     &maxscale_zoom34;
     &minscale_zoom34;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 33</Filter>
     &maxscale_zoom35;
     &minscale_zoom35;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 33</Filter>
     &maxscale_zoom36;
     &minscale_zoom36;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 34</Filter>
     &maxscale_zoom35;
     &minscale_zoom35;
-    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="10" fill="white" face-name="Sinkin Sans 600 SemiBold" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="8">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 34</Filter>
     &maxscale_zoom36;
     &minscale_zoom36;
-    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="18" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="12">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 34</Filter>
     &maxscale_zoom37;
     &minscale_zoom37;
-    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="30" fill="white" face-name="Sinkin Sans 500 Medium" halo-fill="#000000" halo-radius="0.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="18">[common_name_en]</Format></TextSymbolizer>
   </Rule>
 </Style>
 
@@ -1929,177 +1929,177 @@
   <Rule>
     <Filter>[zoomview] = 0</Filter>
     &maxscale_zoom4;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 1</Filter>
     &maxscale_zoom5;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 2</Filter>
     &maxscale_zoom6;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 3</Filter>
     &maxscale_zoom7;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 4</Filter>
     &maxscale_zoom8;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 5</Filter>
     &maxscale_zoom9;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 6</Filter>
     &maxscale_zoom10;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 7</Filter>
     &maxscale_zoom11;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 8</Filter>
     &maxscale_zoom12;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 9</Filter>
     &maxscale_zoom13;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 10</Filter>
     &maxscale_zoom14;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 11</Filter>
     &maxscale_zoom15;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 12</Filter>
     &maxscale_zoom16;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 13</Filter>
     &maxscale_zoom17;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 14</Filter>
     &maxscale_zoom18;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 15</Filter>
     &maxscale_zoom19;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 16</Filter>
     &maxscale_zoom20;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 17</Filter>
     &maxscale_zoom21;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 18</Filter>
     &maxscale_zoom22;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 19</Filter>
     &maxscale_zoom23;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 20</Filter>
     &maxscale_zoom24;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 21</Filter>
     &maxscale_zoom25;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 22</Filter>
     &maxscale_zoom26;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 23</Filter>
     &maxscale_zoom27;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 24</Filter>
     &maxscale_zoom28;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 25</Filter>
     &maxscale_zoom29;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 26</Filter>
     &maxscale_zoom30;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 27</Filter>
     &maxscale_zoom31;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 28</Filter>
     &maxscale_zoom32;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 29</Filter>
     &maxscale_zoom33;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 30</Filter>
     &maxscale_zoom34;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 31</Filter>
     &maxscale_zoom35;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 32</Filter>
     &maxscale_zoom36;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 33</Filter>
     &maxscale_zoom37;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 34</Filter>
     &maxscale_zoom38;
-    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="15" fill="white" face-name="Sinkin Sans 300 Light" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10">[common_name_en]</Format></TextSymbolizer>
   </Rule>
 </Style>
 
@@ -2108,177 +2108,177 @@
   <Rule>
     <Filter>[zoomview] = 0</Filter>
     &maxscale_zoom0;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 1</Filter>
     &maxscale_zoom1;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 2</Filter>
     &maxscale_zoom2;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 3</Filter>
     &maxscale_zoom3;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 4</Filter>
     &maxscale_zoom4;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 5</Filter>
     &maxscale_zoom5;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 6</Filter>
     &maxscale_zoom6;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 7</Filter>
     &maxscale_zoom7;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 8</Filter>
     &maxscale_zoom8;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 9</Filter>
     &maxscale_zoom9;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 10</Filter>
     &maxscale_zoom10;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 11</Filter>
     &maxscale_zoom11;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 12</Filter>
     &maxscale_zoom12;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 13</Filter>
     &maxscale_zoom13;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 14</Filter>
     &maxscale_zoom14;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 15</Filter>
     &maxscale_zoom15;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 16</Filter>
     &maxscale_zoom16;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 17</Filter>
     &maxscale_zoom17;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 18</Filter>
     &maxscale_zoom18;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 19</Filter>
     &maxscale_zoom19;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 20</Filter>
     &maxscale_zoom20;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 21</Filter>
     &maxscale_zoom21;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 22</Filter>
     &maxscale_zoom22;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 23</Filter>
     &maxscale_zoom23;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 24</Filter>
     &maxscale_zoom24;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 25</Filter>
     &maxscale_zoom25;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 26</Filter>
     &maxscale_zoom26;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 27</Filter>
     &maxscale_zoom27;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 28</Filter>
     &maxscale_zoom28;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 29</Filter>
     &maxscale_zoom29;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 30</Filter>
     &maxscale_zoom30;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 31</Filter>
     &maxscale_zoom31;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 32</Filter>
     &maxscale_zoom32;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 33</Filter>
     &maxscale_zoom33;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
   <Rule>
     <Filter>[zoomview] = 34</Filter>
     &maxscale_zoom34;
-    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name]</Format></TextSymbolizer>
+    <TextSymbolizer line-spacing="5" size="12" fill="white" face-name="Sinkin Sans 300 Light Italic" halo-fill="#000000" halo-radius="1.5" halo-rasterizer="full" >[sci_name] + "\n"<Format size="10" face-name="Sinkin Sans 300 Light">[common_name_en]</Format></TextSymbolizer>
   </Rule>
 </Style>
 
@@ -4665,7 +4665,7 @@
   <StyleName>Clade_names</StyleName>
   <Datasource>
     <Parameter name="table">
-      (select way,cladecenter,zoomview,sci_name, common_name, nbdesc
+      (select way,cladecenter,zoomview,sci_name, common_name_en, nbdesc
       from points
       where cladecenter is true
       order by nbdesc DESC
@@ -4677,7 +4677,7 @@
   <StyleName>Node_names</StyleName>
   <Datasource>
     <Parameter name="table">
-      (select way,tip,zoomview,sci_name,common_name, nbdesc
+      (select way,tip,zoomview,sci_name,common_name_en, nbdesc
       from points
       where cladecenter is null and tip is false
       order by nbdesc DESC
@@ -4689,7 +4689,7 @@
   <StyleName>tip_names</StyleName>
   <Datasource>
     <Parameter name="table">
-      (select way,sci_name,common_name,tip,zoomview, nbdesc
+      (select way,sci_name,common_name_en,tip,zoomview, nbdesc
       from points where tip is true
     ) as placenames</Parameter>
     &datasource-settings;
