@@ -31,7 +31,7 @@ services:
         ports:
             - 8080:80
         volumes:
-            - $HOME/build_results:/opt/build_results
+            - $HOME/builder_results:/opt/build_results
 
 volumes:
     solr_data:
