@@ -7,13 +7,14 @@ PRERENDER_THREADS=7
 WWW_DIRECTORY=/var/www/lifemap_back
 
 # Update tree
+echo "Builder started at `date`"
 echo "- BUILD TREE"
 python3 tree/Main.py
 #python3 tree/Main.py --skip-traversal --skip-add-info --skip-merge-jsons --skip-rdata --skip-index
 
 # Copy lmdata and date-update files
 echo "- COPYING lmdata AND date-update FILES TO WEB ROOT"
-mkdir $WWW_DIRECTORY/data
+mkdir -p $WWW_DIRECTORY/data
 cp $BUILD_DIRECTORY/lmdata/* $WWW_DIRECTORY/data
 cp $BUILD_DIRECTORY/date-update.json $WWW_DIRECTORY/
 
@@ -34,6 +35,8 @@ for num in $(seq 1 3); do
     docker exec -t $SOLR_CONTAINER /opt/solr/bin/solr post -c addi /opt/ADDITIONAL.${num}.json
     echo "== ADDITIONAL.${num} uploaded =="
 done
+
+echo "Builder ended at `date`"
 
 # Kill render_list-
 echo "- KILL RENDER LIST"
