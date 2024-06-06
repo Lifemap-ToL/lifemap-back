@@ -129,7 +129,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--simplify",
         action="store_true",
-        help="Should the tree be simplified by removing environmental and unindentified species?",
+        help="Should the tree be simplified by removing environmental and unidentified species?",
     )
     parser.add_argument(
         "--skip-traversal", action="store_true", help="Skip tree building"
