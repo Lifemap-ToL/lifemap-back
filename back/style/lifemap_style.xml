@@ -4712,7 +4712,7 @@
   <StyleName>ranknames1</StyleName>
   <Datasource>
     <Parameter name="table">
-      (select way, rankname,rank, zoomview,ref
+      (select way, rankname,rank_en, zoomview,ref
       from lines
       where rankname is true and ref=1           
       ) as roads
@@ -4724,7 +4724,7 @@
   <StyleName>ranknames2</StyleName>
   <Datasource>
     <Parameter name="table">
-      (select way, rankname,rank,zoomview,ref
+      (select way, rankname,rank_en,zoomview,ref
       from lines
       where rankname is true and ref=2          
       ) as roads
@@ -4736,7 +4736,7 @@
   <StyleName>ranknames3</StyleName>
   <Datasource>
     <Parameter name="table">
-      (select way, rankname,rank,zoomview,ref
+      (select way, rankname,rank_en,zoomview,ref
       from lines
       where rankname is true and ref=3
       ) as roads
