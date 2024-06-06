@@ -115,8 +115,10 @@ def ellipse(x, y, r, alpha, nsteps):
     xs = a * np.cos(rs)
     ys = b * np.sin(rs)
     ##rotation
-    xs2 = x + (xs * np.cos(alpha) - ys * np.sin(alpha))
-    ys2 = y + (xs * np.sin(alpha) + ys * np.cos(alpha))
+    cosa = np.cos(alpha)
+    sina = np.sin(alpha)
+    xs2 = x + (xs * cosa - ys * sina)
+    ys2 = y + (xs * sina + ys * cosa)
     return (xs2, ys2)
 
 
@@ -126,31 +128,7 @@ def HalfCircPlusEllips(x, y, r, alpha, start, end, nsteps):
     return (np.concatenate((circ[0], elli[0])), np.concatenate((circ[1], elli[1])))
 
 
-def writeosmNode(node, cur):
-    ##we write INFO FOR EACH NODE. Clades will be delt with later on. We put less info than for the json file
-    command = (
-        "INSERT INTO points (id, taxid, sci_name, common_name_en,common_name_fr,rank_en,rank_fr,nbdesc,zoomview, tip,way) VALUES(%d,%s,'%s','%s','%s','%s', '%s',%d,%d,'%s',ST_Transform(ST_GeomFromText('POINT(%.20f %.20f)', 4326), 3857));"
-        % (
-            node.id,
-            node.taxid,
-            node.sci_name,
-            node.common_name_en,
-            node.common_name_fr,
-            node.rank_en,
-            node.rank_fr,
-            node.nbdesc,
-            node.zoomview,
-            node.is_leaf(),
-            node.x,
-            node.y,
-        )
-    )
-    cur.execute(command)
-    ##conn.commit();
-    ##write json for search
-
-
-def writeosmWays(node, id, cur, groupnb):
+def get_way_record(node, id, cur, groupnb):
     # Create branch names
     Upsci_name = node.up.sci_name
     Upcommon_name_en = node.up.common_name_en
@@ -166,26 +144,19 @@ def writeosmWays(node, id, cur, groupnb):
     ##new with midpoints:
     midlatlon = midpoint(node.up.x, node.up.y, node.x, node.y)
 
-    command = (
-        "INSERT INTO lines (id, branch, zoomview, ref, name, way) VALUES(%d,'TRUE',%d,'%s',E'%s',ST_Transform(ST_GeomFromText('LINESTRING(%.20f %.20f, %.20f %.20f,%.20f %.20f)', 4326), 3857));"
-        % (
-            id,
-            node.zoomview,
-            groupnb,
-            wayName,
-            node.up.x,
-            node.up.y,
-            midlatlon[0],
-            midlatlon[1],
-            node.x,
-            node.y,
-        )
+    record = (
+        id,
+        "TRUE",
+        int(node.zoomview),
+        groupnb,
+        wayName,
+        f"LINESTRING({node.up.x:.20f} {node.up.y:.20f}, {midlatlon[0]:.20f} {midlatlon[1]:.20f}, {node.x:.20f} {node.y:.20f} )",
     )
-    cur.execute(command)
-    ##conn.commit();
+
+    return record
 
 
-def writeosmpolyg(node, ids, cur, groupnb):
+def get_polyg_record(node, ids, groupnb):
     polyg = HalfCircPlusEllips(
         node.x,
         node.y,
@@ -202,63 +173,54 @@ def writeosmpolyg(node, ids, cur, groupnb):
     cooPolyg += ",%.20f %.20f" % (polyg[0][0], polyg[1][0])
     # to close the ring...
     cooPolyg += "))"
-    command = (
-        "INSERT INTO polygons (id, ref, clade, taxid, sci_name, common_name_en, common_name_fr, rank_en, rank_fr,nbdesc,zoomview, way) VALUES(%d,'%s','TRUE', %s,'%s','%s','%s', '%s','%s',%d,%d, ST_Transform(ST_GeomFromText('%s', 4326), 3857));"
-        % (
-            ids[60],
-            groupnb,
-            node.taxid,
-            node.sci_name,
-            node.common_name_en,
-            node.common_name_fr,
-            node.rank_en,
-            node.rank_fr,
-            node.nbdesc,
-            node.zoomview,
-            cooPolyg,
-        )
+    polygon_record = (
+        int(ids[60]),
+        groupnb,
+        True,
+        node.taxid,
+        node.sci_name,
+        node.common_name_en,
+        node.common_name_fr,
+        node.rank_en,
+        node.rank_fr,
+        int(node.nbdesc),
+        int(node.zoomview),
+        cooPolyg,
     )
-    cur.execute(command)
-    ##conn.commit();
-    # and add the clade center.
-    command = (
-        "INSERT INTO points (id, cladecenter, taxid, sci_name, common_name_en, common_name_fr,rank_en, rank_fr,nbdesc,zoomview, way) VALUES('%d','TRUE', %s,'%s','%s','%s','%s','%s',%d,%d,ST_Transform(ST_GeomFromText('POINT(%.20f %.20f)', 4326), 3857));"
-        % (
-            ids[61],
-            node.taxid,
-            node.sci_name,
-            node.common_name_en,
-            node.common_name_fr,
-            node.rank_en,
-            node.rank_fr,
-            node.nbdesc,
-            node.zoomview,
-            polygcenter[0],
-            polygcenter[1],
-        )
+
+    point_record = (
+        int(ids[61]),
+        True,
+        node.taxid,
+        node.sci_name,
+        node.common_name_en,
+        node.common_name_fr,
+        node.rank_en,
+        node.rank_fr,
+        int(node.nbdesc),
+        int(node.zoomview),
+        f"POINT({polygcenter[0]:.20f} {polygcenter[1]:.20f})",
     )
-    cur.execute(command)
-    ##conn.commit();
+
     # we add a way on which we will write the rank
     cooLine = "LINESTRING(%.20f %.20f" % (polyg[0][35], polyg[1][35])
     for i in range(36, 45):
         cooLine += ",%.20f %.20f" % (polyg[0][i], polyg[1][i])
     cooLine += ")"
-    command = (
-        "INSERT INTO lines (id, ref, rankname, sci_name, zoomview, rank_en, rank_fr, nbdesc, way) VALUES(%d,%s,'TRUE','%s',%d,'%s','%s',%d, ST_Transform(ST_GeomFromText('%s', 4326), 3857));"
-        % (
-            ids[62],
-            groupnb,
-            node.sci_name,
-            node.zoomview,
-            node.rank_en,
-            node.rank_fr,
-            node.nbdesc,
-            cooLine,
-        )
+
+    line_record = (
+        int(ids[62]),
+        groupnb,
+        True,
+        node.sci_name,
+        int(node.zoomview),
+        node.rank_en,
+        node.rank_fr,
+        int(node.nbdesc),
+        cooLine,
     )
-    cur.execute(command)
-    ##conn.commit();
+
+    return polygon_record, point_record, line_record
 
 
 def node2json(node):
@@ -385,13 +347,13 @@ def traverse_tree(
         conn.commit()
         ##we create the database structure here
         cur.execute(
-            "CREATE TABLE points(id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankame boolean,sci_name text,common_name_en text, common_name_fr text,full_name text,rank_en text, rank_fr text, name text, nbdesc integer,taxid text,way geometry(POINT,3857));"
+            "CREATE TABLE points(id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankame boolean,sci_name text,common_name_en text, common_name_fr text,full_name text,rank_en text, rank_fr text, name text, nbdesc integer,taxid text,geom_txt text, way geometry(POINT,3857));"
         )
         cur.execute(
-            "CREATE TABLE lines(id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankname boolean,sci_name text,common_name_en text, common_name_fr text, full_name text,rank_en text, rank_fr text, name text, nbdesc integer,taxid text,way geometry(LINESTRING,3857));"
+            "CREATE TABLE lines(id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankname boolean,sci_name text,common_name_en text, common_name_fr text, full_name text,rank_en text, rank_fr text, name text, nbdesc integer,taxid text,geom_txt text, way geometry(LINESTRING,3857));"
         )
         cur.execute(
-            "CREATE TABLE polygons(id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankame boolean,sci_name text,common_name_en text, common_name_fr text, full_name text,rank_en text, rank_fr text, name text, nbdesc integer,taxid text,way geometry(POLYGON,3857));"
+            "CREATE TABLE polygons(id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankame boolean,sci_name text,common_name_en text, common_name_fr text, full_name text,rank_en text, rank_fr text, name text, nbdesc integer,taxid text,geom_txt text, way geometry(POLYGON,3857));"
         )
         conn.commit()
         logger.info("Creating new tables...")
@@ -402,6 +364,7 @@ def traverse_tree(
         conn.commit()
 
     logger.info("Tree traversal...")
+    points_records = []
     for n in tqdm(t.traverse(), total=len(t)):
         special = 0
         n.dist = 1.0
@@ -456,11 +419,32 @@ def traverse_tree(
             if maxZoomView < i.zoomview:
                 maxZoomView = i.zoomview
             cpt = cpt + 1
-        # we write node info
-        writeosmNode(n, cur)
+        # Append node info to postgis COPY records
+        points_records.append(
+            (
+                n.id,
+                n.taxid,
+                n.sci_name,
+                n.common_name_en,
+                n.common_name_fr,
+                n.rank_en,
+                n.rank_fr,
+                n.nbdesc,
+                int(n.zoomview),
+                n.is_leaf(),
+                f"POINT({n.x:.20f} {n.y:.20f})",
+            )
+        )
+
+    logger.info("Inserting data into postgis")
+    with cur.copy(
+        "COPY points (id, taxid, sci_name, common_name_en, common_name_fr, rank_en, rank_fr, nbdesc, zoomview, tip,geom_txt) FROM STDIN"
+    ) as copy:
+        for record in tqdm(points_records):
+            copy.write_row(record)
+    conn.commit()
 
     logger.info("Tree traversal... DONE (first one)")
-    conn.commit()
 
     #################################
     #       WRITE JSON FILES        #
@@ -470,6 +454,12 @@ def traverse_tree(
         json.write("[\n")
 
         logger.info("Tree traversal 2... ")
+
+        lines_records = []
+        polygons_records = []
+        polygons_points_records = []
+        polygons_lines_records = []
+
         ##LAST LOOP TO write coords of polygs and JSON file
         first_node = True
         for n in tqdm(t.traverse(), total=len(t)):
@@ -478,17 +468,71 @@ def traverse_tree(
                 json.write(",")
             if not n.is_root():
                 ndid = ndid + 1
-                writeosmWays(n, ndid, cur, groupnb)
+                lines_records.append(get_way_record(n, ndid, cur, groupnb))
             if not n.is_leaf():
                 indexes = np.linspace(ndid + 1, ndid + 63, num=63)
-                writeosmpolyg(n, indexes, cur, groupnb)
+                polygon_record, point_record, line_record = get_polyg_record(
+                    n, indexes, groupnb
+                )
+                polygons_records.append(polygon_record)
+                polygons_points_records.append(point_record)
+                polygons_lines_records.append(line_record)
                 ndid = ndid + 63
             json.write(node2json(n))
             first_node = False
         ##after this, node.nbgenomes should be ok.
         json.write("]\n")
         logger.info("Tree traversal 2... DONE ")
+
+        logger.info("Inserting lines data into postgis")
+        with cur.copy(
+            "COPY lines (id, branch, zoomview, ref, name, geom_txt) FROM STDIN"
+        ) as copy:
+            for record in tqdm(lines_records):
+                copy.write_row(record)
         conn.commit()
+
+        logger.info("Inserting polygons data into postgis")
+        with cur.copy(
+            "COPY polygons (id, ref, clade, taxid, sci_name, common_name_en, common_name_fr, rank_en, rank_fr,nbdesc,zoomview, geom_txt) FROM STDIN"
+        ) as copy:
+            for record in tqdm(polygons_records):
+                copy.write_row(record)
+        conn.commit()
+
+        logger.info("Inserting polygons points data into postgis")
+        with cur.copy(
+            "COPY points (id, cladecenter, taxid, sci_name, common_name_en, common_name_fr,rank_en, rank_fr,nbdesc,zoomview, geom_txt) FROM STDIN"
+        ) as copy:
+            for record in tqdm(polygons_points_records):
+                copy.write_row(record)
+        conn.commit()
+
+        logger.info("Inserting polygons lines data into postgis")
+        with cur.copy(
+            "COPY lines (id, ref, rankname, sci_name, zoomview, rank_en, rank_fr, nbdesc, geom_txt) FROM STDIN"
+        ) as copy:
+            for record in tqdm(polygons_lines_records):
+                copy.write_row(record)
+        conn.commit()
+
+        # Geometry creation
+        logger.info("Creating points geometry")
+        query = "UPDATE points SET way = ST_Transform(ST_GeomFromText(geom_txt, 4326), 3857) WHERE way IS NULL;"
+        cur.execute(query)
+        conn.commit()
+
+        logger.info("Creating lines geometry")
+        query = "UPDATE lines SET way = ST_Transform(ST_GeomFromText(geom_txt, 4326), 3857) WHERE way IS NULL;"
+        cur.execute(query)
+        conn.commit()
+
+        logger.info("Creating polygons geometry")
+        query = "UPDATE polygons SET way = ST_Transform(ST_GeomFromText(geom_txt, 4326), 3857) WHERE way IS NULL;"
+        cur.execute(query)
+        conn.commit()
+
+        # TODO: drop geom_txt columns and move geometry creation
 
         ##we add the way from LUCA to the root of the subtree
         ndid = ndid + 1
