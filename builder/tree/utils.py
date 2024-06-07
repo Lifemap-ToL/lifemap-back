@@ -2,11 +2,12 @@
 Utility functions
 """
 
-import os
 import logging
+import os
+import pickle
+from collections import defaultdict
 from datetime import datetime
 from ftplib import FTP
-from collections import defaultdict
 
 from config import TAXO_DIRECTORY
 
@@ -59,12 +60,20 @@ def get_translations_fr() -> dict:
         dictionary of translations.
     """
     logger.info("  Importing french common names")
-    trans = defaultdict(list)
-    with open(TAXO_DIRECTORY / "TAXONOMIC-VERNACULAR-FR.txt") as f:
-        lines = f.readlines()
-    lines = [line.split("\t") for line in lines]
-    for k, v in lines:
-        trans[k.strip()].append(v.strip())
+    pkl_file = TAXO_DIRECTORY / "fr_common_name.pkl"
+    if pkl_file.exists():
+        logger.info(f"  Importing from {pkl_file}")
+        with open(pkl_file, "rb") as f:
+            trans = pickle.load(f)
+    else:
+        trans = defaultdict(list)
+        with open(TAXO_DIRECTORY / "TAXONOMIC-VERNACULAR-FR.txt") as f:
+            lines = f.readlines()
+        lines = [line.split("\t") for line in lines]
+        for k, v in lines:
+            trans[k.strip()].append(v.strip())
+        with open(pkl_file, "wb") as f:
+            pickle.dump(trans, f)
     return trans
 
 
