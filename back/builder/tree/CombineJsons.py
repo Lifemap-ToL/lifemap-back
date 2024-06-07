@@ -17,7 +17,7 @@ def MergeJsons(f1, f2, output):
     d2 = pl.read_json(BUILD_DIRECTORY / f2).select(["taxid", "ascend"])
     d = d1.join(d2, on="taxid", how="left")
 
-    d.write_json(BUILD_DIRECTORY / output, row_oriented=True)
+    d.write_parquet(BUILD_DIRECTORY / output)
 
 
 def merge_all():
@@ -26,5 +26,5 @@ def merge_all():
         MergeJsons(
             f"TreeFeatures{i}.json",
             f"ADDITIONAL.{i}.json",
-            f"TreeFeaturesComplete{i}.json",
+            f"TreeFeaturesComplete{i}.parquet",
         )

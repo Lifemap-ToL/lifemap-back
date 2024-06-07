@@ -38,6 +38,12 @@
                 - curl
             state: present
 
+      - name: Install R arrow packages
+        become: true
+        ansible.builtin.shell:
+            cmd: Rscript -e 'options(HTTPUserAgent = sprintf("R/%s R (%s)", getRversion(), paste (getRversion(), R.version["platform"], R.version["arch"], R.version["os"]))); install.packages("arrow", repos = "https://packagemanager.rstudio.com/all/__linux__/jammy/latest")'
+            executable: /bin/bash
+
       - name: Install python packages for builder
         ansible.builtin.shell:
             chdir: "{{ builder_dir }}"
