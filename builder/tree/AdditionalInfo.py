@@ -7,6 +7,7 @@ import polars as pl
 from config import BUILD_DIRECTORY, GENOMES_DIRECTORY
 from ete3 import Tree
 from utils import download_file_if_newer
+from tqdm import tqdm
 
 logger = logging.getLogger("LifemapBuilder")
 
@@ -57,7 +58,7 @@ def add_info(groupnb: str):
     genomes = pl.read_parquet(GENOMES_DIRECTORY / "genomes.parquet")
 
     ##traverse first time:
-    for n in t.traverse():
+    for n in tqdm(t.traverse(), total=len(t)):
         n.path = []
         taxid_genomes = genomes.filter(pl.col("taxid") == n.taxid)
         if taxid_genomes.height == 1:
