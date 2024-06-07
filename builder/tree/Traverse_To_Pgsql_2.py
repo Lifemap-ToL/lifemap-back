@@ -5,14 +5,13 @@
 # We read the tree from external file (trees are retrieved with the code called "gettrees.py").
 # Added possibility to have groups containing only one descendants to be visible. Adds a few zoom levels (not so many)
 
-# new
+import json
 import logging
 import math
 import os
 from typing import Literal
 
 import numpy as np
-import psycopg  ##for postgresql connection
 
 # import cPickle as pickle
 from config import BUILD_DIRECTORY, TAXO_DIRECTORY
@@ -26,25 +25,6 @@ from utils import download_file_if_newer
 logger = logging.getLogger("LifemapBuilder")
 
 
-def midpoint(x1, y1, x2, y2):
-    # Input values as degrees
-    # Convert to radians
-    lat1 = math.radians(x1)
-    lon1 = math.radians(y1)
-    lat2 = math.radians(x2)
-    lon2 = math.radians(y2)
-    cos1 = math.cos(lat1)
-    cos2 = math.cos(lat2)
-    bx = cos2 * math.cos(lon2 - lon1)
-    by = cos2 * math.sin(lon2 - lon1)
-    lat3 = math.atan2(
-        math.sin(lat1) + math.sin(lat2),
-        math.sqrt((cos1 + bx) * (cos1 + bx) + by**2),
-    )
-    lon3 = lon1 + math.atan2(by, cos1 + bx)
-    return [math.degrees(lat3), math.degrees(lon3)]
-
-
 ##update db (if requested?)
 def updateDB():
     logger.info("Updating databases...")
@@ -55,11 +35,6 @@ def updateDB():
     )
     if downloaded:
         os.system(f"tar xvzf {TAXO_DIRECTORY / 'taxdump.tar.gz'} -C {TAXO_DIRECTORY}")
-    # unzip taxref
-    # if not Path(TAXO_DIRECTORY / "TAXREFv11.txt").exists():
-    #     os.system(
-    #         f"unzip -o {TAXO_DIRECTORY / 'TAXREF_INPN_v11.zip'} -d {TAXO_DIRECTORY}"
-    #     )
 
 
 def simplify_tree(arbre):
@@ -92,7 +67,25 @@ def simplify_tree(arbre):
     return arbre
 
 
-##FUNCTIONS
+def midpoint(x1, y1, x2, y2):
+    # Input values as degrees
+    # Convert to radians
+    lat1 = math.radians(x1)
+    lon1 = math.radians(y1)
+    lat2 = math.radians(x2)
+    lon2 = math.radians(y2)
+    cos1 = math.cos(lat1)
+    cos2 = math.cos(lat2)
+    bx = cos2 * math.cos(lon2 - lon1)
+    by = cos2 * math.sin(lon2 - lon1)
+    lat3 = math.atan2(
+        math.sin(lat1) + math.sin(lat2),
+        math.sqrt((cos1 + bx) * (cos1 + bx) + by**2),
+    )
+    lon3 = lon1 + math.atan2(by, cos1 + bx)
+    return [math.degrees(lat3), math.degrees(lon3)]
+
+
 def rad(deg):
     return (deg * np.pi) / 180
 
@@ -223,7 +216,7 @@ def get_polyg_record(node, ids, groupnb):
     return polygon_record, point_record, line_record
 
 
-def node2json(node):
+def node2json(node) -> str:
     sci_name = node.sci_name
     sci_name = sci_name.replace('"', '\\"')
     common_name_en = node.common_name_long_en
@@ -235,7 +228,7 @@ def node2json(node):
     authority = authority.replace('"', '\\"')
     synonym = node.synonym
     synonym = synonym.replace('"', '\\"')
-    json_content = f"""{{
+    out = f"""{{
         "taxid": "{node.taxid}",
         "sci_name": "{sci_name}",
         "common_name_en": "{common_name_en}",
@@ -244,14 +237,14 @@ def node2json(node):
         "synonym": "{synonym}",
         "rank_en": "{node.rank_en}",
         "rank_fr": "{node.rank_fr}",
-        "zoom": "{int(node.zoomview + 4)}",
-        "nbdesc": "{node.nbdesc}",
         "all": "{sci_name} | {common_name_en} | {node.rank_en} | {node.taxid}",
-        "coordinates": [{node.y:.20f},{node.x:.20f}],
-        "lat": "{node.y:.20f}",
-        "lon": "{node.x:.20f}"
+        "zoom": {int(node.zoomview + 4)},
+        "nbdesc": {node.nbdesc},
+        "coordinates": [{node.y:.20f}, {node.x:.20f}],
+        "lat": {node.y:.20f},
+        "lon": {node.x:.20f}
     }}"""
-    return json_content
+    return out
 
 
 def traverse_tree(
@@ -413,88 +406,81 @@ def traverse_tree(
             copy.write_row(record)
     conn.commit()
 
-    logger.info("Tree traversal... DONE (first one)")
+    logger.info("Tree traversal 2... ")
 
-    #################################
-    #       WRITE JSON FILES        #
-    #################################
-    jsonfile = BUILD_DIRECTORY / f"TreeFeatures{groupnb}.json"
-    with open(jsonfile, "w") as json:
-        json.write("[\n")
+    lines_records = []
+    polygons_records = []
+    polygons_points_records = []
+    polygons_lines_records = []
 
-        logger.info("Tree traversal 2... ")
+    ##LAST LOOP TO write coords of polygs and JSON file
+    json_file = open(BUILD_DIRECTORY / f"TreeFeatures{groupnb}.json", "w")
+    first = True
+    for n in tqdm(t.traverse(), total=len(t)):
+        if first:
+            json_file.write("[")
+            first = False
+        else:
+            json_file.write(",")
+        if not n.is_root():
+            ndid = ndid + 1
+            lines_records.append(get_way_record(n, ndid, cur, groupnb))
+        if not n.is_leaf():
+            indexes = np.linspace(ndid + 1, ndid + 63, num=63)
+            polygon_record, point_record, line_record = get_polyg_record(
+                n, indexes, groupnb
+            )
+            polygons_records.append(polygon_record)
+            polygons_points_records.append(point_record)
+            polygons_lines_records.append(line_record)
+            ndid = ndid + 63
+        json_file.write(node2json(n))
 
-        lines_records = []
-        polygons_records = []
-        polygons_points_records = []
-        polygons_lines_records = []
+    json_file.write("]")
+    json_file.close()
 
-        ##LAST LOOP TO write coords of polygs and JSON file
-        first_node = True
-        for n in tqdm(t.traverse(), total=len(t)):
-            ##we finish writing in the database here.
-            if not first_node:
-                json.write(",")
-            if not n.is_root():
-                ndid = ndid + 1
-                lines_records.append(get_way_record(n, ndid, cur, groupnb))
-            if not n.is_leaf():
-                indexes = np.linspace(ndid + 1, ndid + 63, num=63)
-                polygon_record, point_record, line_record = get_polyg_record(
-                    n, indexes, groupnb
-                )
-                polygons_records.append(polygon_record)
-                polygons_points_records.append(point_record)
-                polygons_lines_records.append(line_record)
-                ndid = ndid + 63
-            json.write(node2json(n))
-            first_node = False
-        ##after this, node.nbgenomes should be ok.
-        json.write("]\n")
-        logger.info("Tree traversal 2... DONE ")
+    logger.info("Inserting lines data into postgis")
+    with cur.copy(
+        "COPY lines (id, branch, zoomview, ref, name, geom_txt) FROM STDIN"
+    ) as copy:
+        for record in tqdm(lines_records):
+            copy.write_row(record)
+    conn.commit()
 
-        logger.info("Inserting lines data into postgis")
-        with cur.copy(
-            "COPY lines (id, branch, zoomview, ref, name, geom_txt) FROM STDIN"
-        ) as copy:
-            for record in tqdm(lines_records):
-                copy.write_row(record)
-        conn.commit()
+    logger.info("Inserting polygons data into postgis")
+    with cur.copy(
+        "COPY polygons (id, ref, clade, taxid, sci_name, common_name_en, common_name_fr, rank_en, rank_fr,nbdesc,zoomview, geom_txt) FROM STDIN"
+    ) as copy:
+        for record in tqdm(polygons_records):
+            copy.write_row(record)
+    conn.commit()
 
-        logger.info("Inserting polygons data into postgis")
-        with cur.copy(
-            "COPY polygons (id, ref, clade, taxid, sci_name, common_name_en, common_name_fr, rank_en, rank_fr,nbdesc,zoomview, geom_txt) FROM STDIN"
-        ) as copy:
-            for record in tqdm(polygons_records):
-                copy.write_row(record)
-        conn.commit()
+    logger.info("Inserting polygons points data into postgis")
+    with cur.copy(
+        "COPY points (id, cladecenter, taxid, sci_name, common_name_en, common_name_fr,rank_en, rank_fr,nbdesc,zoomview, geom_txt) FROM STDIN"
+    ) as copy:
+        for record in tqdm(polygons_points_records):
+            copy.write_row(record)
+    conn.commit()
 
-        logger.info("Inserting polygons points data into postgis")
-        with cur.copy(
-            "COPY points (id, cladecenter, taxid, sci_name, common_name_en, common_name_fr,rank_en, rank_fr,nbdesc,zoomview, geom_txt) FROM STDIN"
-        ) as copy:
-            for record in tqdm(polygons_points_records):
-                copy.write_row(record)
-        conn.commit()
+    logger.info("Inserting polygons lines data into postgis")
+    with cur.copy(
+        "COPY lines (id, ref, rankname, sci_name, zoomview, rank_en, rank_fr, nbdesc, geom_txt) FROM STDIN"
+    ) as copy:
+        for record in tqdm(polygons_lines_records):
+            copy.write_row(record)
+    conn.commit()
 
-        logger.info("Inserting polygons lines data into postgis")
-        with cur.copy(
-            "COPY lines (id, ref, rankname, sci_name, zoomview, rank_en, rank_fr, nbdesc, geom_txt) FROM STDIN"
-        ) as copy:
-            for record in tqdm(polygons_lines_records):
-                copy.write_row(record)
-        conn.commit()
+    ##we add the way from LUCA to the root of the subtree
+    ndid = ndid + 1
+    command = (
+        "INSERT INTO lines (id, branch, zoomview, ref, way) VALUES(%d,'TRUE', '4','%s',ST_Transform(ST_GeomFromText('LINESTRING(0 -4.226497, %.20f %.20f)', 4326), 3857));"
+        % (ndid, groupnb, t.x, t.y)
+    )
+    cur.execute(command)
+    conn.commit()
 
-        ##we add the way from LUCA to the root of the subtree
-        ndid = ndid + 1
-        command = (
-            "INSERT INTO lines (id, branch, zoomview, ref, way) VALUES(%d,'TRUE', '4','%s',ST_Transform(ST_GeomFromText('LINESTRING(0 -4.226497, %.20f %.20f)', 4326), 3857));"
-            % (ndid, groupnb, t.x, t.y)
-        )
-        cur.execute(command)
-        conn.commit()
-
-        logger.info(f"DONE - ndid:{ndid} - spid:{spid} - Max zoom view: {maxZoomView}")
+    logger.info(f"DONE - ndid:{ndid} - spid:{spid} - Max zoom view: {maxZoomView}")
 
     conn.close()
     return ndid
