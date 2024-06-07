@@ -89,12 +89,11 @@ def get_attributes() -> dict:
 def getTheTrees():
 
     attr = get_attributes()
+    ranks_fr_translations = get_ranks_fr()
 
     tree = {}
 
     logger.info("Building the NCBI taxonomy tree...")
-
-    ranks_fr_translations = get_ranks_fr()
 
     filepath = TAXO_DIRECTORY / "nodes.dmp"
     with open(filepath) as fp:
