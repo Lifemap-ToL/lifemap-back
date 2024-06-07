@@ -1,25 +1,44 @@
 #!/usr/bin/python
 
+import json
 import logging
-import os
+
+import polars as pl
+from config import BUILD_DIRECTORY, GENOMES_DIRECTORY
 from ete3 import Tree
 from utils import download_file_if_newer
-from config import GENOMES_DIRECTORY, BUILD_DIRECTORY
 
 logger = logging.getLogger("LifemapBuilder")
 
 
 def download_genomes() -> None:
-    download_file_if_newer(
-        host="ftp.ncbi.nlm.nih.gov",
-        remote_file="genomes/GENOME_REPORTS/eukaryotes.txt",
-        local_file=GENOMES_DIRECTORY / "eukaryotes.txt",
-    )
-    download_file_if_newer(
-        host="ftp.ncbi.nlm.nih.gov",
-        remote_file="genomes/GENOME_REPORTS/prokaryotes.txt",
-        local_file=GENOMES_DIRECTORY / "prokaryotes.txt",
-    )
+    for name in ["eukaryotes", "prokaryotes"]:
+        genome_downloaded = download_file_if_newer(
+            host="ftp.ncbi.nlm.nih.gov",
+            remote_file=f"genomes/GENOME_REPORTS/{name}.txt",
+            local_file=GENOMES_DIRECTORY / f"{name}.txt",
+        )
+        if genome_downloaded or not (GENOMES_DIRECTORY / f"{name}.parquet").exists():
+            d = pl.read_csv(
+                GENOMES_DIRECTORY / f"{name}.txt",
+                separator="\t",
+                infer_schema_length=20000,
+                null_values=["-"],
+            )
+            # For the moment we only keep the total number of complete genomes
+            # by taxid
+            d = (
+                d.filter(pl.col("Status") == "Complete Genome")
+                .group_by("TaxID")
+                .len(name="n")
+                .select(pl.col("TaxID").cast(pl.Utf8).alias("taxid"), pl.col("n"))
+            )
+            d.write_parquet(GENOMES_DIRECTORY / f"{name}.parquet")
+    eu = pl.read_parquet(GENOMES_DIRECTORY / "eukaryotes.parquet")
+    pro = pl.read_parquet(GENOMES_DIRECTORY / "prokaryotes.parquet")
+    genomes = eu.vstack(pro)
+    genomes.write_parquet(GENOMES_DIRECTORY / "genomes.parquet")
+    logger.info("Genomes info downloaded and saved to parquet.")
 
 
 def add_info(groupnb: str):
@@ -35,118 +54,34 @@ def add_info(groupnb: str):
     if groupnb == "3":
         t = Tree(str(BUILD_DIRECTORY / "BACTERIA"))
 
-    class genom(object):
-        # The class "constructor" - It's actually an initializer
-        def __init__(self, taxid, size, gc, status):
-            self.taxid = [taxid]
-            self.size = [size]
-            self.gc = [gc]
-            self.status = [status]
-
-        def __str__(self):
-            return "%d elements " % len(self.taxid)
-
-        def __repr__(self):
-            return "%d elements " % len(self.taxid)
-
-        def append(self, t, si, g, st):
-            self.taxid.append(t)
-            self.size.append(si)
-            self.gc.append(g)
-            self.status.append(st)
-
-    def make_genom(taxid, size, gc, status):
-        gen = genom(taxid, size, gc, status)
-        return gen
-
-    Genomes = {}
-    with open(GENOMES_DIRECTORY / "eukaryotes.txt", "r") as f:
-        header = f.readline().strip().split("\t")
-        index0 = header.index("TaxID")
-        index1 = header.index("Size (Mb)")
-        index2 = header.index("GC%")
-        index3 = header.index("Status")
-        for line in f:
-            temp = line.split("\t")
-        if len(temp) > index3:
-            # 		print temp[index0] + ' ' + temp[index1] + ' ' + temp[index2] + ' ' + temp[index3]
-            if temp[index0] in Genomes:
-                Genomes[temp[index0]].append(
-                    temp[index0], temp[index1], temp[index2], temp[index3]
-                )
-            else:
-                Genomes.update(
-                    {
-                        temp[index0]: genom(
-                            temp[index0], temp[index1], temp[index2], temp[index3]
-                        )
-                    }
-                )
-    with open(GENOMES_DIRECTORY / "prokaryotes.txt", "r") as f:
-        header = f.readline().strip().split("\t")
-        index0 = header.index("TaxID")
-        index1 = header.index("Size (Mb)")
-        index2 = header.index("GC%")
-        index3 = header.index("Status")
-        for line in f:
-            temp = line.split("\t")
-        if len(temp) > index3:
-            if temp[index0] in Genomes:
-                Genomes[temp[index0]].append(
-                    temp[index0], temp[index1], temp[index2], temp[index3]
-                )
-            else:
-                Genomes.update(
-                    {
-                        temp[index0]: genom(
-                            temp[index0], temp[index1], temp[index2], temp[index3]
-                        )
-                    }
-                )
+    genomes = pl.read_parquet(GENOMES_DIRECTORY / "genomes.parquet")
 
     ##traverse first time:
     for n in t.traverse():
         n.path = []
+        taxid_genomes = genomes.filter(pl.col("taxid") == n.taxid)
+        if taxid_genomes.height == 1:
+            nb_genomes = taxid_genomes.get_column("n").item()
+        else:
+            nb_genomes = 0
         try:
-            n.nbgenomes += 0
+            n.nbgenomes += nb_genomes
         except AttributeError:
-            n.nbgenomes = 0
-        if n.taxid in Genomes:
-            nb = len(
-                [cpl for cpl in Genomes[n.taxid].status if cpl == "Complete Genome"]
-            )
-            # 	print nb
-            #        nb = len(Genomes[n.taxid].gc)
-            try:
-                n.nbgenomes += nb
-            except AttributeError:
-                n.nbgenomes = 0
+            n.nbgenomes = nb_genomes
         node = n
         while node.up:
             try:
-                node.up.nbgenomes += n.nbgenomes
+                node.up.nbgenomes += nb_genomes
             except AttributeError:
-                node.up.nbgenomes = 0
+                node.up.nbgenomes = nb_genomes
             n.path.append(node.up.taxid)
             node = node.up
 
     ##traverse to write
-    jsonAddi = BUILD_DIRECTORY / f"ADDITIONAL.{groupnb}.json"
-    with open(jsonAddi, "w") as addi:
-        addi.write("[\n")
-        for n in t.traverse():
-            addi.write("\t{\n")
-            addi.write('\t\t"taxid":"%s",\n' % n.taxid)
-            addi.write('\t\t"ascend":[')
-            for k in n.path:
-                addi.write("%s," % k)
-            addi.write("0],\n")
-            addi.write('\t\t"genomes":"%d"\n\t},\n' % n.nbgenomes)
+    addi = []
+    for n in t.traverse():
+        n_data = {"taxid": n.taxid, "genomes": n.nbgenomes, "ascend": n.path + [0]}
+        addi.append(n_data)
 
-    ##remove unwanted last character(,) of json file
-    consoleexex = (
-        "head -n -1 " + str(jsonAddi) + " > temp.txt ; mv temp.txt " + str(jsonAddi)
-    )
-    os.system(consoleexex)
-    with open(jsonAddi, "a") as addi:
-        addi.write("\t}\n]\n")
+    with open(BUILD_DIRECTORY / f"ADDITIONAL.{groupnb}.json", "w") as f:
+        json.dump(addi, f)
