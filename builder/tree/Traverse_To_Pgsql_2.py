@@ -11,14 +11,14 @@ import math
 import os
 from typing import Literal
 
-from ete3 import Tree
-from tqdm import tqdm
-
 import numpy as np
 import psycopg  ##for postgresql connection
 
 # import cPickle as pickle
-from config import TAXO_DIRECTORY, PSYCOPG_CONNECT_URL, BUILD_DIRECTORY
+from config import BUILD_DIRECTORY, TAXO_DIRECTORY
+from db import db_connection
+from ete3 import Tree
+from tqdm import tqdm
 from utils import download_file_if_newer
 
 # print args
@@ -328,41 +328,6 @@ def traverse_tree(
     ndid = starti + nbsp
     maxZoomView = 0
 
-    ##CONNECT TO POSTGRESQL/POSTGIS DATABASE
-    try:
-        conn = psycopg.connect(
-            PSYCOPG_CONNECT_URL
-        )  # password will be directly retrieved from ~/.pgpassconn
-    except Exception as e:
-        raise RuntimeError(f"Unable to connect to the database: {e}")
-
-    cur = conn.cursor()
-    ##INITIALIZE DATABASE
-    if groupnb == "1":
-        ##we delete current tables
-        logger.info("Removing old tables...")
-        cur.execute("DROP TABLE IF EXISTS points;")
-        cur.execute("DROP TABLE IF EXISTS lines;")
-        cur.execute("DROP TABLE IF EXISTS polygons;")
-        conn.commit()
-        ##we create the database structure here
-        cur.execute(
-            "CREATE TABLE points(id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankame boolean,sci_name text,common_name_en text, common_name_fr text,full_name text,rank_en text, rank_fr text, name text, nbdesc integer,taxid text,geom_txt text, way geometry(POINT,3857));"
-        )
-        cur.execute(
-            "CREATE TABLE lines(id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankname boolean,sci_name text,common_name_en text, common_name_fr text, full_name text,rank_en text, rank_fr text, name text, nbdesc integer,taxid text,geom_txt text, way geometry(LINESTRING,3857));"
-        )
-        cur.execute(
-            "CREATE TABLE polygons(id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankame boolean,sci_name text,common_name_en text, common_name_fr text, full_name text,rank_en text, rank_fr text, name text, nbdesc integer,taxid text,geom_txt text, way geometry(POLYGON,3857));"
-        )
-        conn.commit()
-        logger.info("Creating new tables...")
-        ##we include the root node
-        cur.execute(
-            "INSERT INTO points (id, sci_name, common_name_en, common_name_fr,rank_en, rank_fr,nbdesc,tip, zoomview,taxid,way) VALUES(1000000000, 'Root','Root','Root','Root','Root',1000000, FALSE, 1,1,ST_Transform(ST_GeomFromText('POINT(0 -4.226497)', 4326), 3857));"
-        )
-        conn.commit()
-
     logger.info("Tree traversal...")
     points_records = []
     for n in tqdm(t.traverse(), total=len(t)):
@@ -435,6 +400,10 @@ def traverse_tree(
                 f"POINT({n.x:.20f} {n.y:.20f})",
             )
         )
+
+    # Postgis connection
+    conn = db_connection()
+    cur = conn.cursor()
 
     logger.info("Inserting data into postgis")
     with cur.copy(
@@ -516,24 +485,6 @@ def traverse_tree(
                 copy.write_row(record)
         conn.commit()
 
-        # Geometry creation
-        logger.info("Creating points geometry")
-        query = "UPDATE points SET way = ST_Transform(ST_GeomFromText(geom_txt, 4326), 3857) WHERE way IS NULL;"
-        cur.execute(query)
-        conn.commit()
-
-        logger.info("Creating lines geometry")
-        query = "UPDATE lines SET way = ST_Transform(ST_GeomFromText(geom_txt, 4326), 3857) WHERE way IS NULL;"
-        cur.execute(query)
-        conn.commit()
-
-        logger.info("Creating polygons geometry")
-        query = "UPDATE polygons SET way = ST_Transform(ST_GeomFromText(geom_txt, 4326), 3857) WHERE way IS NULL;"
-        cur.execute(query)
-        conn.commit()
-
-        # TODO: drop geom_txt columns and move geometry creation
-
         ##we add the way from LUCA to the root of the subtree
         ndid = ndid + 1
         command = (
@@ -545,4 +496,5 @@ def traverse_tree(
 
         logger.info(f"DONE - ndid:{ndid} - spid:{spid} - Max zoom view: {maxZoomView}")
 
+    conn.close()
     return ndid

@@ -7,7 +7,7 @@ from pathlib import Path
 
 import AdditionalInfo
 import CombineJsons
-import CreateIndex
+import db
 import GetAllTilesCoord
 import getTrees_fun
 import PrepareRdata
@@ -55,6 +55,8 @@ def lifemap_build(
         tree = getTrees_fun.getTheTrees()
         if simplify:
             tree = Traverse_To_Pgsql_2.simplify_tree(tree)
+        logger.info("---- Initialize Postgis database ----")
+        db.init_db()
         logger.info("---- Doing Archaeal tree...")
         ndid = Traverse_To_Pgsql_2.traverse_tree(tree, groupnb="1", starti=1)
         logger.info("---- Done")
@@ -63,6 +65,9 @@ def lifemap_build(
         logger.info("---- Done")
         logger.info("---- Doing Bact tree... start at id:%s " % ndid)
         ndid = Traverse_To_Pgsql_2.traverse_tree(tree, groupnb="3", starti=ndid)
+        logger.info("---- Done")
+        logger.info("---- Create Postgis geometries ----")
+        db.create_geometries()
         logger.info("---- Done")
 
     ## Get additional info from NCBI
@@ -77,6 +82,14 @@ def lifemap_build(
         AdditionalInfo.add_info(groupnb="2")
         logger.info("-- Getting additional Bacter info...")
         AdditionalInfo.add_info(groupnb="3")
+        logger.info("-- Done")
+
+    ## Create postgis index
+    if skip_index:
+        logger.info("--- Skipping index creation as requested ---")
+    else:
+        logger.info("-- Creating index... ")
+        db.create_index()
         logger.info("-- Done")
 
     ## Merge Additionaljson and TreeFeatures json
@@ -94,14 +107,6 @@ def lifemap_build(
         logger.info("-- Converting json to Rdata for light data sharing...")
         PrepareRdata.create_rdata()
         logger.info("-- Done ")
-
-    ## Create postgis index
-    if skip_index:
-        logger.info("--- Skipping index creation as requested ---")
-    else:
-        logger.info("-- Creating index... ")
-        CreateIndex.create_index()
-        logger.info("-- Done")
 
     ## Get New coordinates for generating tiles
     logger.info("-- Get new tiles coordinates")
