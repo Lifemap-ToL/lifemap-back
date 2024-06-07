@@ -38,6 +38,7 @@ def updateDB():
 
 
 def simplify_tree(arbre):
+    logger.info("Simplifying tree...")
     initialSize = len(arbre)
     for n in arbre.traverse():
         if n.is_leaf() and (n.rank_en == "no rank"):
