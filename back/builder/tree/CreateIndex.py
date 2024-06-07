@@ -35,4 +35,5 @@ def create_index():
     cur.execute("ANALYZE polygons;")
     conn.commit()
 
+    conn.close()
     logger.info("DONE...")
