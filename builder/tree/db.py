@@ -73,7 +73,7 @@ def copy_db_to_prod() -> None:
     cur = conn.cursor()
 
     for table in ["points", "lines", "polygons"]:
-        logger.info(f"Copying {table}$...")
+        logger.info(f"Copying {table}...")
         cur.execute(f"DROP TABLE IF EXISTS {table}_prod;")
         cur.execute(f"CREATE TABLE {table}_prod AS TABLE {table};")
 
