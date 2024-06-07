@@ -78,8 +78,10 @@ def lifemap_build(
         AdditionalInfo.download_genomes()
         logger.info("-- Getting additional Archaeal info...")
         AdditionalInfo.add_info(groupnb="1")
+        logger.info("-- Done")
         logger.info("-- Getting additional Euka info...")
         AdditionalInfo.add_info(groupnb="2")
+        logger.info("-- Done")
         logger.info("-- Getting additional Bacter info...")
         AdditionalInfo.add_info(groupnb="3")
         logger.info("-- Done")
@@ -112,6 +114,11 @@ def lifemap_build(
     logger.info("-- Get new tiles coordinates")
     GetAllTilesCoord.get_all_coords()
     logger.info("-- Done")
+
+    # Copy postgis data to production tables
+    logger.info("-- Copy postgis data to production tables --")
+    db.copy_db_to_prod()
+    logger.info("-- Done --")
 
     #  Get and copy date of update to /var/www/html
     logger.info("-- Update date-update.json")

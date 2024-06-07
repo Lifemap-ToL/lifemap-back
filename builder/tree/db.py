@@ -65,6 +65,22 @@ def init_db() -> None:
     conn.close()
 
 
+def copy_db_to_prod() -> None:
+    """
+    Create production database tables from building ones.
+    """
+    conn = db_connection()
+    cur = conn.cursor()
+
+    for table in ["points", "lines", "polygons"]:
+        logger.info(f"Copying {table}$...")
+        cur.execute(f"DROP TABLE IF EXISTS {table}_prod;")
+        cur.execute(f"CREATE TABLE {table}_prod AS TABLE {table};")
+
+    conn.commit()
+    conn.close()
+
+
 def create_geometries() -> None:
     """
     Create geometry columns in postgis db tables from geom_txt columns.
