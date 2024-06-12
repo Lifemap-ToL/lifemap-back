@@ -1,0 +1,207 @@
+# --- POSTGIS SOURCE ---
+
+[[datasource]]
+name = "pg"
+[datasource.postgis]
+url = "postgresql://{{ postgresql_user }}:{{ postgresql_password }}@postgis/{{ postgresql_db }}"
+
+
+# --- ASSETS ---
+
+[[assets.static]]
+dir = "assets"
+path = "/assets"
+
+
+# --- CACHE ---
+
+[[tilestore]]
+name = "tilecache"
+[tilestore.files]
+base_dir = "/opt/data/tilecache"
+
+[[tilestore]]
+name = "mbtilecache"
+[tilestore.mbtiles]
+path = "/opt/data/tilecache.mbtiles"
+
+[[tilestore]]
+name = "pmtilecache"
+[tilestore.pmtiles]
+path = "/opt/data/tilecache.pmtiles"
+
+
+# --- GRID ---
+
+[[grid]]
+json = "/var/www/assets/CustomWebMercator_42.json"
+
+[[tileset]]
+name = "lines"
+cache = "tilecache"
+tms = "CustomWebMercator"
+[tileset.postgis]
+datasource = "pg"
+extent = [-15.64262, -20.99848, 15.64848, 9.57778]
+
+
+# --- LINES LAYER ---
+
+[[tileset.postgis.layer]]
+name = "lines-layer"
+table_name = "lines"
+geometry_field = "way"
+geometry_type = "LINESTRING"
+buffer_size = 1
+query_limit = 100000
+srid = 3857
+no_transform = true
+fid_field = "id"
+minzoom = 0
+maxzoom = 42
+[[tileset.postgis.layer.query]]
+sql = """SELECT
+way,id,ref,z_order,branch,tip,zoomview,clade,cladecenter,rankname,sci_name,common_name_en,full_name,rank_en,name,nbdesc,taxid
+FROM lines_prod
+WHERE branch=True   and zoomview between !zoom!-5 and !zoom!+13"""
+
+
+# --- RANKS LAYER ---
+
+[[tileset]]
+name = "ranks"
+cache = "tilecache"
+tms = "CustomWebMercator"
+[tileset.postgis]
+datasource = "pg"
+extent = [-15.64262, -20.99848, 15.64848, 9.57778]
+
+[[tileset.postgis.layer]]
+name = "ranks-layer"
+table_name = "lines"
+geometry_field = "way"
+geometry_type = "LINESTRING"
+query_limit = 10
+buffer_size = 1
+srid = 3857
+no_transform = true
+fid_field = "id"
+minzoom = 0
+maxzoom = 42
+
+[[tileset.postgis.layer.query]]
+sql = """SELECT 
+way,id,ref,z_order,branch,tip,zoomview,clade,cladecenter,rankname,sci_name,common_name_en,full_name,rank_en,name,nbdesc,taxid 
+FROM lines_prod
+WHERE rankname=True  and zoomview between !zoom!-4 and !zoom!-2 """
+
+
+# --- CLADE LAYER ---
+
+[[tileset]]
+name = "clade"
+cache = "tilecache"
+tms = "CustomWebMercator"
+[tileset.postgis]
+datasource = "pg"
+extent = [-15.64262, -20.99848, 15.64848, 9.57778]
+
+[[tileset.postgis.layer]]
+name = "clade-layer"
+table_name = "points"
+geometry_field = "way"
+geometry_type = "POINT"
+query_limit = 10
+buffer_size = 1
+srid = 3857
+no_transform = true
+fid_field = "id"
+minzoom = 0
+maxzoom = 42
+
+[[tileset.postgis.layer.query]]
+sql = """SELECT 
+way,id,ref,z_order,branch,tip,zoomview,clade,cladecenter,rankname,sci_name,common_name_en,full_name,rank_en,name,nbdesc,taxid 
+FROM lines_prod
+WHERE rankname=True  and zoomview between !zoom!-1 and !zoom!+1 """
+
+
+# --- LEAVES LAYER ---
+
+[[tileset]]
+name = "leaves"
+cache = "tilecache"
+tms = "CustomWebMercator"
+[tileset.postgis]
+datasource = "pg"
+extent = [-15.64262, -20.99848, 15.64848, 9.57778]
+
+[[tileset.postgis.layer]]
+name = "leaves-layer"
+table_name = "points"
+geometry_field = "way"
+geometry_type = "POINTS"
+buffer_size = 1
+srid = 3857
+no_transform = true
+fid_field = "id"
+minzoom = 0
+maxzoom = 42
+
+[[tileset.postgis.layer.query]]
+sql = """SELECT way,id,ref,z_order,branch,tip,zoomview,clade,cladecenter,rankame,sci_name,common_name_en,full_name,rank_en,name,nbdesc,taxid FROM points_prod WHERE  tip=True  AND zoomview between 0 and !zoom!    """
+
+
+# --- POLYGONS LAYER ---
+
+[[tileset]]
+name = "poly"
+cache = "tilecache"
+tms = "CustomWebMercator"
+[tileset.postgis]
+datasource = "pg"
+extent = [-15.64262, -20.99848, 15.64848, 9.57778]
+
+[[tileset.postgis.layer]]
+name = "poly-layer"
+table_name = "polygons"
+geometry_field = "way"
+geometry_type = "POLYGON"
+buffer_size = 10
+query_limit = 10
+simplify = false
+srid = 3857
+no_transform = true
+fid_field = "id"
+minzoom = 0
+maxzoom = 42
+
+[[tileset.postgis.layer.query]]
+sql = """SELECT way,id,ref,z_order,branch,tip,zoomview,clade,cladecenter,rankame,sci_name,common_name_en,full_name,rank_en,name,nbdesc,taxid FROM polygons_prod WHERE zoomview between !zoom!-4 and !zoom! ORDER BY nbdesc DESC """
+
+
+# --- NODES LAYER ---
+
+[[tileset]]
+name = "nodes"
+cache = "tilecache"
+tms = "CustomWebMercator"
+
+[tileset.postgis]
+datasource = "pg"
+extent = [-15.64262, -20.99848, 15.64848, 9.57778]
+
+[[tileset.postgis.layer]]
+name = "nodes-layer"
+table_name = "points"
+geometry_field = "way"
+geometry_type = "POINT"
+buffer_size = 1
+srid = 3857
+no_transform = true
+fid_field = "id"
+minzoom = 0
+maxzoom = 42
+
+[[tileset.postgis.layer.query]]
+sql = """SELECT way,id,ref,z_order,branch,tip,zoomview,clade,cladecenter,rankame,sci_name,common_name_en,full_name,rank_en,name,nbdesc,taxid FROM points_prod WHERE  tip=False AND zoomview between 0 and !zoom!-4  ORDER BY nbdesc DESC """

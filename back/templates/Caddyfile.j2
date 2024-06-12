@@ -21,6 +21,10 @@
     reverse_proxy /osm_tiles/* localhost:8080
     reverse_proxy /nolabels/* localhost:8080
     reverse_proxy /onlylabels/* localhost:8080
+    
+    handle_path /vector_tiles/* {
+        reverse_proxy localhost:8888 
+    }
 
     handle_path /static/* {
         root {{ static_root_dir }}

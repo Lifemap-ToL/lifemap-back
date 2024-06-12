@@ -1,6 +1,6 @@
 services:
     postgis:
-        image: postgis/postgis:14-3.4
+        image: postgis/postgis:16-3.4
         container_name: lifemap-postgis
         restart: always
         env_file:
@@ -32,6 +32,16 @@ services:
             - 8080:80
         volumes:
             - $HOME/builder_results:/opt/build_results
+    bbox:
+        container_name: lifemap-bbox
+        image: sourcepole/bbox-server-qgis
+        restart: always
+        ports:
+            - 8888:8080
+        volumes:
+            - ./bbox/assets:/var/www/assets:ro
+            - ./bbox/data:/opt/data
+            - ./bbox/bbox.toml:/var/www/bbox.toml:ro
 
 volumes:
     solr_data:
