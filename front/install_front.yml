@@ -3,16 +3,47 @@
   hosts: lifemap-front
 
   tasks:
-      - name: Rsync html
+      - name: Create /var/www/lifemap_front/ncbi
+        become: true
+        ansible.builtin.file:
+            path: "{{ front_root_dir }}/ncbi"
+            state: directory
+            mode: "0775"
+            owner: caddy
+            group: caddy
+
+      - name: Rsync ncbi
         become: true
         ansible.posix.synchronize:
             src: "HTTP-NCBI/"
-            dest: "{{ front_root_dir }}/"
+            dest: "{{ front_root_dir }}/ncbi"
 
       - name: Copy server-address.js
         become: true
         ansible.builtin.template:
             src: templates/server-address.js.j2
-            dest: "{{ front_root_dir }}/server-address.js"
+            dest: "{{ front_root_dir }}/ncbi/server-address.js"
             mode: preserve
             force: true
+
+      - name: Create /var/www/lifemap_front/bbox
+        become: true
+        ansible.builtin.file:
+            path: "{{ front_root_dir }}/bbox"
+            state: directory
+            mode: "0775"
+            owner: caddy
+            group: caddy
+
+      - name: Rsync bbox
+        become: true
+        ansible.posix.synchronize:
+            src: "bbox_openlayers/"
+            dest: "{{ front_root_dir }}/bbox"
+            rsync_opts:
+                - "--exclude=build"
+
+      - name: Build bbox_openlayers
+        ansible.builtin.shell:
+            chdir: "{{ front_root_dir }}/bbox"
+            cmd: "npm run build"
