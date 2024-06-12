@@ -1,5 +1,5 @@
 export default {
-    base: "/bbox/dist",
+    base: "/bbox",
     build: {
         sourcemap: true,
     },
