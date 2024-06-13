@@ -63,7 +63,7 @@ maxzoom = 42
 sql = """SELECT
 way,id,ref,z_order,branch,zoomview,nbdesc,taxid
 FROM lines_prod
-WHERE branch=True and zoomview < !zoom!+8 AND way && !bbox!"""
+WHERE branch=True and zoomview < !zoom!+13"""
 
 
 # --- RANKS LAYER ---
@@ -93,7 +93,7 @@ maxzoom = 42
 sql = """SELECT 
 way,id,ref,z_order,zoomview,clade,cladecenter,rankname,rank_en,taxid 
 FROM lines_prod
-WHERE rankname=True  and zoomview between !zoom!-4 and !zoom!-2 AND way && !bbox! """
+WHERE rankname=True  and zoomview between !zoom!-4 and !zoom!-2 """
 
 
 # --- CLADE LAYER ---
@@ -123,7 +123,7 @@ maxzoom = 42
 sql = """SELECT 
 way,id,ref,z_order,branch,zoomview,clade,cladecenter,rankname,rank_en,nbdesc,taxid 
 FROM lines_prod
-WHERE rankname=True  and zoomview between !zoom!-1 and !zoom!+1 AND way && !bbox!"""
+WHERE rankname=True  and zoomview between !zoom!-1 and !zoom!+1"""
 
 
 # --- LEAVES LAYER ---
@@ -177,7 +177,7 @@ minzoom = 0
 maxzoom = 42
 
 [[tileset.postgis.layer.query]]
-sql = """SELECT way,id,ref,z_order,zoomview,clade,cladecenter,taxid FROM polygons_prod WHERE zoomview between !zoom!-4 and !zoom! AND way && !bbox! ORDER BY nbdesc DESC """
+sql = """SELECT way,id,ref,z_order,zoomview,clade,cladecenter,taxid FROM polygons_prod WHERE zoomview between !zoom!-4 and !zoom! ORDER BY nbdesc DESC """
 
 
 # --- NODES LAYER ---
@@ -204,4 +204,4 @@ minzoom = 0
 maxzoom = 42
 
 [[tileset.postgis.layer.query]]
-sql = """SELECT way,id,ref,z_order,branch,tip,zoomview,nbdesc,taxid FROM points_prod WHERE  tip=False AND zoomview between 0 and !zoom!-4  and way && !bbox! ORDER BY nbdesc DESC """
+sql = """SELECT way,id,ref,z_order,branch,tip,zoomview,nbdesc,taxid FROM points_prod WHERE  tip=False AND zoomview between 0 and !zoom!-4  ORDER BY nbdesc DESC """
