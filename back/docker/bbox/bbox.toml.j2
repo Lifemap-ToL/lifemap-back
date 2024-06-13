@@ -61,9 +61,9 @@ minzoom = 0
 maxzoom = 42
 [[tileset.postgis.layer.query]]
 sql = """SELECT
-way,id,ref,z_order,branch,tip,zoomview,clade,cladecenter,rankname,sci_name,common_name_en,full_name,rank_en,name,nbdesc,taxid
+way,id,ref,z_order,branch,zoomview,nbdesc,taxid
 FROM lines_prod
-WHERE branch=True   and zoomview between !zoom!-5 and !zoom!+13"""
+WHERE branch=True and zoomview < !zoom!+8 AND way && !bbox!"""
 
 
 # --- RANKS LAYER ---
@@ -91,9 +91,9 @@ maxzoom = 42
 
 [[tileset.postgis.layer.query]]
 sql = """SELECT 
-way,id,ref,z_order,branch,tip,zoomview,clade,cladecenter,rankname,sci_name,common_name_en,full_name,rank_en,name,nbdesc,taxid 
+way,id,ref,z_order,zoomview,clade,cladecenter,rankname,rank_en,taxid 
 FROM lines_prod
-WHERE rankname=True  and zoomview between !zoom!-4 and !zoom!-2 """
+WHERE rankname=True  and zoomview between !zoom!-4 and !zoom!-2 AND way && !bbox! """
 
 
 # --- CLADE LAYER ---
@@ -121,9 +121,9 @@ maxzoom = 42
 
 [[tileset.postgis.layer.query]]
 sql = """SELECT 
-way,id,ref,z_order,branch,tip,zoomview,clade,cladecenter,rankname,sci_name,common_name_en,full_name,rank_en,name,nbdesc,taxid 
+way,id,ref,z_order,branch,zoomview,clade,cladecenter,rankname,rank_en,nbdesc,taxid 
 FROM lines_prod
-WHERE rankname=True  and zoomview between !zoom!-1 and !zoom!+1 """
+WHERE rankname=True  and zoomview between !zoom!-1 and !zoom!+1 AND way && !bbox!"""
 
 
 # --- LEAVES LAYER ---
@@ -177,7 +177,7 @@ minzoom = 0
 maxzoom = 42
 
 [[tileset.postgis.layer.query]]
-sql = """SELECT way,id,ref,z_order,branch,tip,zoomview,clade,cladecenter,rankame,sci_name,common_name_en,full_name,rank_en,name,nbdesc,taxid FROM polygons_prod WHERE zoomview between !zoom!-4 and !zoom! ORDER BY nbdesc DESC """
+sql = """SELECT way,id,ref,z_order,zoomview,clade,cladecenter,taxid FROM polygons_prod WHERE zoomview between !zoom!-4 and !zoom! AND way && !bbox! ORDER BY nbdesc DESC """
 
 
 # --- NODES LAYER ---
@@ -204,4 +204,4 @@ minzoom = 0
 maxzoom = 42
 
 [[tileset.postgis.layer.query]]
-sql = """SELECT way,id,ref,z_order,branch,tip,zoomview,clade,cladecenter,rankame,sci_name,common_name_en,full_name,rank_en,name,nbdesc,taxid FROM points_prod WHERE  tip=False AND zoomview between 0 and !zoom!-4  ORDER BY nbdesc DESC """
+sql = """SELECT way,id,ref,z_order,branch,tip,zoomview,nbdesc,taxid FROM points_prod WHERE  tip=False AND zoomview between 0 and !zoom!-4  and way && !bbox! ORDER BY nbdesc DESC """
