@@ -12,8 +12,10 @@ services:
             - POSTGRES_DB=${PG_DB}
         volumes:
             - postgis_data:/var/lib/postgresql/data
+            - ./postgis/postgresql.conf:/etc/postgresql/postgresql.conf
         ports:
             - 5432:5432
+        command: -c config_file=/etc/postgresql/postgresql.conf
     solr:
         image: lifemap_solr
         container_name: lifemap-solr
