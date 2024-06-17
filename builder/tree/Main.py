@@ -77,13 +77,13 @@ def lifemap_build(
         logger.info("-- Downloading genomes if needed...")
         AdditionalInfo.download_genomes()
         logger.info("-- Getting additional Archaeal info...")
-        AdditionalInfo.add_info(groupnb="1")
+        AdditionalInfo.add_info(nbgroup="1")
         logger.info("-- Done")
         logger.info("-- Getting additional Euka info...")
-        AdditionalInfo.add_info(groupnb="2")
+        AdditionalInfo.add_info(nbgroup="2")
         logger.info("-- Done")
         logger.info("-- Getting additional Bacter info...")
-        AdditionalInfo.add_info(groupnb="3")
+        AdditionalInfo.add_info(nbgroup="3")
         logger.info("-- Done")
 
     ## Create postgis index
