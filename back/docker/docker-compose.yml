@@ -31,7 +31,7 @@ services:
         build:
             context: ./mod_tile_deepzoom
         ports:
-            - 8080:80
+            - 8888:80
         volumes:
             - $HOME/builder_results:/opt/build_results
     bbox:
@@ -39,7 +39,7 @@ services:
         image: sourcepole/bbox-server-qgis
         restart: always
         ports:
-            - 8888:8080
+            - 8080:8080
         volumes:
             - ./bbox/assets:/var/www/assets:ro
             - ./bbox/data:/opt/data

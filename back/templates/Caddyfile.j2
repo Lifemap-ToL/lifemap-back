@@ -18,12 +18,12 @@
     redir /solr /solr/
 
     reverse_proxy /solr/* localhost:8983
-    reverse_proxy /osm_tiles/* localhost:8080
-    reverse_proxy /nolabels/* localhost:8080
-    reverse_proxy /onlylabels/* localhost:8080
+    reverse_proxy /osm_tiles/* localhost:8888
+    reverse_proxy /nolabels/* localhost:8888
+    reverse_proxy /onlylabels/* localhost:8888
     
     handle_path /vector_tiles/* {
-        reverse_proxy localhost:8888 
+        reverse_proxy localhost:8080
     }
 
     handle_path /static/* {
