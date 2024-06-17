@@ -19,7 +19,6 @@
         ansible.builtin.file:
             path: "{{ build_results_dir }}"
             state: directory
-            mode: "0755"
 
       - name: Apt update
         become: true
@@ -51,14 +50,8 @@
             executable: /bin/bash
         changed_when: true
 
-      - name: Copy taxonomy file
-        ansible.builtin.copy:
-            src: ../builder/taxo/TAXONOMIC-VERNACULAR-FR.txt
+      - name: Rsync taxo
+        ansible.posix.synchronize:
+            src: ../builder/taxo/
             dest: "{{ build_results_dir }}/taxo/"
-            mode: preserve
 
-      - name: Copy ranks file
-        ansible.builtin.copy:
-            src: ../builder/taxo/ranks.txt
-            dest: "{{ build_results_dir }}/taxo/"
-            mode: preserve
