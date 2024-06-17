@@ -74,3 +74,8 @@
             mode: "0775"
             owner: caddy
             group: caddy
+
+      - name: Create ~/back
+        ansible.builtin.file:
+            path: "{{ docker_dir }}"
+            state: directory
