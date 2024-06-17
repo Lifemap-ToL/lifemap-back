@@ -378,6 +378,7 @@ def traverse_tree(
             (
                 n.id,
                 n.taxid,
+                groupnb,
                 n.sci_name,
                 n.common_name["en"],
                 n.rank["en"],
@@ -394,7 +395,7 @@ def traverse_tree(
 
     logger.info("Inserting data into postgis")
     with cur.copy(
-        "COPY points (id, taxid, sci_name, common_name_en, rank_en, nbdesc, zoomview, tip,geom_txt) FROM STDIN"
+        "COPY points (id, taxid, ref, sci_name, common_name_en, rank_en, nbdesc, zoomview, tip,geom_txt) FROM STDIN"
     ) as copy:
         for record in tqdm(points_records):
             copy.write_row(record)
