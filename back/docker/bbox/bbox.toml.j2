@@ -36,6 +36,8 @@ path = "/opt/data/tilecache.pmtiles"
 [[grid]]
 json = "/var/www/assets/CustomWebMercator_42.json"
 
+# --- LINES LAYER ---
+
 [[tileset]]
 name = "lines"
 cache = "tilecache"
@@ -43,9 +45,6 @@ tms = "CustomWebMercator"
 [tileset.postgis]
 datasource = "pg"
 extent = [-15.64262, -20.99848, 15.64848, 9.57778]
-
-
-# --- LINES LAYER ---
 
 [[tileset.postgis.layer]]
 name = "lines-layer"
@@ -168,7 +167,7 @@ table_name = "polygons"
 geometry_field = "way"
 geometry_type = "POLYGON"
 buffer_size = 10
-query_limit = 10
+query_limit = 100000
 simplify = false
 srid = 3857
 no_transform = true
