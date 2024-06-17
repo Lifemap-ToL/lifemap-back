@@ -6,11 +6,10 @@ from datetime import datetime
 from pathlib import Path
 
 import AdditionalInfo
-import CombineJsons
 import db
 import GetAllTilesCoord
 import getTrees
-import PrepareRdata
+import export_data
 import Traverse_To_Pgsql_2
 from config import (
     BUILD_DIRECTORY,
@@ -70,7 +69,15 @@ def lifemap_build(
         db.create_geometries()
         logger.info("---- Done")
 
-    ## Get additional info from NCBI
+    ## Create postgis index
+    if skip_index:
+        logger.info("--- Skipping index creation as requested ---")
+    else:
+        logger.info("-- Creating index... ")
+        db.create_index()
+        logger.info("-- Done")
+
+    ## Get additional info
     if skip_add_info:
         logger.info("--- Skipping additional info as requested ---")
     else:
@@ -85,29 +92,17 @@ def lifemap_build(
         logger.info("-- Getting additional Bacter info...")
         AdditionalInfo.add_info(nbgroup="3")
         logger.info("-- Done")
-
-    ## Create postgis index
-    if skip_index:
-        logger.info("--- Skipping index creation as requested ---")
-    else:
-        logger.info("-- Creating index... ")
-        db.create_index()
+        logger.info("-- Combining tree and additional features...")
+        AdditionalInfo.merge_features()
         logger.info("-- Done")
-
-    ## Merge Additionaljson and TreeFeatures json
-    if skip_merge_jsons:
-        logger.info("--- Skipping JSONs merging as requested ---")
-    else:
-        logger.info("---- Merging jsons...")
-        CombineJsons.merge_all()
-        logger.info("---- Done ")
 
     ## Write whole data to Rdada file for use in R package LifemapR (among others)
     if skip_rdata:
         logger.info("--- Skipping Rdata export as requested ---")
     else:
-        logger.info("-- Converting json to Rdata for light data sharing...")
-        PrepareRdata.create_rdata()
+        logger.info("-- Exporting data to parquet and Rdata...")
+        export_data.clean_lmdata()
+        export_data.export_lmdata()
         logger.info("-- Done ")
 
     ## Get New coordinates for generating tiles
