@@ -5,16 +5,16 @@
 # We read the tree from external file (trees are retrieved with the code called "gettrees.py").
 # Added possibility to have groups containing only one descendants to be visible. Adds a few zoom levels (not so many)
 
-import json
 import logging
 import math
 import os
 from typing import Literal
 
 import numpy as np
+import polars as pl
 
 # import cPickle as pickle
-from config import BUILD_DIRECTORY, TAXO_DIRECTORY
+from config import BUILD_DIRECTORY, LANG_LIST, TAXO_DIRECTORY
 from db import db_connection
 from ete3 import Tree
 from tqdm import tqdm
@@ -125,9 +125,9 @@ def HalfCircPlusEllips(x, y, r, alpha, start, end, nsteps):
 def get_way_record(node, id, cur, groupnb):
     # Create branch names
     Upsci_name = node.up.sci_name
-    Upcommon_name_en = node.up.common_name_en
+    Upcommon_name_en = node.up.common_name["en"]
     Downsci_name = node.sci_name
-    Downcommon_name_en = node.common_name_en
+    Downcommon_name_en = node.common_name["en"]
     left = Upsci_name + " " + Upcommon_name_en
     right = Downsci_name + " " + Downcommon_name_en
     if node.x >= node.up.x:  # we are on the right
@@ -173,10 +173,8 @@ def get_polyg_record(node, ids, groupnb):
         True,
         node.taxid,
         node.sci_name,
-        node.common_name_en,
-        node.common_name_fr,
-        node.rank_en,
-        node.rank_fr,
+        node.common_name["en"],
+        node.rank["en"],
         int(node.nbdesc),
         int(node.zoomview),
         cooPolyg,
@@ -187,10 +185,8 @@ def get_polyg_record(node, ids, groupnb):
         True,
         node.taxid,
         node.sci_name,
-        node.common_name_en,
-        node.common_name_fr,
-        node.rank_en,
-        node.rank_fr,
+        node.common_name["en"],
+        node.rank["en"],
         int(node.nbdesc),
         int(node.zoomview),
         f"POINT({polygcenter[0]:.20f} {polygcenter[1]:.20f})",
@@ -208,8 +204,7 @@ def get_polyg_record(node, ids, groupnb):
         True,
         node.sci_name,
         int(node.zoomview),
-        node.rank_en,
-        node.rank_fr,
+        node.rank["en"],
         int(node.nbdesc),
         cooLine,
     )
@@ -220,10 +215,10 @@ def get_polyg_record(node, ids, groupnb):
 def node2json(node) -> str:
     sci_name = node.sci_name
     sci_name = sci_name.replace('"', '\\"')
-    common_name_en = node.common_name_long_en
-    common_name_en = common_name_en.replace('"', '\\"')
-    common_name_fr = node.common_name_long_fr
-    common_name_fr = common_name_fr.replace('"', '\\"')
+    common_name = {}
+    for lang in LANG_LIST:
+        common_name[lang] = node.common_name_long[lang]
+        common_name[lang] = common_name[lang].replace('"', '\\"')
     ##new attributes
     authority = node.authority
     authority = authority.replace('"', '\\"')
@@ -232,13 +227,13 @@ def node2json(node) -> str:
     out = f"""{{
         "taxid": "{node.taxid}",
         "sci_name": "{sci_name}",
-        "common_name_en": "{common_name_en}",
-        "common_name_fr": "{common_name_fr}",
+        "common_name_en": "{common_name['en']}",
+        "common_name_fr": "{common_name['fr']}",
         "authority": "{authority}",
         "synonym": "{synonym}",
-        "rank_en": "{node.rank_en}",
-        "rank_fr": "{node.rank_fr}",
-        "all": "{sci_name} | {common_name_en} | {node.rank_en} | {node.taxid}",
+        "rank_en": "{node.rank['en']}",
+        "rank_fr": "{node.rank['fr']}",
+        "all": "{sci_name} | {common_name["en"]} | {node.rank["en"]} | {node.taxid}",
         "zoom": {int(node.zoomview + 4)},
         "nbdesc": {node.nbdesc},
         "coordinates": [{node.y:.20f}, {node.x:.20f}],
@@ -278,13 +273,13 @@ def traverse_tree(
     logger.info("Downloading tree...")
 
     if groupnb == "1":
+        logger.info("Archaeal tree...")
         t = tree["2157"].copy()
-        logger.info("Archaeal tree loaded...")
-        t.write(
-            outfile=BUILD_DIRECTORY / "ARCHAEA",
-            features=["name", "taxid"],
-            format_root_node=True,
-        )
+        # t.write(
+        #     outfile=BUILD_DIRECTORY / "ARCHAEA",
+        #     features=["name", "taxid"],
+        #     format_root_node=True,
+        # )
         t.x = 6.0
         t.y = 9.660254 - 10.0
         t.alpha = 30.0
@@ -292,11 +287,11 @@ def traverse_tree(
     if groupnb == "2":
         t = tree["2759"].copy()
         logger.info("Eukaryotic tree loaded")
-        t.write(
-            outfile=BUILD_DIRECTORY / "EUKARYOTES",
-            features=["name", "taxid"],
-            format_root_node=True,
-        )
+        # t.write(
+        #     outfile=BUILD_DIRECTORY / "EUKARYOTES",
+        #     features=["name", "taxid"],
+        #     format_root_node=True,
+        # )
         t.x = -6.0
         t.y = 9.660254 - 10.0
         t.alpha = 150.0
@@ -304,11 +299,11 @@ def traverse_tree(
     if groupnb == "3":
         t = tree["2"].copy()
         logger.info("Bacterial tree loaded")
-        t.write(
-            outfile=BUILD_DIRECTORY / "BACTERIA",
-            features=["name", "taxid"],
-            format_root_node=True,
-        )
+        # t.write(
+        #     outfile=BUILD_DIRECTORY / "BACTERIA",
+        #     features=["name", "taxid"],
+        #     format_root_node=True,
+        # )
         t.x = 0.0
         t.y = -11.0
         t.alpha = 270.0
@@ -322,7 +317,7 @@ def traverse_tree(
     ndid = starti + nbsp
     maxZoomView = 0
 
-    logger.info("Tree traversal...")
+    logger.info("Tree traversal 1/2...")
     points_records = []
     for n in tqdm(t.traverse(), total=len(t)):
         special = 0
@@ -384,10 +379,8 @@ def traverse_tree(
                 n.id,
                 n.taxid,
                 n.sci_name,
-                n.common_name_en,
-                n.common_name_fr,
-                n.rank_en,
-                n.rank_fr,
+                n.common_name["en"],
+                n.rank["en"],
                 n.nbdesc,
                 int(n.zoomview),
                 n.is_leaf(),
@@ -401,13 +394,13 @@ def traverse_tree(
 
     logger.info("Inserting data into postgis")
     with cur.copy(
-        "COPY points (id, taxid, sci_name, common_name_en, common_name_fr, rank_en, rank_fr, nbdesc, zoomview, tip,geom_txt) FROM STDIN"
+        "COPY points (id, taxid, sci_name, common_name_en, rank_en, nbdesc, zoomview, tip,geom_txt) FROM STDIN"
     ) as copy:
         for record in tqdm(points_records):
             copy.write_row(record)
     conn.commit()
 
-    logger.info("Tree traversal 2... ")
+    logger.info("Tree traversal 2/2... ")
 
     lines_records = []
     polygons_records = []
@@ -417,6 +410,7 @@ def traverse_tree(
     ##LAST LOOP TO write coords of polygs and JSON file
     json_file = open(BUILD_DIRECTORY / f"TreeFeatures{groupnb}.json", "w")
     first = True
+    ascends = []
     for n in tqdm(t.traverse(), total=len(t)):
         if first:
             json_file.write("[")
@@ -436,11 +430,23 @@ def traverse_tree(
             polygons_lines_records.append(line_record)
             ndid = ndid + 63
         json_file.write(node2json(n))
+        # Compute note ascend list
+        row = {"taxid": n.taxid, "ascend": []}
+        node = n
+        while node.up:
+            row["ascend"].append(node.up.taxid)
+            node = node.up
+        row["ascend"].append("0")
+        ascends.append(row)
 
     json_file.write("]")
     json_file.close()
 
-    logger.info("Inserting lines data into postgis")
+    logger.info("Saving ascends data frame...")
+    ascends = pl.DataFrame(ascends)
+    ascends.write_parquet(BUILD_DIRECTORY / f"ascends_{groupnb}.parquet")
+
+    logger.info("Inserting lines data into postgis...")
     with cur.copy(
         "COPY lines (id, branch, zoomview, ref, name, geom_txt) FROM STDIN"
     ) as copy:
@@ -448,25 +454,25 @@ def traverse_tree(
             copy.write_row(record)
     conn.commit()
 
-    logger.info("Inserting polygons data into postgis")
+    logger.info("Inserting polygons data into postgis...")
     with cur.copy(
-        "COPY polygons (id, ref, clade, taxid, sci_name, common_name_en, common_name_fr, rank_en, rank_fr,nbdesc,zoomview, geom_txt) FROM STDIN"
+        "COPY polygons (id, ref, clade, taxid, sci_name, common_name_en, rank_en, nbdesc,zoomview, geom_txt) FROM STDIN"
     ) as copy:
         for record in tqdm(polygons_records):
             copy.write_row(record)
     conn.commit()
 
-    logger.info("Inserting polygons points data into postgis")
+    logger.info("Inserting polygons points data into postgis...")
     with cur.copy(
-        "COPY points (id, cladecenter, taxid, sci_name, common_name_en, common_name_fr,rank_en, rank_fr,nbdesc,zoomview, geom_txt) FROM STDIN"
+        "COPY points (id, cladecenter, taxid, sci_name, common_name_en, rank_en, nbdesc,zoomview, geom_txt) FROM STDIN"
     ) as copy:
         for record in tqdm(polygons_points_records):
             copy.write_row(record)
     conn.commit()
 
-    logger.info("Inserting polygons lines data into postgis")
+    logger.info("Inserting polygons lines data into postgis...")
     with cur.copy(
-        "COPY lines (id, ref, rankname, sci_name, zoomview, rank_en, rank_fr, nbdesc, geom_txt) FROM STDIN"
+        "COPY lines (id, ref, rankname, sci_name, zoomview, rank_en, nbdesc, geom_txt) FROM STDIN"
     ) as copy:
         for record in tqdm(polygons_lines_records):
             copy.write_row(record)

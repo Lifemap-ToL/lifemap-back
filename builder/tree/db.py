@@ -45,20 +45,20 @@ def init_db() -> None:
 
     logger.info("Creating new tables...")
     cur.execute(
-        "CREATE TABLE points(id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankame boolean,sci_name text,common_name_en text, common_name_fr text,full_name text,rank_en text, rank_fr text, name text, nbdesc integer,taxid text,geom_txt text, way geometry(POINT,3857));"
+        "CREATE TABLE points(id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankame boolean,sci_name text,common_name_en text, full_name text,rank_en text, name text, nbdesc integer,taxid text,geom_txt text, way geometry(POINT,3857));"
     )
     cur.execute(
-        "CREATE TABLE lines(id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankname boolean,sci_name text,common_name_en text, common_name_fr text, full_name text,rank_en text, rank_fr text, name text, nbdesc integer,taxid text,geom_txt text, way geometry(LINESTRING,3857));"
+        "CREATE TABLE lines(id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankname boolean,sci_name text,common_name_en text,  full_name text,rank_en text, name text, nbdesc integer,taxid text,geom_txt text, way geometry(LINESTRING,3857));"
     )
     cur.execute(
-        "CREATE TABLE polygons(id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankame boolean,sci_name text,common_name_en text, common_name_fr text, full_name text,rank_en text, rank_fr text, name text, nbdesc integer,taxid text,geom_txt text, way geometry(POLYGON,3857));"
+        "CREATE TABLE polygons(id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankame boolean,sci_name text,common_name_en text,  full_name text,rank_en text, name text, nbdesc integer,taxid text,geom_txt text, way geometry(POLYGON,3857));"
     )
     conn.commit()
 
     logger.info("Creating root node...")
     ##we include the root node
     cur.execute(
-        "INSERT INTO points (id, sci_name, common_name_en, common_name_fr,rank_en, rank_fr,nbdesc,tip, zoomview,taxid,way) VALUES(1000000000, 'Root','Root','Root','Root','Root',1000000, FALSE, 1,1,ST_Transform(ST_GeomFromText('POINT(0 -4.226497)', 4326), 3857));"
+        "INSERT INTO points (id, sci_name, common_name_en, rank_en, nbdesc,tip, zoomview,taxid,way) VALUES(1000000000, 'Root','Root','Root',1000000, FALSE, 1,1,ST_Transform(ST_GeomFromText('POINT(0 -4.226497)', 4326), 3857));"
     )
     conn.commit()
 
