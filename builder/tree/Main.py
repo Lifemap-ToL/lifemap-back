@@ -9,7 +9,7 @@ import export_data
 import export_metadata
 import GetAllTilesCoord
 import getTrees
-import Traverse_To_Pgsql_2
+import Traverse
 from config import (
     BUILD_DIRECTORY,
     GENOMES_DIRECTORY,
@@ -47,21 +47,21 @@ def lifemap_build(
     else:
         logger.info("-- CREATING DATABASE")
         logger.info("---- Updating NCBI database...")
-        Traverse_To_Pgsql_2.updateDB()
+        Traverse.updateDB()
         logger.info("---- Building NCBI tree...")
         tree = getTrees.getTheTrees()
         if simplify:
-            tree = Traverse_To_Pgsql_2.simplify_tree(tree)
+            tree = Traverse.simplify_tree(tree)
         logger.info("---- Initialize Postgis database ----")
         db.init_db()
         logger.info("---- Doing Archaeal tree...")
-        ndid = Traverse_To_Pgsql_2.traverse_tree(tree, groupnb="1", starti=1)
+        ndid = Traverse.traverse_tree(tree, groupnb="1", starti=1)
         logger.info("---- Done")
         logger.info("---- Doing Eukaryotic tree... start at id: %s" % ndid)
-        ndid = Traverse_To_Pgsql_2.traverse_tree(tree, groupnb="2", starti=ndid)
+        ndid = Traverse.traverse_tree(tree, groupnb="2", starti=ndid)
         logger.info("---- Done")
         logger.info("---- Doing Bact tree... start at id:%s " % ndid)
-        ndid = Traverse_To_Pgsql_2.traverse_tree(tree, groupnb="3", starti=ndid)
+        ndid = Traverse.traverse_tree(tree, groupnb="3", starti=ndid)
         logger.info("---- Done")
         logger.info("---- Create Postgis geometries ----")
         db.create_geometries()
