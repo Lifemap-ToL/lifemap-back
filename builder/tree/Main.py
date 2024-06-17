@@ -1,20 +1,18 @@
-import json
 import logging
 import sys
 from argparse import ArgumentParser
-from datetime import datetime
 from pathlib import Path
 
 import AdditionalInfo
 import db
+import export_data
+import export_metadata
 import GetAllTilesCoord
 import getTrees
-import export_data
 import Traverse_To_Pgsql_2
 from config import (
     BUILD_DIRECTORY,
     GENOMES_DIRECTORY,
-    TAXO_DIRECTORY,
 )
 
 # Init logging
@@ -115,23 +113,16 @@ def lifemap_build(
     db.copy_db_to_prod()
     logger.info("-- Done --")
 
-    #  Get and copy date of update to /var/www/html
-    logger.info("-- Update date-update.json")
-    date_update = (TAXO_DIRECTORY / "taxdump.tar.gz").stat().st_mtime
-    date_update = datetime.fromtimestamp(date_update)
-    date_update = {"update": date_update.strftime("%Y-%m-%d")}
-    # Create the directory if it doesn't exist
-    Path(BUILD_DIRECTORY).mkdir(exist_ok=True)
-    date_update_file = BUILD_DIRECTORY / "date-update.json"
-    with open(date_update_file, "w") as f:
-        json.dump(date_update, f)
+    # Export metadata to metadata.json
+    logger.info("-- Export metadata.json")
+    export_metadata.export_metadata()
     logger.info("-- Done")
 
 
 if __name__ == "__main__":
 
     parser = ArgumentParser(
-        description="Perform all Lifemap tree analysis cleaning previous data if any."
+        description="Perform all Lifemap tree analysis, cleaning previous data if any."
     )
     parser.add_argument(
         "--simplify",

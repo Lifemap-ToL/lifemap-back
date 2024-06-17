@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 BUILD_DIRECTORY=~/builder_results
 SOLR_CONTAINER=lifemap-solr
 WWW_DIRECTORY=/var/www/lifemap_back
@@ -10,11 +12,11 @@ echo "- BUILD TREE"
 python3 tree/Main.py
 #python3 tree/Main.py --skip-traversal --skip-add-info --skip-merge-jsons --skip-rdata --skip-index
 
-# Copy lmdata and date-update files
-echo "- COPYING lmdata AND date-update FILES TO WEB ROOT"
+# Copy lmdata and metadata files
+echo "- COPYING lmdata AND metadata.json FILES TO WEB ROOT"
 mkdir -p $WWW_DIRECTORY/data
 cp $BUILD_DIRECTORY/lmdata/* $WWW_DIRECTORY/data
-cp $BUILD_DIRECTORY/date-update.json $WWW_DIRECTORY/
+cp $BUILD_DIRECTORY/metadata.json $WWW_DIRECTORY/
 
 # Update Solr
 echo "- UPDATING SOLR"
