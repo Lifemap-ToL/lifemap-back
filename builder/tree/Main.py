@@ -9,7 +9,7 @@ import AdditionalInfo
 import CombineJsons
 import db
 import GetAllTilesCoord
-import getTrees_fun
+import getTrees
 import PrepareRdata
 import Traverse_To_Pgsql_2
 from config import (
@@ -52,7 +52,7 @@ def lifemap_build(
         logger.info("---- Updating NCBI database...")
         Traverse_To_Pgsql_2.updateDB()
         logger.info("---- Building NCBI tree...")
-        tree = getTrees_fun.getTheTrees()
+        tree = getTrees.getTheTrees()
         if simplify:
             tree = Traverse_To_Pgsql_2.simplify_tree(tree)
         logger.info("---- Initialize Postgis database ----")
