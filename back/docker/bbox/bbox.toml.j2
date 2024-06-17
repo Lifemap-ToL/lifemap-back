@@ -148,7 +148,7 @@ minzoom = 0
 maxzoom = 42
 
 [[tileset.postgis.layer.query]]
-sql = """SELECT way,id,ref,z_order,branch,tip,zoomview,clade,cladecenter,rankame,sci_name,common_name_en,full_name,rank_en,name,nbdesc,taxid FROM points_prod WHERE  tip=True  AND zoomview between 0 and !zoom!    """
+sql = """SELECT way,id,ref,z_order,branch,tip,zoomview,clade,cladecenter,rankname,sci_name,common_name_en,full_name,rank_en,name,nbdesc,taxid FROM points_prod WHERE  tip=True  AND zoomview between 0 and !zoom!    """
 
 
 # --- POLYGONS LAYER ---
