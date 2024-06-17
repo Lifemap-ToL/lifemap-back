@@ -9,6 +9,8 @@ from collections import defaultdict
 from datetime import datetime
 from ftplib import FTP
 
+import polars as pl
+
 from config import TAXO_DIRECTORY
 
 logger = logging.getLogger("LifemapBuilder")
@@ -77,9 +79,9 @@ def get_translations_fr() -> dict:
     return trans
 
 
-def get_ranks_fr() -> dict:
+def get_ranks_translations() -> dict:
     """
-    Import french translations of ranks as dictionary from ranks.txt
+    Import french translations of ranks as dictionary from ranks.csv
 
     Returns
     -------
@@ -87,8 +89,11 @@ def get_ranks_fr() -> dict:
         dictionary of translations.
     """
     logger.info("  Importing french rank names")
-    with open(TAXO_DIRECTORY / "ranks.txt") as f:
-        lines = f.readlines()
-    lines = [line.split("\t") for line in lines]
-    trans = {k.strip(): v.strip() for k, v in lines}
+    trans_df = pl.read_csv(TAXO_DIRECTORY / "ranks.csv")
+    trans = {}
+    langs = trans_df.columns
+    langs.remove("en")
+    for row in trans_df.iter_rows(named=True):
+        rank = row["en"].strip()
+        trans[rank] = {lang: row[lang].strip() for lang in langs}
     return trans

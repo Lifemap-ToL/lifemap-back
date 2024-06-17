@@ -3,7 +3,7 @@ from dataclasses import dataclass, field
 
 from config import TAXO_DIRECTORY, LANG_LIST
 from ete3 import Tree
-from utils import get_ranks_fr, get_translations_fr
+from utils import get_ranks_translations, get_translations_fr
 
 logger = logging.getLogger("LifemapBuilder")
 
@@ -82,7 +82,7 @@ def get_attributes() -> dict:
 def getTheTrees():
 
     attr = get_attributes()
-    ranks_fr_translations = get_ranks_fr()
+    ranks_translations = get_ranks_translations()
 
     tree = {}
 
@@ -97,7 +97,7 @@ def getTheTrees():
             son = line[0].replace("\t", "")
             rank = line[2].replace("\t", "")
             rank_en = rank.replace("'", "''")
-            rank_fr = ranks_fr_translations[rank].replace("'", "''")
+            rank_fr = ranks_translations[rank]["fr"].replace("'", "''")
 
             if dad not in tree:
                 tree[dad] = Tree()
