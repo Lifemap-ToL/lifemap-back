@@ -1,13 +1,10 @@
 #!/usr/bin/python
 
-import json
 import logging
 
 import polars as pl
 from config import BUILD_DIRECTORY, GENOMES_DIRECTORY, TAXO_DIRECTORY
-from ete3 import Tree
 from utils import download_file_if_newer
-from tqdm import tqdm
 
 logger = logging.getLogger("LifemapBuilder")
 
@@ -74,42 +71,22 @@ def add_info(nbgroup: str):
 
     addi = addi.join(ages, on="taxid", how="left")
 
-    # Get age
-    # taxid_age = ages.filter(pl.col("node") == n.taxid)
-    # if taxid_age.height == 1:
-    #     n.age = taxid_age.get_column("age").item()
-    # else:
-    #     n.age = 0
-    # Get nbgenomes
-    # taxid_genomes = genomes.filter(pl.col("taxid") == n.taxid)
-    # if taxid_genomes.height == 1:
-    #     nb_genomes = taxid_genomes.get_column("n").item()
-    # else:
-    #     nb_genomes = 0
-    # try:
-    #     n.nbgenomes += nb_genomes
-    # except AttributeError:
-    #     n.nbgenomes = nb_genomes
-    # node = n
-    # while node.up:
-    #     try:
-    #         node.up.nbgenomes += nb_genomes
-    #     except AttributeError:
-    #         node.up.nbgenomes = nb_genomes
-    #     n.path.append(node.up.taxid)
-    #     node = node.up
-
-    ##traverse to write
-    # logger.info("  Second traverse")
-    # addi = []
-    # for n in tqdm(t.traverse(), total=len(t)):
-    #     n_data = {
-    #         "taxid": n.taxid,
-    #         "genomes": n.nbgenomes,
-    #         "ascend": n.path + [0],
-    #         # "age": n.age,
-    #     }
-    #     addi.append(n_data)
-
-    logger.info("  Saving to json")
+    logger.info("  Saving to json...")
     addi.write_json(BUILD_DIRECTORY / f"ADDITIONAL.{nbgroup}.json", row_oriented=True)
+
+
+def merge_features() -> None:
+
+    logger.info("  Merging tree and additional features...")
+    features = []
+    for i in range(1, 4):
+        ascends = pl.read_parquet(BUILD_DIRECTORY / f"ascends_{i}.parquet")
+        tree_features = pl.read_json(BUILD_DIRECTORY / f"TreeFeatures{i}.json").select(
+            ["taxid", "sci_name", "zoom", "lat", "lon"]
+        )
+        merged = tree_features.join(ascends, on="taxid", how="left")
+        features.append(merged)
+
+    logger.info("  Combining and saving merged features...")
+    features = pl.concat(features)
+    features.write_parquet(BUILD_DIRECTORY / "TreeFeaturesComplete.parquet")
