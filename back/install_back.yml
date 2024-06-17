@@ -10,22 +10,6 @@
             mode: "0600"
             force: true
 
-      - name: Copy bbox.toml to bbox docker directory
-        become: true
-        ansible.builtin.template:
-            src: docker/bbox/bbox.toml.j2
-            dest: "{{ docker_dir }}/bbox/bbox.toml"
-            mode: preserve
-            force: true
-
-      - name: Create bbox data directory
-        become: true
-        ansible.builtin.file:
-            path: "{{ docker_dir }}/bbox/data"
-            state: directory
-            mode: "0755"
-            owner: "www-data"
-
       - name: Check if docker-compose.yml already exists
         ansible.builtin.stat:
             path: "{{ docker_dir }}/docker-compose.yml"
@@ -62,6 +46,23 @@
             dest: "{{ docker_dir }}/mod_tile_deepzoom/style/inc/datasource-settings.xml.inc"
             mode: preserve
             force: true
+
+      - name: Copy bbox.toml to bbox docker directory
+        become: true
+        ansible.builtin.template:
+            src: docker/bbox/bbox.toml.j2
+            dest: "{{ docker_dir }}/bbox/bbox.toml"
+            mode: preserve
+            force: true
+
+      - name: Create bbox data directory
+        become: true
+        ansible.builtin.file:
+            path: "{{ docker_dir }}/bbox/data"
+            state: directory
+            mode: "0755"
+            owner: "www-data"
+
 
       - name: Build and launch containers
         ansible.builtin.command:
