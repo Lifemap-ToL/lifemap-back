@@ -79,7 +79,7 @@ def get_attributes() -> dict:
     return attr
 
 
-def getTheTrees():
+def getTheTrees() -> dict:
 
     attr = get_attributes()
     ranks_translations = get_ranks_translations()

@@ -16,7 +16,6 @@ import polars as pl
 # import cPickle as pickle
 from config import BUILD_DIRECTORY, LANG_LIST, TAXO_DIRECTORY
 from db import db_connection
-from ete3 import Tree
 from tqdm import tqdm
 from utils import download_file_if_newer
 
@@ -122,7 +121,7 @@ def HalfCircPlusEllips(x, y, r, alpha, start, end, nsteps):
     return (np.concatenate((circ[0], elli[0])), np.concatenate((circ[1], elli[1])))
 
 
-def get_way_record(node, id, cur, groupnb):
+def get_way_record(node, id, groupnb):
     # Create branch names
     Upsci_name = node.up.sci_name
     Upcommon_name_en = node.up.common_name["en"]
@@ -244,7 +243,7 @@ def node2json(node) -> str:
 
 
 def traverse_tree(
-    tree: Tree,
+    tree: dict,
     groupnb: Literal["1", "2", "3"],
     starti: int,
 ) -> int:
@@ -253,7 +252,7 @@ def traverse_tree(
 
     Parameters
     ----------
-    tree : ete3.Tree
+    tree : dict
         Global NCBI tree
     groupnb : {'1', '2', '3'}
         Group to look at. Can be 1,2 or 3 for Archaea, Eukaryotes and Bacteria respectively
@@ -420,7 +419,7 @@ def traverse_tree(
             json_file.write(",")
         if not n.is_root():
             ndid = ndid + 1
-            lines_records.append(get_way_record(n, ndid, cur, groupnb))
+            lines_records.append(get_way_record(n, ndid, groupnb))
         if not n.is_leaf():
             indexes = np.linspace(ndid + 1, ndid + 63, num=63)
             polygon_record, point_record, line_record = get_polyg_record(
@@ -481,11 +480,10 @@ def traverse_tree(
 
     ##we add the way from LUCA to the root of the subtree
     ndid = ndid + 1
-    command = (
-        "INSERT INTO lines (id, branch, zoomview, ref, way) VALUES(%d,'TRUE', '4','%s',ST_Transform(ST_GeomFromText('LINESTRING(0 -4.226497, %.20f %.20f)', 4326), 3857));"
-        % (ndid, groupnb, t.x, t.y)
+    command = "INSERT INTO lines (id, branch, zoomview, ref, way) VALUES(%(id)s,'TRUE', '4', %(ref)s, ST_Transform(ST_GeomFromText('LINESTRING(0 -4.226497, %(x)s %(y)s)', 4326), 3857));"
+    cur.execute(
+        command, {"id": ndid, "ref": groupnb, "x": f"{t.x:.20f}", "y": f"{t.y:.20f}"}
     )
-    cur.execute(command)
     conn.commit()
 
     logger.info(f"DONE - ndid:{ndid} - spid:{spid} - Max zoom view: {maxZoomView}")

@@ -74,8 +74,8 @@ def copy_db_to_prod() -> None:
 
     for table in ["points", "lines", "polygons"]:
         logger.info(f"Copying {table}...")
-        cur.execute(f"DROP TABLE IF EXISTS {table}_prod;")
-        cur.execute(f"CREATE TABLE {table}_prod AS TABLE {table};")
+        cur.execute(f"DROP TABLE IF EXISTS {table}_prod;")  # type: ignore
+        cur.execute(f"CREATE TABLE {table}_prod AS TABLE {table};")  # type: ignore
 
     conn.commit()
     conn.close()
@@ -92,13 +92,13 @@ def create_geometries() -> None:
     for table in ["points", "lines", "polygons"]:
         logger.info(f"Creating {table} geometry")
         query = f"UPDATE {table} SET way = ST_Transform(ST_GeomFromText(geom_txt, 4326), 3857) WHERE way IS NULL;"
-        cur.execute(query)
+        cur.execute(query)  # type: ignore
         conn.commit()
 
     logger.info("Dropping geom_txt columns")
     for table in ["points", "lines", "polygons"]:
         query = f"ALTER TABLE {table} DROP COLUMN geom_txt;"
-        cur.execute(query)
+        cur.execute(query)  # type: ignore
         conn.commit()
 
     conn.close()

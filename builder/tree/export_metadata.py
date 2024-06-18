@@ -31,15 +31,18 @@ def export_metadata() -> None:
     # Number of leaves (species) for archaea
     query = "select nbdesc from points where taxid='2157' and cladecenter is null;"
     cur.execute(query)
-    n1 = cur.fetchone()[0]
+    res = cur.fetchone()
+    n1 = res[0] if res is not None else 0
     # Number of leaves (species) for eukaryotes
     query = "select nbdesc from points where taxid='2759' and cladecenter is null;"
     cur.execute(query)
-    n2 = cur.fetchone()[0]
+    res = cur.fetchone()
+    n2 = res[0] if res is not None else 0
     # Number of leaves (species) for bacteria
     query = "select nbdesc from points where taxid='2' and cladecenter is null;"
     cur.execute(query)
-    n3 = cur.fetchone()[0]
+    res = cur.fetchone()
+    n3 = res[0] if res is not None else 0
 
     conn.close()
     meta["species"]["archaea"] = n1
