@@ -2,7 +2,7 @@
 
 BBOX_CONTAINER=lifemap-bbox
 PRERENDER_THREADS=30
-MAX_ZOOM=8
+MAX_ZOOM=10
 
 # Remove cached tiles
 echo "- REMOVE OLD TILES"
