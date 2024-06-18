@@ -4640,7 +4640,7 @@
   <Datasource>
     <Parameter name="table">
       (select way,branch,zoomview, ref
-      from lines_prod
+      from branches_prod
       where branch is true
       ) as roads
     </Parameter>
@@ -4714,7 +4714,7 @@
   <Datasource>
     <Parameter name="table">
       (select way, rankname,rank_en, zoomview,ref
-      from lines_prod
+      from ranks_prod
       where rankname is true and ref=1           
       ) as roads
     </Parameter>
@@ -4726,7 +4726,7 @@
   <Datasource>
     <Parameter name="table">
       (select way, rankname,rank_en,zoomview,ref
-      from lines_prod
+      from ranks_prod
       where rankname is true and ref=2          
       ) as roads
     </Parameter>
@@ -4738,7 +4738,7 @@
   <Datasource>
     <Parameter name="table">
       (select way, rankname,rank_en,zoomview,ref
-      from lines_prod
+      from ranks_prod
       where rankname is true and ref=3
       ) as roads
     </Parameter>

@@ -4666,7 +4666,7 @@
   <Datasource>
     <Parameter name="table">
       (select way,cladecenter,zoomview,sci_name, common_name_en, nbdesc
-      from points_prod
+      from cladecenters_prod
       where cladecenter is true
       order by nbdesc DESC
     ) as placenames</Parameter>

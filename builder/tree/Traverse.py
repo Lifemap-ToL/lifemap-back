@@ -179,7 +179,7 @@ def get_polyg_record(node, ids, groupnb):
         cooPolyg,
     )
 
-    point_record = (
+    cladecenter_record = (
         int(ids[61]),
         True,
         node.taxid,
@@ -197,7 +197,7 @@ def get_polyg_record(node, ids, groupnb):
         cooLine += ",%.20f %.20f" % (polyg[0][i], polyg[1][i])
     cooLine += ")"
 
-    line_record = (
+    rank_record = (
         int(ids[62]),
         groupnb,
         True,
@@ -208,7 +208,7 @@ def get_polyg_record(node, ids, groupnb):
         cooLine,
     )
 
-    return polygon_record, point_record, line_record
+    return polygon_record, cladecenter_record, rank_record
 
 
 def node2json(node) -> str:
@@ -392,7 +392,7 @@ def traverse_tree(
     conn = db_connection()
     cur = conn.cursor()
 
-    logger.info("Inserting data into postgis")
+    logger.info("Inserting points data into postgis")
     with cur.copy(
         "COPY points (id, taxid, ref, sci_name, common_name_en, rank_en, nbdesc, zoomview, tip,geom_txt) FROM STDIN"
     ) as copy:
@@ -404,8 +404,8 @@ def traverse_tree(
 
     lines_records = []
     polygons_records = []
-    polygons_points_records = []
-    polygons_lines_records = []
+    cladecenters_records = []
+    ranks_records = []
 
     ##LAST LOOP TO write coords of polygs and JSON file
     json_file = open(BUILD_DIRECTORY / f"TreeFeatures{groupnb}.json", "w")
@@ -422,12 +422,12 @@ def traverse_tree(
             lines_records.append(get_way_record(n, ndid, groupnb))
         if not n.is_leaf():
             indexes = np.linspace(ndid + 1, ndid + 63, num=63)
-            polygon_record, point_record, line_record = get_polyg_record(
+            polygon_record, cladecenter_record, rank_record = get_polyg_record(
                 n, indexes, groupnb
             )
             polygons_records.append(polygon_record)
-            polygons_points_records.append(point_record)
-            polygons_lines_records.append(line_record)
+            cladecenters_records.append(cladecenter_record)
+            ranks_records.append(rank_record)
             ndid = ndid + 63
         json_file.write(node2json(n))
         # Compute note ascend list
@@ -446,9 +446,9 @@ def traverse_tree(
     ascends = pl.DataFrame(ascends)
     ascends.write_parquet(BUILD_DIRECTORY / f"ascends_{groupnb}.parquet")
 
-    logger.info("Inserting lines data into postgis...")
+    logger.info("Inserting branches data into postgis...")
     with cur.copy(
-        "COPY lines (id, branch, zoomview, ref, name, geom_txt) FROM STDIN"
+        "COPY branches (id, branch, zoomview, ref, name, geom_txt) FROM STDIN"
     ) as copy:
         for record in tqdm(lines_records):
             copy.write_row(record)
@@ -462,28 +462,26 @@ def traverse_tree(
             copy.write_row(record)
     conn.commit()
 
-    logger.info("Inserting polygons points data into postgis...")
+    logger.info("Inserting cladecenters data into postgis...")
     with cur.copy(
-        "COPY points (id, cladecenter, taxid, sci_name, common_name_en, rank_en, nbdesc,zoomview, geom_txt) FROM STDIN"
+        "COPY cladecenters (id, cladecenter, taxid, sci_name, common_name_en, rank_en, nbdesc,zoomview, geom_txt) FROM STDIN"
     ) as copy:
-        for record in tqdm(polygons_points_records):
+        for record in tqdm(cladecenters_records):
             copy.write_row(record)
     conn.commit()
 
-    logger.info("Inserting polygons lines data into postgis...")
+    logger.info("Inserting ranks data into postgis...")
     with cur.copy(
-        "COPY lines (id, ref, rankname, sci_name, zoomview, rank_en, nbdesc, geom_txt) FROM STDIN"
+        "COPY ranks (id, ref, rankname, sci_name, zoomview, rank_en, nbdesc, geom_txt) FROM STDIN"
     ) as copy:
-        for record in tqdm(polygons_lines_records):
+        for record in tqdm(ranks_records):
             copy.write_row(record)
     conn.commit()
 
     ##we add the way from LUCA to the root of the subtree
     ndid = ndid + 1
-    command = "INSERT INTO lines (id, branch, zoomview, ref, way) VALUES(%(id)s,'TRUE', '4', %(ref)s, ST_Transform(ST_GeomFromText('LINESTRING(0 -4.226497, %(x)s %(y)s)', 4326), 3857));"
-    cur.execute(
-        command, {"id": ndid, "ref": groupnb, "x": f"{t.x:.20f}", "y": f"{t.y:.20f}"}
-    )
+    command = f"INSERT INTO branches (id, branch, zoomview, ref, way) VALUES ({ndid},'TRUE', '4', '{groupnb}', ST_Transform(ST_GeomFromText('LINESTRING(0 -4.226497, {t.x:.20f} {t.y:.20f})', 4326), 3857));"
+    cur.execute(command)  # type: ignore
     conn.commit()
 
     logger.info(f"DONE - ndid:{ndid} - spid:{spid} - Max zoom view: {maxZoomView}")
