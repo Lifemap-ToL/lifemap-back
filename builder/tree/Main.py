@@ -4,6 +4,7 @@ from argparse import ArgumentParser
 from pathlib import Path
 
 import AdditionalInfo
+import check_ranks
 import db
 import export_data
 import export_metadata
@@ -116,6 +117,11 @@ def lifemap_build(
     # Export metadata to metadata.json
     logger.info("-- Export metadata.json")
     export_metadata.export_metadata()
+    logger.info("-- Done")
+
+    # Check for missing rank translations
+    logger.info("-- Check for missing rank translations")
+    check_ranks.check_ranks()
     logger.info("-- Done")
 
 
