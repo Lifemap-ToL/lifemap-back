@@ -196,15 +196,27 @@ def get_polyg_record(node, ids, groupnb):
     for i in range(36, 45):
         cooLine += ",%.20f %.20f" % (polyg[0][i], polyg[1][i])
     cooLine += ")"
+    start, mid, end = 36, 40, 44
+    if polyg[0][start] > polyg[0][end]:
+        start, end = end, start
+    x1, y1 = polyg[0][start], polyg[1][start]
+    x2, y2 = polyg[0][mid], polyg[1][mid]
+    x3, y3 = polyg[0][end], polyg[1][end]
+    slope1 = (y2 - y1) / (x2 - x1)
+    slope2 = (y3 - y2) / (x3 - x2)
+    convexity = slope1 - slope2
 
     rank_record = (
         int(ids[62]),
         groupnb,
         True,
+        node.taxid,
         node.sci_name,
         int(node.zoomview),
         node.rank["en"],
+        node.rank["fr"],
         int(node.nbdesc),
+        convexity,
         cooLine,
     )
 
@@ -472,7 +484,7 @@ def traverse_tree(
 
     logger.info("Inserting ranks data into postgis...")
     with cur.copy(
-        "COPY ranks (id, ref, rankname, sci_name, zoomview, rank_en, nbdesc, geom_txt) FROM STDIN"
+        "COPY ranks (id, ref, rankname, taxid, sci_name, zoomview, rank_en, rank_fr, nbdesc, convex, geom_txt) FROM STDIN"
     ) as copy:
         for record in tqdm(ranks_records):
             copy.write_row(record)

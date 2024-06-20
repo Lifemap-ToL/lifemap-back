@@ -55,7 +55,7 @@ def init_db() -> None:
         "CREATE TABLE polygons (id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankname boolean,sci_name text,common_name_en text,  full_name text,rank_en text, name text, nbdesc integer,taxid text,geom_txt text, way geometry(POLYGON,3857));"
     )
     cur.execute(
-        "CREATE TABLE ranks (id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankname boolean,sci_name text,common_name_en text,  full_name text,rank_en text, name text, nbdesc integer,taxid text,geom_txt text, way geometry(LINESTRING,3857));"
+        "CREATE TABLE ranks (id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankname boolean,sci_name text,common_name_en text,  full_name text, rank_en text, rank_fr text, name text, nbdesc integer, convex real, taxid text,geom_txt text, way geometry(LINESTRING,3857));"
     )
     cur.execute(
         "CREATE TABLE cladecenters (id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankname boolean,sci_name text,common_name_en text, full_name text,rank_en text, name text, nbdesc integer,taxid text,geom_txt text, way geometry(POINT,3857));"
@@ -118,7 +118,7 @@ def create_index() -> None:
     conn = db_connection()
     cur = conn.cursor()
 
-    logger.info("Creating index...")
+    logger.info("Creating indexes...")
     cur.execute(
         "CREATE INDEX IF NOT EXISTS branches_prod_id ON branches_prod USING GIST(way);"
     )
