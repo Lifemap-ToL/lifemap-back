@@ -73,7 +73,7 @@ def lifemap_build(
     db.copy_db_to_prod()
     logger.info("-- Done --")
 
-    logger.info("-- Creating index... ")
+    logger.info("-- Creating indexes... ")
     db.create_index()
     logger.info("-- Done")
 
