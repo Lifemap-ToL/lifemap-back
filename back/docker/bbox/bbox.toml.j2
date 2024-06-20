@@ -65,34 +65,34 @@ json = "/var/www/assets/CustomWebMercator_42.json"
 # WHERE branch=True and zoomview < !zoom!+13"""
 
 
-# # --- RANKS LAYER ---
+# --- RANKS LAYER ---
 
-# [[tileset]]
-# name = "ranks"
-# cache = "tilecache"
-# tms = "CustomWebMercator"
-# [tileset.postgis]
-# datasource = "pg"
-# extent = [-15.64262, -20.99848, 15.64848, 9.57778]
+[[tileset]]
+name = "ranks"
+cache = "tilecache"
+tms = "CustomWebMercator"
+[tileset.postgis]
+datasource = "pg"
+extent = [-15.64262, -20.99848, 15.64848, 9.57778]
 
-# [[tileset.postgis.layer]]
-# name = "ranks-layer"
-# table_name = "ranks_prod"
-# geometry_field = "way"
-# geometry_type = "LINESTRING"
-# query_limit = 10
-# buffer_size = 1
-# srid = 3857
-# no_transform = true
-# fid_field = "id"
-# minzoom = 0
-# maxzoom = 42
+[[tileset.postgis.layer]]
+name = "ranks-layer"
+table_name = "ranks_prod"
+geometry_field = "way"
+geometry_type = "LINESTRING"
+query_limit = 10
+buffer_size = 1
+srid = 3857
+no_transform = true
+fid_field = "id"
+minzoom = 0
+maxzoom = 42
 
-# [[tileset.postgis.layer.query]]
-# sql = """SELECT 
-# way,id,ref,z_order,zoomview,clade,cladecenter,rankname,rank_en,taxid 
-# FROM ranks_prod
-# WHERE rankname=True  and zoomview between !zoom!-4 and !zoom!-2 """
+[[tileset.postgis.layer.query]]
+sql = """SELECT 
+way, id, ref, zoomview, clade, rankname, rank_en, rank_fr, convex, taxid 
+FROM ranks_prod
+WHERE rankname=True and zoomview between !zoom!-8 and !zoom!-2 """
 
 
 # # --- CLADE CENTER LAYER ---
@@ -216,13 +216,15 @@ tms = "CustomWebMercator"
 [tileset.postgis]
 datasource = "pg"
 extent = [-15.64262, -20.99848, 15.64848, 9.57778]
+[tileset.postgis.diagnostics]
+reference_size = 256
 
 [[tileset.postgis.layer]]
 name = "poly-layer"
 table_name = "polygons_prod"
 geometry_field = "way"
 geometry_type = "POLYGON"
-buffer_size = 10
+buffer_size = 1000
 query_limit = 100000
 simplify = false
 srid = 3857
@@ -230,9 +232,8 @@ no_transform = true
 fid_field = "id"
 minzoom = 0
 maxzoom = 42
-
 [[tileset.postgis.layer.query]]
-sql = """SELECT way,id,ref,z_order,zoomview,clade,cladecenter,taxid FROM polygons_prod WHERE zoomview between !zoom!-4 and !zoom! ORDER BY nbdesc DESC """
+sql = """SELECT way,id,ref,z_order,zoomview,clade,cladecenter,taxid FROM polygons_prod WHERE zoomview between !zoom!-8 and !zoom!+4  ORDER BY nbdesc DESC """
 
 [[tileset.postgis.layer]]
 name = "branches-layer"
@@ -240,7 +241,7 @@ table_name = "branches_prod"
 geometry_field = "way"
 geometry_type = "LINESTRING"
 buffer_size = 1
-query_limit = 100000
+query_limit = 0
 srid = 3857
 no_transform = true
 fid_field = "id"
@@ -252,22 +253,21 @@ way,id,ref,z_order,branch,zoomview,nbdesc,taxid
 FROM branches_prod
 WHERE branch=True and zoomview < !zoom!+13"""
 
-[[tileset.postgis.layer]]
-name = "ranks-layer"
-table_name = "ranks_prod"
-geometry_field = "way"
-geometry_type = "LINESTRING"
-query_limit = 10
-buffer_size = 1
-srid = 3857
-no_transform = true
-fid_field = "id"
-minzoom = 0
-maxzoom = 42
+# [[tileset.postgis.layer]]
+# name = "ranks-layer"
+# table_name = "ranks_prod"
+# geometry_field = "way"
+# geometry_type = "LINESTRING"
+# query_limit = 10
+# buffer_size = 1
+# srid = 3857
+# no_transform = true
+# fid_field = "id"
+# minzoom = 0
+# maxzoom = 42
 
-
-[[tileset.postgis.layer.query]]
-sql = """SELECT 
-way,id,ref,z_order,zoomview,clade,cladecenter,rankname,rank_en,taxid 
-FROM ranks_prod
-WHERE rankname=True  and zoomview between !zoom!-4 and !zoom!-2 """
+# [[tileset.postgis.layer.query]]
+# sql = """SELECT 
+# way,id,ref,z_order,zoomview,clade,cladecenter,rankname,rank_en,rank_fr,taxid 
+# FROM ranks_prod
+# WHERE rankname=True  and zoomview between !zoom!-4 and !zoom!-2 """
