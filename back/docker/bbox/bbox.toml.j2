@@ -258,10 +258,14 @@ fid_field = "id"
 minzoom = 0
 maxzoom = 42
 [[tileset.postgis.layer.query]]
+# The query must be passed to !zoom!+16 to display unclassified bacteria and environmental 
+# samples in bacteria
 sql = """SELECT
 way,id,ref,z_order,branch,zoomview,nbdesc,taxid
 FROM branches_prod
-WHERE branch=True and zoomview < !zoom!+13"""
+WHERE (zoomview < !zoom!+13) or (ref = 3 and zoomview < !zoom!+16)
+ORDER BY zoomview
+"""
 
 # [[tileset.postgis.layer]]
 # name = "ranks-layer"
