@@ -1,15 +1,16 @@
 {
-  "name": "bbox_openlayers",
-  "version": "1.0.0",
-  "scripts": {
-    "start": "vite",
-    "build": "vite build",
-    "serve": "vite preview"
-  },
-  "devDependencies": {
-    "vite": "^5.2.12"
-  },
-  "dependencies": {
-    "ol": "latest"
-  }
+    "name": "bbox_openlayers",
+    "version": "1.0.0",
+    "scripts": {
+        "start": "vite",
+        "build": "vite build",
+        "serve": "vite preview",
+        "force": "vite --force"
+    },
+    "devDependencies": {
+        "vite": "^5.2.12"
+    },
+    "dependencies": {
+        "ol": "9.2.4"
+    }
 }
