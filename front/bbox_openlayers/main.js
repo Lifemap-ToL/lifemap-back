@@ -221,7 +221,7 @@ const branches_layer = new VectorTileLayer({
         url: "https://lifemap-back.dev.lhst.eu/vector_tiles/xyz/branches/{z}/{x}/{y}.pbf",
     }),
     style: branches_style(),
-    declutter: false,
+    declutter: true,
     renderMode: "vector",
 });
 
@@ -248,14 +248,14 @@ const map = new Map({
         minZoom: 4,
         maxZoom: 42,
         enableRotation: false,
-        constrainResolution: true,
-        smoothResolutionConstraint: true,
+        constrainResolution: false,
+        smoothResolutionConstraint: false,
     }),
     layers: [polygons_layer, ranks_layer, branches_layer, labels_layer],
     interactions: defaults().extend([
         new MouseWheelZoom({
             onFocusOnly: false,
-            constrainResolution: true,
+            constrainResolution: false,
             maxDelta: 1,
             duration: 300,
             timeout: 100,
@@ -276,7 +276,6 @@ async function refresh_labels(map) {
 async function on_move_end(ev) {
     const map = ev.map;
     refresh_labels(map);
-    console.log(theme);
 }
 
 map.on("moveend", on_move_end);
