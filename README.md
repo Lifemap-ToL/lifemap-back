@@ -1,8 +1,3 @@
-# TODO
-
--   add lmdata parquet export + timestamp for pylifemap
--   vector tiles
-
 # Notes
 
 -   If not deploying on Ubuntu 22.04, the binary R arrow package installation must be modified in Ansible scripts.
@@ -34,7 +29,7 @@ Another element deployed to the backend is the `builder`, a set of Python and sh
 
 The backend should be deployable on any recent debian-based distribution by following these steps:
 
-1. Edit the file `inventory.yml`. Change the values of `backend_ip`, `frontend_ip`, `backend_hostname`, `frontend_hostname` and `postgresql_password`.
+1. Edit the file `inventory.yml`. Change the values of `backend_ip`, `frontend_ip`, `backend_hostname`, `frontend_hostname`, `postgresql_password` and `solr_password`.
 
 2. Install the base system by running:
 
@@ -81,5 +76,8 @@ To create or update the data needed to run Lifemap, ssh to the builder and run:
 ```sh
 cd ~/builder/
 ./update_lifemap.sh
-./prerender_tiles.sh
+# Optional: prerender mod_tile tiles
+./prerender_mod_tiles.sh
+# Optional: seed bbox vector tiles
+./prerender_bbox.sh
 ```
