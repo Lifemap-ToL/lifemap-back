@@ -4,47 +4,54 @@ import Map from "ol/Map.js";
 import VectorTileLayer from "ol/layer/VectorTile.js";
 import VectorTileSource from "ol/source/VectorTile.js";
 import View from "ol/View.js";
-import { Fill, Stroke, Style, Text } from "ol/style.js";
-import { Vector, TileDebug } from "ol/source.js";
+import { Fill, Stroke, Style, Text, Circle } from "ol/style.js";
+import { Vector } from "ol/source.js";
 import VectorLayer from "ol/layer/Vector.js";
 import { fromLonLat, toLonLat } from "ol/proj";
 import Feature from "ol/Feature.js";
 import Point from "ol/geom/Point.js";
-import { getBottomLeft, getTopRight } from "ol/extent.js";
+import { boundingExtent, getBottomLeft, getTopRight } from "ol/extent.js";
+import { MouseWheelZoom, defaults } from "ol/interaction.js";
 
-const API_URL = "https://lifemap-back.dev.lhst.eu/solr";
-const TEXT_COLOR = "rgba(255, 255, 255, 1)";
-const TEXT_STROKE_COLOR = "rgba(0, 0, 0, 1)";
+const SOLR_API_URL = "https://lifemap-back.dev.lhst.eu/solr";
 
-const label_style_function = (feature) => {
-    const label_style = new Style({
-        // image: new Circle({
-        //     radius: 4,
-        //     fill: new Fill({ color: "rgba(255, 255, 255, 1)" }),
-        //     stroke: new Stroke({
-        //         width: 1,
-        //         color: "rgba(0, 0, 0, 1)",
-        //     }),
-        //     declutterMode: "none",
-        //     zIndex: 0,
-        // }),
-        text: create_taxon_text(
-            feature.get("sci_name"),
-            feature.get("label_font_size"),
-            feature.get(selectedLanguage == "fr" ? "common_name_fr" : "common_name_en")
-        ),
-    });
+// --- THEMES DEFINITION ---
 
-    return label_style;
+const DARK_THEME = {
+    background_color: "#000",
+    label_text_color: "rgba(255, 255, 255, 1)",
+    label_stroke_color: "rgba(0, 0, 0, 1)",
+    circle_fill_color: "rgba(225, 87, 89, 1)",
+    circle_stroke_color: "#000",
+    archae_fill_color: "rgba(170, 255, 238, 0.12)",
+    eukaryotes_fill_color: "rgba(101, 153, 255, 0.15)",
+    bacteria_fill_color: "rgba(255, 128, 128, 0.1)",
+    archae_rank_color: "#aaffee48",
+    eukaryotes_rank_color: "#6599ff55",
+    bacteria_rank_color: "#ff808043",
+    branches_stroke_color: "#cacaca",
+    branches_width: 0.8,
 };
 
-const labels_source = new Vector();
-const labels_layer = new VectorLayer({
-    source: labels_source,
-    style: label_style_function,
-    declutter: true,
-    zIndex: 5,
-});
+const LIGHT_THEME = {
+    background_color: "#FFF",
+    label_text_color: "rgba(0, 0, 0, 1)",
+    label_stroke_color: "rgba(255, 255, 255, 1)",
+    circle_fill_color: "rgba(225, 87, 89, 1)",
+    circle_stroke_color: "#FFF",
+    archae_fill_color: "rgba(170, 235, 208, 0.32)",
+    eukaryotes_fill_color: "rgba(101, 153, 255, 0.35)",
+    bacteria_fill_color: "rgba(255, 128, 128, 0.3)",
+    archae_rank_color: "#aaddeef0",
+    eukaryotes_rank_color: "#6599ffe0",
+    bacteria_rank_color: "#ff8080e0",
+    branches_stroke_color: "#555",
+    branches_width: 0.8,
+};
+
+let theme = DARK_THEME;
+
+// --- LABELS FUNCTIONS ---
 
 function create_taxon_text(taxonName, taxonNameLabelFontSize, taxonCommonName) {
     const taxonNameLabelFont = `${taxonNameLabelFontSize}px Segoe UI, Helvetica, sans-serif`;
@@ -58,8 +65,8 @@ function create_taxon_text(taxonName, taxonNameLabelFontSize, taxonCommonName) {
     const text = [...nameText, ...commonNameText];
 
     const text_style = new Text({
-        fill: new Fill({ color: TEXT_COLOR }),
-        stroke: new Stroke({ width: 2, color: TEXT_STROKE_COLOR }),
+        fill: new Fill({ color: theme["label_text_color"] }),
+        stroke: new Stroke({ width: 2, color: theme["label_stroke_color"] }),
         text: text,
         offsetY: 10,
         textBaseline: "top",
@@ -69,9 +76,7 @@ function create_taxon_text(taxonName, taxonNameLabelFontSize, taxonCommonName) {
 }
 
 function to_taxon(doc, zoom) {
-    console.log(selectedLanguage);
-    const common_name_field =
-        selectedLanguage == "fr" ? "common_name_fr" : "common_name_en";
+    const common_name_field = "common_name_" + selectedLanguage;
     let taxon = {};
     taxon["sci_name"] = doc["sci_name"][0];
     taxon[common_name_field] = doc[common_name_field]
@@ -85,7 +90,7 @@ function to_taxon(doc, zoom) {
 
 function list_for_extent(zoom, extent) {
     zoom = Math.round(zoom);
-    const url = `${API_URL}/taxo/select?q=*:*&fq=zoom:[0 TO ${zoom}]&fq=lat:[${extent[1]} TO ${extent[3]}]&fq=lon:[${extent[0]} TO ${extent[2]}]&wt=json&rows=1000`;
+    const url = `${SOLR_API_URL}/taxo/select?q=*:*&fq=zoom:[0 TO ${zoom}]&fq=lat:[${extent[1]} TO ${extent[3]}]&fq=lon:[${extent[0]} TO ${extent[2]}]&wt=json&rows=1000`;
     const list_taxa = () =>
         fetch(url)
             .then((response) => response.json())
@@ -97,6 +102,166 @@ function list_for_extent(zoom, extent) {
     return list_taxa();
 }
 
+// --- STYLES ---
+
+function labels_style() {
+    return (feature) => {
+        return new Style({
+            image: new Circle({
+                radius: 4,
+                fill: new Fill({ color: theme["circle_fill_color"] }),
+                stroke: new Stroke({
+                    width: 1,
+                    color: theme["circle_stroke_color"],
+                }),
+                declutterMode: "none",
+                zIndex: 0,
+            }),
+            text: create_taxon_text(
+                feature.get("sci_name"),
+                feature.get("label_font_size"),
+                feature.get(
+                    selectedLanguage == "fr" ? "common_name_fr" : "common_name_en"
+                )
+            ),
+        });
+    };
+}
+
+function polygons_style() {
+    return function (feature) {
+        const prop = feature.getProperties();
+        const ref = prop.ref;
+        const fill_color =
+            ref == 1
+                ? theme["archae_fill_color"]
+                : ref == 2
+                ? theme["eukaryotes_fill_color"]
+                : theme["bacteria_fill_color"];
+        return new Style({
+            fill: new Fill({ color: fill_color }),
+            zIndex: 1,
+        });
+    };
+}
+
+function branches_style() {
+    return new Style({
+        stroke: new Stroke({
+            color: theme["branches_stroke_color"],
+            width: theme["branches_width"],
+        }),
+        zIndex: 6,
+    });
+}
+
+function ranks_style() {
+    return function (feature) {
+        const prop = feature.getProperties();
+        const ref = prop.ref;
+        const convex = prop.convex;
+        const label =
+            "            " + prop[`rank_${selectedLanguage}`] + "              ";
+        const text_color =
+            ref == 1
+                ? theme["archae_rank_color"]
+                : ref == 2
+                ? theme["eukaryotes_rank_color"]
+                : theme["bacteria_rank_color"];
+        let style = new Style({
+            text: new Text({
+                font: 'bold 11px "Open Sans", "Roboto", "Arial Unicode MS", "Arial", "sans-serif"',
+                placement: "line",
+                overflow: true,
+                repeat: 2000,
+                padding: [0, 2000, 0, 2000],
+                textBaseline: convex < 0 ? "top" : "bottom",
+                offsetY: convex < 0 ? -15 : 15,
+                fill: new Fill({
+                    color: text_color,
+                }),
+                zIndex: 5,
+                text: label,
+                declutterMode: "declutter",
+            }),
+        });
+        return style;
+    };
+}
+
+// --- LAYERS ---
+
+const labels_source = new Vector();
+const labels_layer = new VectorLayer({
+    source: labels_source,
+    style: labels_style(),
+    declutter: true,
+    zIndex: 5,
+});
+
+const polygons_layer = new VectorTileLayer({
+    name: "polygons",
+    background: theme["background_color"],
+    source: new VectorTileSource({
+        maxZoom: 42,
+        format: new MVT(),
+        url: "https://lifemap-back.dev.lhst.eu/vector_tiles/xyz/polygons/{z}/{x}/{y}.pbf",
+    }),
+    style: polygons_style(),
+    declutter: false,
+    renderMode: "vector",
+});
+
+const branches_layer = new VectorTileLayer({
+    name: "branches",
+    source: new VectorTileSource({
+        maxZoom: 42,
+        format: new MVT(),
+        url: "https://lifemap-back.dev.lhst.eu/vector_tiles/xyz/branches/{z}/{x}/{y}.pbf",
+    }),
+    style: branches_style(),
+    declutter: false,
+    renderMode: "vector",
+});
+
+const ranks_layer = new VectorTileLayer({
+    name: "ranks",
+    source: new VectorTileSource({
+        maxZoom: 42,
+        format: new MVT(),
+        url: "https://lifemap-back.dev.lhst.eu/vector_tiles/xyz/ranks/{z}/{x}/{y}.pbf",
+    }),
+    style: ranks_style(),
+    declutter: true,
+    renderMode: "vector",
+});
+
+// --- MAP ---
+
+const map = new Map({
+    target: "map",
+    view: new View({
+        center: fromLonLat([0, -4.226497]),
+        extent: boundingExtent([fromLonLat([-70, -60]), fromLonLat([70, 50])]),
+        zoom: 5,
+        minZoom: 4,
+        maxZoom: 42,
+        enableRotation: false,
+        constrainResolution: true,
+        smoothResolutionConstraint: true,
+    }),
+    layers: [polygons_layer, ranks_layer, branches_layer, labels_layer],
+    interactions: defaults().extend([
+        new MouseWheelZoom({
+            onFocusOnly: false,
+            constrainResolution: true,
+            maxDelta: 1,
+            duration: 300,
+            timeout: 100,
+        }),
+    ]),
+});
+
 async function refresh_labels(map) {
     let extent = map.getView().calculateExtent();
     extent = [...toLonLat(getBottomLeft(extent)), ...toLonLat(getTopRight(extent))];
@@ -104,178 +269,14 @@ async function refresh_labels(map) {
     let labels = await list_for_extent(zoom + 3, extent);
     labels_source.clear();
     labels_source.addFeatures(labels);
-    map.render();
+    map.renderSync();
 }
 
 async function on_move_end(ev) {
     const map = ev.map;
     refresh_labels(map);
+    console.log(theme);
 }
-
-const rankStyle = new Style({
-    text: new Text({
-        font: 'bold 11px "Open Sans", "Arial Unicode MS", "sans-serif"',
-        placement: "line",
-        fill: new Fill({
-            color: "red",
-        }),
-    }),
-});
-
-const cladeStyle = new Style({
-    text: new Text({
-        font: "23px Calibri,sans-serif",
-        fill: new Fill({
-            color: "blue",
-        }),
-        stroke: new Stroke({
-            color: "#fff",
-            width: 4,
-        }),
-    }),
-});
-const leaveStyle = new Style({
-    text: new Text({
-        font: "10px Calibri,sans-serif",
-        fill: new Fill({
-            color: "yellow",
-        }),
-    }),
-});
-const style = [rankStyle, cladeStyle, leaveStyle];
-
-const archae_style = new Style({
-    fill: new Fill({ color: "rgba(170, 255, 238, 0.12)" }),
-});
-const eukaryotes_style = new Style({
-    fill: new Fill({ color: "rgba(101, 153, 255, 0.15)" }),
-});
-const bacteria_style = new Style({
-    fill: new Fill({ color: "rgba(255, 128, 128, 0.1)" }),
-});
-
-const polygon_layers = new VectorTileLayer({
-    source: new VectorTileSource({
-        maxZoom: 42,
-        format: new MVT(),
-        url: "https://lifemap-back.dev.lhst.eu/vector_tiles/xyz/poly/{z}/{x}/{y}.pbf",
-    }),
-    //opacity: 0.3,
-    style: function (feature) {
-        const ref = feature.getProperties().ref;
-        if (ref == 2) {
-            return eukaryotes_style;
-        }
-        if (ref == 1) {
-            return archae_style;
-        }
-        if (ref == 3) {
-            return bacteria_style;
-        }
-        return null;
-    },
-});
-
-const lines_layer = new VectorTileLayer({
-    source: new VectorTileSource({
-        maxZoom: 42,
-        format: new MVT(),
-        url: "https://lifemap-back.dev.lhst.eu/vector_tiles/xyz/lines/{z}/{x}/{y}.pbf",
-    }),
-    style: new Style({ stroke: new Stroke({ color: "#cacaca", whidth: 0.8 }) }),
-});
-
-const rank_lines_layer = new VectorTileLayer({
-    source: new VectorTileSource({
-        maxZoom: 42,
-        format: new MVT(),
-        url: "https://lifemap-back.dev.lhst.eu/vector_tiles/xyz/ranks/{z}/{x}/{y}.pbf",
-    }),
-    style: new Style({
-        stroke: new Stroke({
-            color: "red",
-            width: 1,
-        }),
-    }),
-});
-
-const rank_text_layer = new VectorTileLayer({
-    declutter: true,
-    source: new VectorTileSource({
-        maxZoom: 42,
-        format: new MVT(),
-        url: "https://lifemap-back.dev.lhst.eu/vector_tiles/xyz/ranks/{z}/{x}/{y}.pbf",
-    }),
-    style: function (feature) {
-        rankStyle.getText().setText(feature.get("rank_en"));
-        // .setText([
-        //   ` ${feature.get('rank')}`,
-        //   '',
-        //   '\n',
-        //   '',
-        // ]);
-        // style.getText().setText(feature.get('name'));
-
-        return style;
-    },
-});
-
-const leaves_text_layer = new VectorTileLayer({
-    declutter: true,
-    source: new VectorTileSource({
-        maxZoom: 42,
-        format: new MVT(),
-        url: "https://lifemap-back.dev.lhst.eu/vector_tiles/xyz/leaves/{z}/{x}/{y}.pbf",
-    }),
-    style: function (feature) {
-        leaveStyle.getText().setText([` ${feature.get("sci_name")}`, "", "\n", ""]);
-        return style;
-    },
-});
-
-const clade_text_layer = new VectorTileLayer({
-    declutter: false,
-    source: new VectorTileSource({
-        maxZoom: 42,
-        format: new MVT(),
-        url: "https://lifemap-back.dev.lhst.eu/vector_tiles/xyz/clade/{z}/{x}/{y}.pbf",
-    }),
-    style: function (feature) {
-        cladeStyle
-            .getText()
-            .setText([
-                ` ${feature.get("sci_name")}`,
-                `${feature.get("sqrzoom") / 5}px Calibri,sans-serif`,
-                `\n`,
-                "",
-                ` ${feature.get("common_name_en")}`,
-                "",
-            ]);
-        return style;
-    },
-});
-
-const map = new Map({
-    target: "map",
-    view: new View({
-        center: fromLonLat([0, -4.226497]),
-        zoom: 5,
-        minZoom: 4,
-        maxZoom: 42,
-        enableRotation: false,
-        constrainResolution: true,
-        smoothResolutionConstraint: false,
-    }),
-    layers: [
-        polygon_layers,
-        lines_layer,
-        rank_lines_layer,
-        rank_text_layer,
-        //leaves_text_layer,
-        //clade_text_layer,
-        labels_layer,
-    ],
-});
 
 map.on("moveend", on_move_end);
 
@@ -288,4 +289,39 @@ languageSelect.addEventListener("change", () => {
     selectedLanguage = languageSelect.value;
     localStorage.setItem("selectedLanguage", selectedLanguage);
     refresh_labels(map);
+    // Refresh rank names
+    map.getLayers().item(1).getSource().refresh();
+});
+
+// theme selection
+const themeSelect = document.getElementById("theme");
+let selectedTheme = localStorage.getItem("selectedTheme") || "dark";
+themeSelect.value = selectedTheme;
+// Listen for changes to the theme selection
+themeSelect.addEventListener("change", () => {
+    selectedTheme = themeSelect.value;
+    localStorage.setItem("selectedtheme", selectedTheme);
+    if (selectedTheme == "dark") {
+        theme = DARK_THEME;
+    }
+    if (selectedTheme == "light") {
+        theme = LIGHT_THEME;
+    }
+    // Refresh layers
+    map.getLayers().forEach((l) => {
+        if (l == polygons_layer) {
+            l.setBackground(theme["background_color"]);
+            l.setStyle(polygons_style());
+        }
+        if (l == branches_layer) {
+            l.setStyle(branches_style());
+        }
+        if (l == ranks_layer) {
+            l.setStyle(ranks_style());
+        }
+        if (l == labels_layer) {
+            l.setStyle(labels_style());
+        }
+    });
+    map.render();
 });
