@@ -63,9 +63,31 @@
             mode: "0755"
             owner: "www-data"
 
-
       - name: Build and launch containers
         ansible.builtin.command:
             chdir: "{{ docker_dir }}"
             cmd: docker compose -f docker-compose.yml up -d --build
         changed_when: true
+
+      - name: Wait for Solr to be up
+        uri:
+            url: "https://{{ backend_hostname  }}/solr/"
+            status_code: 200
+            validate_certs: False
+        register: solr_main_page
+        until: solr_main_page.status == 200
+        retries: 20
+        delay: 10
+
+      - name: Change solr password
+        ansible.builtin.uri:
+            url: "https://{{ backend_hostname  }}/solr/admin/authentication"
+            method: POST
+            user: "solr"
+            password: "SolrRocks"
+            validate_certs: False
+            force_basic_auth: True
+            headers:
+                Content-Type: "application/json"
+            body_format: json
+            body: '{"set-user": {"solr": "{{ solr_password }}"} }'

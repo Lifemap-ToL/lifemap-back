@@ -17,6 +17,7 @@ lifemap:
             postgresql_db: "tree"
             postgresql_user: "lm"
             postgresql_password: "CHANGE_ME"
+            solr_password: "CHANGE_ME"
         lifemap-front:
             ansible_user: ubuntu
             ansible_host: "{{ frontend_ip }}"
