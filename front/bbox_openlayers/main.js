@@ -160,6 +160,7 @@ function ranks_style() {
         const prop = feature.getProperties();
         const ref = prop.ref;
         const convex = prop.convex;
+        // TODO: fix this ugly hack to avoid rank repeat
         const label =
             "            " + prop[`rank_${selectedLanguage}`] + "              ";
         const text_color =
