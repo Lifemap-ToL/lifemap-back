@@ -192,11 +192,11 @@ def get_polyg_record(node, ids, groupnb):
     )
 
     # we add a way on which we will write the rank
-    cooLine = "LINESTRING(%.20f %.20f" % (polyg[0][35], polyg[1][35])
-    for i in range(36, 45):
+    cooLine = "LINESTRING(%.20f %.20f" % (polyg[0][39], polyg[1][39])
+    for i in range(40, 42):
         cooLine += ",%.20f %.20f" % (polyg[0][i], polyg[1][i])
     cooLine += ")"
-    start, mid, end = 36, 40, 44
+    start, mid, end = 39, 40, 41
     if polyg[0][start] > polyg[0][end]:
         start, end = end, start
     x1, y1 = polyg[0][start], polyg[1][start]
@@ -286,11 +286,6 @@ def traverse_tree(
     if groupnb == "1":
         logger.info("Archaeal tree...")
         t = tree["2157"].copy()
-        # t.write(
-        #     outfile=BUILD_DIRECTORY / "ARCHAEA",
-        #     features=["name", "taxid"],
-        #     format_root_node=True,
-        # )
         t.x = 6.0
         t.y = 9.660254 - 10.0
         t.alpha = 30.0
@@ -298,11 +293,6 @@ def traverse_tree(
     if groupnb == "2":
         t = tree["2759"].copy()
         logger.info("Eukaryotic tree loaded")
-        # t.write(
-        #     outfile=BUILD_DIRECTORY / "EUKARYOTES",
-        #     features=["name", "taxid"],
-        #     format_root_node=True,
-        # )
         t.x = -6.0
         t.y = 9.660254 - 10.0
         t.alpha = 150.0
@@ -310,11 +300,6 @@ def traverse_tree(
     if groupnb == "3":
         t = tree["2"].copy()
         logger.info("Bacterial tree loaded")
-        # t.write(
-        #     outfile=BUILD_DIRECTORY / "BACTERIA",
-        #     features=["name", "taxid"],
-        #     format_root_node=True,
-        # )
         t.x = 0.0
         t.y = -11.0
         t.alpha = 270.0
