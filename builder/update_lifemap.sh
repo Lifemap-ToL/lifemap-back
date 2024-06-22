@@ -1,6 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
+
+source ~/.env
+
+echo $SOLR_PASSWORD
 
 BUILD_DIRECTORY=~/builder_results
 SOLR_CONTAINER=lifemap-solr
@@ -21,20 +25,22 @@ cp $BUILD_DIRECTORY/metadata.json $WWW_DIRECTORY/
 # Update Solr
 echo "- UPDATING SOLR"
 echo "-- deleting taxo collection content"
-docker exec -t $SOLR_CONTAINER /opt/solr/bin/solr post -c taxo -mode args -type application/xml '<delete><query>*:*</query></delete>'
-docker exec -t $SOLR_CONTAINER /opt/solr/bin/solr post -c addi -mode args -type application/xml '<delete><query>*:*</query></delete>'
+echo "Deleting taxo..."
+curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/taxo/update -H 'Content-type:application/xml' -d '<delete><query>*:*</query></delete>' -o /dev/null 
+echo "Deleting addi..."
+curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/addi/update -H 'Content-type:application/xml' -d '<delete><query>*:*</query></delete>' -o /dev/null 
 echo "-- Uploading tree features"
 for num in $(seq 1 3); do
-    docker cp $BUILD_DIRECTORY/TreeFeatures${num}.json $SOLR_CONTAINER:/opt/
-    docker exec -t $SOLR_CONTAINER /opt/solr/bin/solr post -c taxo /opt/TreeFeatures${num}.json
-    echo "== TreeFeatures${num} uploaded =="
+    echo "Uploading TreeFeatures${num}..."
+    curl --progress-bar --user solr:CHANGE_ME http://localhost:8983/solr/taxo/update -H 'Content-type:application/json' -T $BUILD_DIRECTORY/TreeFeatures${num}.json -X POST -o /dev/null | cat
 done
 echo "-- Uploading additional informations"
 for num in $(seq 1 3); do
-    docker cp $BUILD_DIRECTORY/ADDITIONAL.${num}.json $SOLR_CONTAINER:/opt/
-    docker exec -t $SOLR_CONTAINER /opt/solr/bin/solr post -c addi /opt/ADDITIONAL.${num}.json
-    echo "== ADDITIONAL.${num} uploaded =="
+    echo "Uploading ADDITIONAL.${num}..."
+    curl --progress-bar --user solr:CHANGE_ME http://localhost:8983/solr/addi/update -H 'Content-type:application/json' -T $BUILD_DIRECTORY/ADDITIONAL.${num}.json -X POST -o /dev/null | cat
 done
-
+echo "-- Committing changes"
+curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/taxo/update?commit=true -o /dev/null 
+curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/addi/update?commit=true -o /dev/null 
 echo "Builder ended at `date`"
 

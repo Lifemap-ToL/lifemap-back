@@ -10,6 +10,13 @@
             mode: "0600"
             force: true
 
+      - name: Copy env to home directory
+        ansible.builtin.template:
+            src: templates/env.j2
+            dest: "/home/{{ ansible_user }}/.env"
+            mode: "0600"
+            force: true
+
       - name: Check if docker-compose.yml already exists
         ansible.builtin.stat:
             path: "{{ docker_dir }}/docker-compose.yml"
@@ -77,7 +84,7 @@
         register: solr_main_page
         until: solr_main_page.status == 200
         retries: 20
-        delay: 10
+        delay: 5
 
       - name: Change solr password
         ansible.builtin.uri:
