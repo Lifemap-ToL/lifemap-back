@@ -27,12 +27,8 @@ services:
         environment:
             - SOLR_AUTH_TYPE=basic
             - SOLR_AUTHENTICATION_OPTS=-Dbasicauth=solr:${SOLR_PASSWD}
-        # We use separate volumes for taxo and addi instead of one volume
-        # for /var/solr/data/ in order for /var/solr/security.json to
-        # be recreated each time the container is built
         volumes:
-            - solr_taxo_data:/var/solr/data/taxo
-            - solr_addi_data:/var/solr/data/addi
+            - solr_data:/var/solr/data
         ports:
             - 8983:8983
     mod_tile:
@@ -56,6 +52,5 @@ services:
             - ./bbox/bbox.toml:/var/www/bbox.toml:ro
 
 volumes:
-    solr_taxo_data:
-    solr_addi_data:
+    solr_data:
     postgis_data:
