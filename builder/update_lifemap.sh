@@ -40,7 +40,7 @@ for num in $(seq 1 3); do
     curl --progress-bar --user solr:CHANGE_ME http://localhost:8983/solr/addi/update -H 'Content-type:application/json' -T $BUILD_DIRECTORY/ADDITIONAL.${num}.json -X POST -o /dev/null | cat
 done
 echo "-- Committing changes"
-curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/taxo/update?commit=true -o /dev/null 
-curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/addi/update?commit=true -o /dev/null 
+curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/taxo/update?commit=true -o /dev/null
+curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/addi/update?commit=true -o /dev/null
 echo "Builder ended at `date`"
 
