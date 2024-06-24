@@ -86,6 +86,17 @@
         retries: 20
         delay: 5
 
+      - name: Check solr password
+        ansible.builtin.uri:
+            url: "https://{{ backend_hostname  }}/solr/admin/authentication"
+            method: POST
+            user: "solr"
+            password: "SolrRocks"
+            validate_certs: False
+            force_basic_auth: True
+            status_code: [200, 401]
+        register: login_result
+
       - name: Change solr password
         ansible.builtin.uri:
             url: "https://{{ backend_hostname  }}/solr/admin/authentication"
@@ -98,3 +109,4 @@
                 Content-Type: "application/json"
             body_format: json
             body: '{"set-user": {"solr": "{{ solr_password }}"} }'
+        when: login_result.status == 200
