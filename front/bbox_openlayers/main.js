@@ -13,7 +13,9 @@ import Point from "ol/geom/Point.js";
 import { boundingExtent, getBottomLeft, getTopRight } from "ol/extent.js";
 import { MouseWheelZoom, defaults } from "ol/interaction.js";
 
-const SOLR_API_URL = "https://lifemap-back.dev.lhst.eu/solr";
+const BACKEND_HOSTNAME = "https://lifemap-back.univ-lyon1.fr";
+
+const SOLR_API_URL = BACKEND_HOSTNAME + "/solr";
 
 // --- THEMES DEFINITION ---
 
@@ -206,7 +208,7 @@ const polygons_layer = new VectorTileLayer({
     source: new VectorTileSource({
         maxZoom: 42,
         format: new MVT(),
-        url: "https://lifemap-back.dev.lhst.eu/vector_tiles/xyz/polygons/{z}/{x}/{y}.pbf",
+        url: BACKEND_HOSTNAME + "/vector_tiles/xyz/polygons/{z}/{x}/{y}.pbf",
     }),
     style: polygons_style(),
     declutter: false,
@@ -218,7 +220,7 @@ const branches_layer = new VectorTileLayer({
     source: new VectorTileSource({
         maxZoom: 42,
         format: new MVT(),
-        url: "https://lifemap-back.dev.lhst.eu/vector_tiles/xyz/branches/{z}/{x}/{y}.pbf",
+        url: BACKEND_HOSTNAME + "/vector_tiles/xyz/branches/{z}/{x}/{y}.pbf",
     }),
     style: branches_style(),
     declutter: true,
@@ -230,7 +232,7 @@ const ranks_layer = new VectorTileLayer({
     source: new VectorTileSource({
         maxZoom: 42,
         format: new MVT(),
-        url: "https://lifemap-back.dev.lhst.eu/vector_tiles/xyz/ranks/{z}/{x}/{y}.pbf",
+        url: BACKEND_HOSTNAME + "/vector_tiles/xyz/ranks/{z}/{x}/{y}.pbf",
     }),
     style: ranks_style(),
     declutter: true,
