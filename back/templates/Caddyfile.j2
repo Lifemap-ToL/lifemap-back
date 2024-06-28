@@ -15,20 +15,53 @@
         Access-Control-Allow-Headers *
     }
 
-    redir /solr /solr/
 
+    # --- SOLR ---
+
+    redir /solr /solr/
     reverse_proxy /solr/* localhost:8983
+
+    # --- MOD_TILE ---
+
     reverse_proxy /osm_tiles/* localhost:8888
     reverse_proxy /nolabels/* localhost:8888
     reverse_proxy /onlylabels/* localhost:8888
-    
+
+    # --- BBOX ---
+
     handle_path /vector_tiles/* {
         reverse_proxy localhost:8080
     }
+
+    # --- METADATA ---
 
     handle_path /static/* {
         root {{ static_root_dir }}
         file_server
     }
+
+    # --- TEST FRONT ---
+
+    handle /data/* {
+        redir https://{{ backend_hostname }}/static/{uri}
+    }
+
+    redir /bbox /bbox/
+
+    handle_path /bbox/* {
+        root {{ front_root_dir }}/bbox/dist
+        file_server
+    }
+
+    redir /ncbi /ncbi/
+
+    handle_path /ncbi/* {
+        root {{ front_root_dir }}/ncbi
+        file_server
+    }
+
+    root * {{ front_root_dir }}
+    file_server
+
 
 }

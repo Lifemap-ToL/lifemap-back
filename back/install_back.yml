@@ -23,28 +23,19 @@
         register: docker_compose
 
       - name: Stop containers if needed
+        become: true
         ansible.builtin.command:
             chdir: "{{ docker_dir }}"
             cmd: docker compose -f docker-compose.yml down
         changed_when: true
         when: docker_compose.stat.exists
 
-      - name: Copy docker files
-        ansible.builtin.copy:
+      - name: Rsync docker files
+        ansible.posix.synchronize:
             src: "docker/"
             dest: "{{ docker_dir }}"
-            mode: preserve
-            force: true
-
-      - name: Rsync fonts
-        ansible.posix.synchronize:
-            src: "fonts"
-            dest: "{{ docker_dir }}/mod_tile_deepzoom/"
-
-      - name: Rsync style
-        ansible.posix.synchronize:
-            src: "style"
-            dest: "{{ docker_dir }}/mod_tile_deepzoom/"
+            rsync_opts:
+                - "--exclude=*.j2"
 
       - name: Copy datasource-settings to style directory
         become: true
@@ -71,6 +62,7 @@
             owner: "www-data"
 
       - name: Build and launch containers
+        become: true
         ansible.builtin.command:
             chdir: "{{ docker_dir }}"
             cmd: docker compose -f docker-compose.yml up -d --build
@@ -95,6 +87,10 @@
             validate_certs: False
             force_basic_auth: True
             status_code: [200, 401]
+            headers:
+                Content-Type: "application/json"
+            body_format: json
+            body: "{}"
         register: login_result
 
       - name: Change solr password

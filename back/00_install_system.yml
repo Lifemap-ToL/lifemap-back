@@ -1,24 +1,49 @@
 ---
 - name: Base server install
-  hosts: lifemap-front
+  hosts: lifemap-back
 
   tasks:
       - name: Run initial setup tasks
         ansible.builtin.import_tasks:
             file: ../common/install.yml
 
-      - name: Create Caddy sites.d directory
+      - name: Add Ubuntu Docker GPG apt Key
         become: true
-        ansible.builtin.file:
-            path: /etc/caddy/sites.d
-            state: directory
-            mode: "0755"
+        ansible.builtin.apt_key:
+            url: https://download.docker.com/linux/ubuntu/gpg
+            state: present
+        when: ansible_facts['distribution'] == "Ubuntu"
+
+      - name: Add Ubuntu Docker Repository
+        become: true
+        ansible.builtin.apt_repository:
+            repo: deb https://download.docker.com/linux/ubuntu noble stable
+            state: present
+        when: ansible_facts['distribution'] == "Ubuntu"
+
+      - name: Update apt and install docker-ce
+        become: true
+        ansible.builtin.apt:
+            name:
+                - docker-ce
+                - docker-ce-cli
+                - containerd.io
+                - docker-buildx-plugin
+                - docker-compose-plugin
+            update_cache: true
+
+      - name: Add user to docker group
+        become: true
+        ansible.builtin.user:
+            name: "{{ ansible_user }}"
+            append: true
+            groups: docker
 
       - name: Copy Caddy config
         become: true
         ansible.builtin.template:
             src: templates/Caddyfile.j2
-            dest: /etc/caddy/sites.d/lifemap_front
+            dest: /etc/caddy/Caddyfile
             mode: preserve
             force: true
 
@@ -34,6 +59,21 @@
             name: "{{ ansible_user }}"
             append: true
             groups: caddy
+
+      - name: Create /var/www/lifemap_back
+        become: true
+        ansible.builtin.file:
+            path: "{{ static_root_dir }}"
+            state: directory
+            mode: "0775"
+            owner: caddy
+            group: caddy
+
+      - name: Create ~/back
+        ansible.builtin.file:
+            path: "{{ docker_dir }}"
+            state: directory
+            mode: "0775"
 
       - name: Create /var/www/lifemap_front
         become: true

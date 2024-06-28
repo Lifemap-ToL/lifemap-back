@@ -1,6 +1,6 @@
 ---
-- name: Base lifemap-front install
-  hosts: lifemap-front
+- name: lifemap-back test frontends install
+  hosts: lifemap-back
 
   tasks:
       - name: Create /var/www/lifemap_front/ncbi
@@ -15,7 +15,7 @@
       - name: Rsync ncbi
         become: true
         ansible.posix.synchronize:
-            src: "HTTP-NCBI/"
+            src: "../front/HTTP-NCBI/"
             dest: "{{ front_root_dir }}/ncbi"
 
       - name: Copy server-address.js
@@ -38,7 +38,7 @@
       - name: Rsync bbox
         become: true
         ansible.posix.synchronize:
-            src: "bbox_openlayers/"
+            src: "../front/bbox_openlayers/"
             dest: "{{ front_root_dir }}/bbox"
             rsync_opts:
                 - "--exclude=build"

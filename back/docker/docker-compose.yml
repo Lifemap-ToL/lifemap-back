@@ -40,6 +40,8 @@ services:
             - 8888:80
         volumes:
             - $HOME/builder_results:/opt/build_results
+        depends_on:
+            - postgis
     bbox:
         container_name: lifemap-bbox
         image: sourcepole/bbox-server-qgis
@@ -50,6 +52,8 @@ services:
             - ./bbox/assets:/var/www/assets:ro
             - ./bbox/data:/opt/data
             - ./bbox/bbox.toml:/var/www/bbox.toml:ro
+        depends_on:
+            - postgis
 
 volumes:
     solr_data:
