@@ -19,6 +19,7 @@ services:
     solr:
         image: lifemap_solr
         container_name: lifemap-solr
+        restart: always
         build:
             context: ./solr
         env_file:
@@ -31,9 +32,10 @@ services:
             - solr_data:/var/solr/data
         ports:
             - 8983:8983
-    mod_tile:
+    mod_tile:                           
         image: lifemap_mod_tile
         container_name: lifemap-mod_tile
+        restart: always
         build:
             context: ./mod_tile_deepzoom
         ports:
