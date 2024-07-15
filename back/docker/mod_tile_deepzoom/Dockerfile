@@ -1,11 +1,11 @@
-FROM ubuntu:20.04 as base
+FROM ubuntu:20.04 AS base
 
 RUN apt-get update; \
     apt-get -y full-upgrade; \
     DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install -y git build-essential apache2 apache2-dev libmapnik-dev mapnik-utils psmisc;
 
 
-FROM base as compile
+FROM base AS compile
 
 WORKDIR /opt
 RUN git clone https://github.com/damiendevienne/mod_tile_deepzoom.git mod_tile
