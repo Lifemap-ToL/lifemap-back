@@ -68,6 +68,16 @@ cd ~/builder/
 ./prerender_bbox.sh
 ```
 
+## Endpoints
+
+-   Solr API is at `/solr/`
+-   JSON metadata file is at `/static/metadata.json`
+-   Vector tiles are at `/vector_tiles/`
+-   Bitmap mod_tile tiles are at `/osm_tiles/`, `/nolabels/` and `/only_labels/`
+-   Optional test vector frontend is at `/bbox/`
+-   Optional bitmap mod_tile frontend is at `/ncbi/`
+-   Data files for `pylifemap` and `lifemapR` are at `/static/data/` or `/data/`
+
 ## Notes
 
 -   If not deploying on Ubuntu 24.04, the binary R arrow package installation and docker apt repository must be modified in Ansible scripts.
