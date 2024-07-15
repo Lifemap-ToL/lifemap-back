@@ -50,7 +50,7 @@ def add_info(nbgroup: str):
 
     genomes = pl.read_parquet(GENOMES_DIRECTORY / "genomes.parquet")
     ages = pl.read_csv(TAXO_DIRECTORY / "timetreetimes.csv").with_columns(
-        pl.col("node").cast(pl.Utf8).alias("taxid")
+        pl.col("node").cast(pl.Utf8).alias("taxid"), pl.col("age").round(1)
     )
 
     addi = ascends
