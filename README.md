@@ -71,6 +71,8 @@ cd ~/builder/
 ## Endpoints
 
 -   Solr API is at `/solr/`
+    -   Solr english taxonomy autocompletion is at `/solr/taxo/suggesthandler/`
+    -   Solr french taxonomy autocompletion is at `/solr/taxo/suggesthandlerfr/`
 -   JSON metadata file is at `/static/metadata.json`
 -   Vector tiles are at `/vector_tiles/`
 -   Bitmap mod_tile tiles are at `/osm_tiles/`, `/nolabels/` and `/only_labels/`

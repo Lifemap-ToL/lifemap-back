@@ -158,6 +158,7 @@
   </requestHandler>
 
 
+  <!--
   <searchComponent name="spellcheck" class="solr.SpellCheckComponent">
 
     <str name="queryAnalyzerFieldType">text_general</str>
@@ -195,6 +196,9 @@
       <str>spellcheck</str>
     </arr>
   </requestHandler>
+-->
+
+  <!-- English autocompletion suggester -->
 
   <searchComponent name="suggest" class="solr.SuggestComponent">
     <lst name="suggester">
@@ -221,6 +225,32 @@
     </arr>
   </requestHandler>
 
+  <!-- French autocompletion suggester -->
+
+  <searchComponent name="suggestFr" class="solr.SuggestComponent">
+    <lst name="suggester">
+      <str name="name">mySuggesterFr</str>
+      <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
+      <str name="indexPath">suggester_infix_dir_fr</str>
+      <str name="dictionaryImpl">DocumentDictionaryFactory</str>
+      <str name="field">all-search-fr</str>
+      <str name="suggestAnalyzerFieldType">textSuggest</str>
+      <str name="buildOnStartup">true</str>
+      <str name="buildOnCommit">false</str>
+    </lst>
+  </searchComponent>
+
+
+  <requestHandler name="/suggesthandlerfr" class="solr.SearchHandler" startup="lazy" >
+    <lst name="defaults">
+      <str name="suggest">true</str>
+      <str name="suggest.count">15</str>
+      <str name="suggest.dictionary">mySuggesterFr</str>
+    </lst>
+    <arr name="components">
+      <str>suggestFr</str>
+    </arr>
+  </requestHandler>
 
 
   <searchComponent name="tvComponent" class="solr.TermVectorComponent"/>
