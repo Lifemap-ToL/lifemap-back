@@ -4,7 +4,7 @@ This repository allows to deploy a lifemap backend.
 
 ## Deployment with ansible
 
-To deploy backend and frontend, first [install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html), for example with [pipx](https://pipx.pypa.io/latest/installation/):
+You must first [install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html), for example with [pipx](https://pipx.pypa.io/latest/installation/):
 
 ```sh
 pipx install --include-deps ansible
@@ -23,7 +23,7 @@ Another element deployed to the backend is the `builder`, a set of Python and sh
 
 The backend should be deployable on any recent debian-based distribution by following these steps:
 
-1. Edit the file `inventory.yml`. Change the values of `backend_ip`, `frontend_ip`, `backend_hostname`, `frontend_hostname`, `postgresql_password` and `solr_password`.
+1. Edit the file `inventory.yml`. Change the values of `backend_hostname`, `ansible-user`, `postgresql_password` and `solr_password`.
 
 2. Install the base system by running:
 
@@ -45,7 +45,7 @@ ansible-playbook -i inventory.yml back/install_builder.yml
 
 ### Optional test frontends deployment
 
-This repository also contains two test frontends which are deployable on the backend server (it is also possible to deploy them on another machine). These are development frontends, the real one is in the [lifemap-front](https://github.com/Lifemap-ToL/lifemap-front) repository.
+This repository also contains two test frontends which are deployable on the backend server (it should also possible to deploy them on another machine). These are development frontends, the real one is in the [lifemap-front](https://github.com/Lifemap-ToL/lifemap-front) repository.
 
 To deploy these frontends:
 
