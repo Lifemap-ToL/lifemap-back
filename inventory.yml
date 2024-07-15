@@ -1,11 +1,7 @@
 ---
 lifemap:
     vars:
-        #lifemap_back_ip: 134.214.32.130
-        #backend_ip: "{{ lifemap_back_ip }}"
         backend_hostname: lifemap-back.univ-lyon1.fr
-        #frontend_ip: "{{ lifemap_back_ip }}"
-        #frontend_hostname: lifemap-front.dev.lhst.eu
     hosts:
         lifemap-back:
             ansible_host: "{{ backend_hostname }}"
