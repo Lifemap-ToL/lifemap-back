@@ -17,7 +17,6 @@
             { "name": "config-edit", "role": "admin" },
             { "name": "config-read", "role": "admin" },
             { "name": "metrics-read", "role": "admin" },
-            { "name": "health", "role": "admin" },
             { "name": "core-admin-read", "role": "admin" },
             { "name": "core-admin-edit", "role": "admin" },
             { "name": "collection-admin-read", "role": "admin" },
