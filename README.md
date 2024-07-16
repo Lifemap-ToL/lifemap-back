@@ -23,21 +23,23 @@ Another element deployed to the backend is the `builder`, a set of Python and sh
 
 The backend should be deployable on any recent debian-based distribution by following these steps:
 
-1. Edit the file `inventory.yml`. Change the values of `backend_hostname`, `ansible-user`, `postgresql_password` and `solr_password`.
+1. Copy the file `inventory_example.yml` to `inventory.yml`.
 
-2. Install the base system by running:
+2. Edit `inventory.yml` and change the values of `backend_hostname`, `ansible-user`, `postgresql_password` and `solr_password`.
+
+3. Install the base system by running:
 
 ```sh
 ansible-playbook -i inventory.yml back/00_install_system_back.yml
 ```
 
-3. Install the backend elements with:
+4. Install the backend elements with:
 
 ```sh
 ansible-playbook -i inventory.yml back/install_back.yml
 ```
 
-4. Install the builder with:
+5. Install the builder with:
 
 ```sh
 ansible-playbook -i inventory.yml back/install_builder.yml
@@ -45,7 +47,7 @@ ansible-playbook -i inventory.yml back/install_builder.yml
 
 ### Optional test frontends deployment
 
-This repository also contains two test frontends which are deployable on the backend server (it should also possible to deploy them on another machine). These are development frontends, the real one is in the [lifemap-front](https://github.com/Lifemap-ToL/lifemap-front) repository.
+This repository also contains two test frontends which are deployable on the backend server (it should also be possible to deploy them on another machine). These are development frontends, the real one is in the [lifemap-front](https://github.com/Lifemap-ToL/lifemap-front) repository.
 
 To deploy these frontends:
 

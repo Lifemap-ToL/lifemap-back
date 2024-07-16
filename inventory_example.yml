@@ -1,11 +1,11 @@
 ---
 lifemap:
     vars:
-        backend_hostname: lifemap-back.univ-lyon1.fr
+        backend_hostname: lifemap-back.example.com
     hosts:
         lifemap-back:
             ansible_host: "{{ backend_hostname }}"
-            ansible_user: pole-info
+            ansible_user: CHANGE_ME
             builder_dir: "/home/{{ ansible_user }}/builder"
             build_results_dir: "/home/{{ ansible_user }}/builder_results/"
             docker_dir: "/home/{{ ansible_user }}/back"
