@@ -18,10 +18,10 @@
             src: "../front/HTTP-NCBI/"
             dest: "{{ front_root_dir }}/ncbi"
 
-      - name: Copy server-address.js
+      - name: Copy server-address-ncbi.js to ncbi front
         become: true
         ansible.builtin.template:
-            src: templates/server-address.js.j2
+            src: templates/server-address-ncbi.js.j2
             dest: "{{ front_root_dir }}/ncbi/server-address.js"
             mode: preserve
             force: true
@@ -42,6 +42,14 @@
             dest: "{{ front_root_dir }}/bbox"
             rsync_opts:
                 - "--exclude=build"
+
+      - name: Copy server-address-bbox.js to bbox front
+        become: true
+        ansible.builtin.template:
+            src: templates/server-address-bbox.js.j2
+            dest: "{{ front_root_dir }}/bbox/server-address.js"
+            mode: preserve
+            force: true
 
       - name: Build bbox_openlayers
         ansible.builtin.shell:
