@@ -39,7 +39,7 @@
             append: true
             groups: docker
 
-      - name: Copy Caddy config
+      - name: Copy backend Caddy config
         become: true
         ansible.builtin.template:
             src: templates/Caddyfile.j2
