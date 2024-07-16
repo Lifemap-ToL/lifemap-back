@@ -60,6 +60,12 @@
         file_server
     }
 
+    # --- HEALTH ENDPOINT ---
+
+    handle /health {
+        respond "OK" 200
+    }
+
     root * {{ front_root_dir }}
     file_server
 
