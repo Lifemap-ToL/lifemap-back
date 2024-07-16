@@ -80,6 +80,12 @@ cd ~/builder/
 -   Optional bitmap mod_tile frontend is at `/ncbi/`
 -   Data files for `pylifemap` and `lifemapR` are at `/static/data/` or `/data/`
 
+### Health endpoints
+
+-   Global backend health endpoint is at `/health`
+-   Solr health endpointsare at `/solr/taxo/admin/ping` and `/solr/addi/admin/ping`
+-   Bbox health endpoint is at `/vector_tiles/health`
+
 ## Notes
 
 -   If not deploying on Ubuntu 24.04, the binary R arrow package installation and docker apt repository must be modified in Ansible scripts.
