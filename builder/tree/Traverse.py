@@ -238,7 +238,7 @@ def node2json(node) -> str:
     out = f"""{{
         "taxid": "{node.taxid}",
         "sci_name": "{sci_name}",
-        "sci_name_len": "{len(sci_name)}",
+        "suggest_weight": "{300 - len(sci_name)}",
         "common_name_en": "{common_name['en']}",
         "common_name_fr": "{common_name['fr']}",
         "authority": "{authority}",

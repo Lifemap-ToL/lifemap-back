@@ -469,6 +469,7 @@
   <field name="rank_en" type="text_general"/>
   <field name="rank_fr" type="text_general"/>
   <field name="sci_name" type="text_general"/>
+  <field name="suggest_weight" type="pint"/>
   <field name="synonym" type="text_general"/>
   <field name="taxid" type="plongs"/>
   <field name="zoom" type="plongs"/>

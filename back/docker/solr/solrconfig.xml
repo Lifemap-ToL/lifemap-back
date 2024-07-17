@@ -207,6 +207,7 @@
       <str name="indexPath">suggester_infix_dir</str>
       <str name="dictionaryImpl">DocumentDictionaryFactory</str>
       <str name="field">all-search</str>
+      <str name="weightField">suggest_weight</str>
       <str name="suggestAnalyzerFieldType">textSuggest</str>
       <str name="buildOnStartup">true</str>
       <str name="buildOnCommit">true</str>
@@ -234,6 +235,7 @@
       <str name="indexPath">suggester_infix_dir_fr</str>
       <str name="dictionaryImpl">DocumentDictionaryFactory</str>
       <str name="field">all-search-fr</str>
+      <str name="weightField">suggest_weight</str>      
       <str name="suggestAnalyzerFieldType">textSuggest</str>
       <str name="buildOnStartup">true</str>
       <str name="buildOnCommit">true</str>
