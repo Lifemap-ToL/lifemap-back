@@ -2,6 +2,7 @@
 lifemap:
     vars:
         backend_hostname: lifemap-back.example.com
+        ansible_python_interpreter: "/usr/bin/python3"
     hosts:
         lifemap-back:
             ansible_host: "{{ backend_hostname }}"
