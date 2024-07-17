@@ -4,8 +4,6 @@ set -e
 
 source ~/.env
 
-echo $SOLR_PASSWORD
-
 BUILD_DIRECTORY=~/builder_results
 SOLR_CONTAINER=lifemap-solr
 WWW_DIRECTORY=/var/www/lifemap_back
