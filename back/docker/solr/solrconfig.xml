@@ -209,7 +209,7 @@
       <str name="field">all-search</str>
       <str name="suggestAnalyzerFieldType">textSuggest</str>
       <str name="buildOnStartup">true</str>
-      <str name="buildOnCommit">false</str>
+      <str name="buildOnCommit">true</str>
     </lst>
   </searchComponent>
 
@@ -236,7 +236,7 @@
       <str name="field">all-search-fr</str>
       <str name="suggestAnalyzerFieldType">textSuggest</str>
       <str name="buildOnStartup">true</str>
-      <str name="buildOnCommit">false</str>
+      <str name="buildOnCommit">true</str>
     </lst>
   </searchComponent>
 
