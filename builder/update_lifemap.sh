@@ -32,12 +32,12 @@ curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/addi/update -H 'Content
 echo "-- Uploading tree features"
 for num in $(seq 1 3); do
     echo "Uploading TreeFeatures${num}..."
-    curl --progress-bar --user solr:CHANGE_ME http://localhost:8983/solr/taxo/update -H 'Content-type:application/json' -T $BUILD_DIRECTORY/TreeFeatures${num}.json -X POST -o /dev/null | cat
+    curl --progress-bar --user solr:$SOLR_PASSWD http://localhost:8983/solr/taxo/update -H 'Content-type:application/json' -T $BUILD_DIRECTORY/TreeFeatures${num}.json -X POST -o /dev/null | cat
 done
 echo "-- Uploading additional informations"
 for num in $(seq 1 3); do
     echo "Uploading ADDITIONAL.${num}..."
-    curl --progress-bar --user solr:CHANGE_ME http://localhost:8983/solr/addi/update -H 'Content-type:application/json' -T $BUILD_DIRECTORY/ADDITIONAL.${num}.json -X POST -o /dev/null | cat
+    curl --progress-bar --user solr:$SOLR_PASSWD http://localhost:8983/solr/addi/update -H 'Content-type:application/json' -T $BUILD_DIRECTORY/ADDITIONAL.${num}.json -X POST -o /dev/null | cat
 done
 echo "-- Committing changes"
 curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/taxo/update?commit=true -o /dev/null
