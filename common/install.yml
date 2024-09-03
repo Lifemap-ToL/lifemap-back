@@ -36,14 +36,6 @@
   community.general.timezone:
       name: Europe/Paris
 
-- name: Transfer 50unattended-upgrades
-  become: true
-  ansible.builtin.copy:
-      src: files/apt.conf.d/50unattended-upgrades
-      dest: /etc/apt/apt.conf.d/
-      force: true
-      mode: preserve
-
 - name: Transfer 20auto-upgrades
   become: true
   ansible.builtin.copy:
