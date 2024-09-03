@@ -1,7 +1,7 @@
 [project]
 name = "lifemap-builder"
 version = "0.1.0"
-description = "Add your description here"
+description = "Lifemap backend data builder"
 authors = [
     { name = "Damien de Vienne", email = "damien.de-vienne@univ-lyon1.fr" }
 ]
@@ -12,16 +12,13 @@ dependencies = [
     "six>=1.16.0",
     "python-dotenv>=1.0.1",
     "tqdm>=4.66.4",
-    "polars>=0.20.31",
+    "polars>=1.5.0",
     "requests>=2.32.3",
 ]
 readme = "README.md"
 requires-python = ">= 3.11"
 
-[tool.rye]
-managed = true
-virtual = true
+[tool.uv]
+package = false
 dev-dependencies = []
 
-[tool.rye.scripts]
-build = "python tree/Main.py --lang EN --simplify False"
