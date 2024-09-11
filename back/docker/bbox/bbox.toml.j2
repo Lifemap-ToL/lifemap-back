@@ -70,7 +70,9 @@ json = "/var/www/assets/CustomWebMercator_42.json"
 [[tileset]]
 name = "ranks"
 cache = "tilecache"
-tms = "CustomWebMercator"
+
+[[tileset.tms]]
+id = "CustomWebMercator"
 
 [tileset.postgis]
 datasource = "pg"
@@ -212,7 +214,9 @@ WHERE rankname=True and zoomview between !zoom!-4 and !zoom!-2 """
 [[tileset]]
 name = "polygons"
 cache = "tilecache"
-tms = "CustomWebMercator"
+
+[[tileset.tms]]
+id = "CustomWebMercator"
 
 [tileset.postgis]
 datasource = "pg"
@@ -232,14 +236,21 @@ fid_field = "id"
 minzoom = 0
 maxzoom = 42
 [[tileset.postgis.layer.query]]
-sql = """SELECT way,id,ref,z_order,zoomview,clade,cladecenter,taxid FROM polygons_prod WHERE zoomview between !zoom!-4 and !zoom!  ORDER BY nbdesc DESC """
+sql = """SELECT 
+way,id,ref,z_order,zoomview,clade,cladecenter,taxid 
+FROM polygons_prod 
+WHERE (zoomview between !zoom!-4 and !zoom!) or (ref=3 and zoomview between !zoom!-4 and !zoom!+1)
+ORDER BY nbdesc DESC 
+"""
 
 # --- BRANCHES ---
 
 [[tileset]]
 name = "branches"
 cache = "tilecache"
-tms = "CustomWebMercator"
+
+[[tileset.tms]]
+id = "CustomWebMercator"
 
 [tileset.postgis]
 datasource = "pg"
@@ -260,10 +271,11 @@ maxzoom = 42
 [[tileset.postgis.layer.query]]
 # The query must be passed to !zoom!+16 to display unclassified bacteria and environmental 
 # samples in bacteria
+# -> WHERE (zoomview < !zoom!+13) or (ref = 3 and zoomview < !zoom!+16)
 sql = """SELECT
 way,id,ref,z_order,branch,zoomview,nbdesc,taxid
 FROM branches_prod
-WHERE (zoomview < !zoom!+13) or (ref = 3 and zoomview < !zoom!+16)
+WHERE (zoomview < !zoom!+11)
 ORDER BY zoomview
 """
 
