@@ -55,10 +55,22 @@
         ansible.builtin.command:
             chdir: "{{ builder_dir }}"
             cmd: ~/.local/bin/uv sync
-            #executable: /bin/bash
+            # executable: /bin/bash
         changed_when: true
 
       - name: Rsync taxo
         ansible.posix.synchronize:
             src: ../builder/taxo/
             dest: "{{ build_results_dir }}/taxo/"
+
+      - name: Creates lifemap update cron
+        become: true
+        ansible.builtin.cron:
+            name: "lifemap update"
+            # Sunday at 2AM
+            weekday: "0"
+            minute: "0"
+            hour: "2"
+            user: "{{ ansible_user }}"
+            job: "{{ builder_dir }}/cron_update.sh"
+            cron_file: lifemap_update
