@@ -40,7 +40,6 @@ def download_genomes() -> None:
 
 
 def add_info(nbgroup: str):
-
     #######################################################################################################################
     ##                       NOW WE RETRIEVE WHAT WE WILL PUT IN THE JSON FILES
     #######################################################################################################################
@@ -72,11 +71,10 @@ def add_info(nbgroup: str):
     addi = addi.join(ages, on="taxid", how="left")
 
     logger.info("  Saving to json...")
-    addi.write_json(BUILD_DIRECTORY / f"ADDITIONAL.{nbgroup}.json", row_oriented=True)
+    addi.write_json(BUILD_DIRECTORY / f"ADDITIONAL.{nbgroup}.json")
 
 
 def merge_features() -> None:
-
     logger.info("  Merging tree and additional features...")
     features = []
     for i in range(1, 4):
