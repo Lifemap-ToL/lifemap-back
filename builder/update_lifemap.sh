@@ -12,7 +12,6 @@ WWW_DIRECTORY=/var/www/lifemap_back
 echo "Builder started at `date`"
 echo "- BUILD TREE"
 uv run python tree/Main.py
-#python3 tree/Main.py --skip-traversal --skip-add-info --skip-merge-jsons --skip-rdata --skip-index
 
 # Copy lmdata and metadata files
 echo "- COPYING lmdata AND metadata.json FILES TO WEB ROOT"
