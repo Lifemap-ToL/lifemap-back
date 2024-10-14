@@ -67,10 +67,10 @@
         become: true
         ansible.builtin.cron:
             name: "lifemap update"
-            # Sunday at 2AM
-            weekday: "0"
+            # Monday at 2AM
+            weekday: "1"
             minute: "0"
             hour: "2"
             user: "{{ ansible_user }}"
-            job: "{{ builder_dir }}/cron_update.sh"
+            job: ". /home/{{ ansible_user }}/.profile && cd {{ builder_dir }} && ./cron_update.sh"
             cron_file: lifemap_update
