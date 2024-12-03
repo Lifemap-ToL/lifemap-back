@@ -32,7 +32,7 @@ services:
             - solr_data:/var/solr/data
         ports:
             - 8983:8983
-    mod_tile:                           
+    mod_tile:
         image: lifemap_mod_tile
         container_name: lifemap-mod_tile
         restart: always
@@ -52,7 +52,6 @@ services:
             - 8080:8080
         volumes:
             - ./bbox/assets:/var/www/assets:ro
-            - ./bbox/data:/opt/data
             - ./bbox/bbox.toml:/var/www/bbox.toml:ro
         depends_on:
             - postgis
