@@ -232,6 +232,7 @@ def node2json(node) -> str:
         common_name[lang] = common_name[lang].replace('"', '\\"')
     ##new attributes
     authority = node.authority
+    authority = authority.replace("\\", "\\\\")
     authority = authority.replace('"', '\\"')
     synonym = node.synonym
     synonym = synonym.replace('"', '\\"')
