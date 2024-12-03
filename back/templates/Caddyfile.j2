@@ -13,6 +13,7 @@
         Access-Control-Allow-Origin *
         Access-Control-Allow-Methods *
         Access-Control-Allow-Headers *
+        Cache-Control "public, max-age=86400"
     }
 
 
@@ -31,6 +32,7 @@
 
     handle_path /vector_tiles/* {
         reverse_proxy localhost:8080
+        header Cache-Control "public, max-age=86400"
     }
 
     # --- METADATA ---
