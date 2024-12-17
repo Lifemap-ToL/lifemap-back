@@ -7,10 +7,11 @@
 library(arrow, warn.conflicts = FALSE)
 
 args <- commandArgs(trailingOnly = TRUE)
-lmdata_dir <- args[1]
+build_dir <- args[1]
 
-cat("    Reading lmdata.parquet...\n")
-DF <- read_parquet(file.path(lmdata_dir, "lmdata.parquet"))
+cat("    Reading TreeFeaturesComplete.parquet...\n")
+# Warning: keep the DF name as is as it is used with this name by LifemapR
+DF <- read_parquet(file.path(build_dir, "TreeFeaturesComplete.parquet"))
 
 cat("    Saving dataframe to binary file lmdata.Rdata...\n")
-save(DF, file = file.path(lmdata_dir, "lmdata.Rdata"))
+save(DF, file = file.path(build_dir, "lmdata.Rdata"))
