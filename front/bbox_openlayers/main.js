@@ -12,8 +12,8 @@ import Feature from "ol/Feature.js";
 import Point from "ol/geom/Point.js";
 import { boundingExtent, getBottomLeft, getTopRight } from "ol/extent.js";
 import { MouseWheelZoom, defaults } from "ol/interaction.js";
-import { BACKEND_HOSTNAME } from "./server-address.js";
 
+const BACKEND_HOSTNAME = "https://lifemap-back.univ-lyon1.fr";
 const SOLR_API_URL = BACKEND_HOSTNAME + "/solr";
 
 // --- THEMES DEFINITION ---
@@ -24,9 +24,9 @@ const DARK_THEME = {
     label_stroke_color: "rgba(0, 0, 0, 1)",
     circle_fill_color: "rgba(225, 87, 89, 1)",
     circle_stroke_color: "#000",
-    archae_fill_color: "rgba(170, 255, 238, 0.12)",
-    eukaryotes_fill_color: "rgba(101, 153, 255, 0.15)",
-    bacteria_fill_color: "rgba(255, 128, 128, 0.1)",
+    archae_fill_color: [170, 255, 238, 0.2],
+    eukaryotes_fill_color: [101, 153, 255, 0.23],
+    bacteria_fill_color: [255, 128, 128, 0.18],
     archae_rank_color: "#aaffee48",
     eukaryotes_rank_color: "#6599ff55",
     bacteria_rank_color: "#ff808043",
@@ -40,9 +40,9 @@ const LIGHT_THEME = {
     label_stroke_color: "rgba(255, 255, 255, 1)",
     circle_fill_color: "rgba(225, 87, 89, 1)",
     circle_stroke_color: "#FFF",
-    archae_fill_color: "rgba(170, 235, 208, 0.32)",
-    eukaryotes_fill_color: "rgba(101, 153, 255, 0.35)",
-    bacteria_fill_color: "rgba(255, 128, 128, 0.3)",
+    archae_fill_color: [170, 235, 208, 0.32],
+    eukaryotes_fill_color: [101, 153, 255, 0.35],
+    bacteria_fill_color: [255, 128, 128, 0.3],
     archae_rank_color: "#aaddeef0",
     eukaryotes_rank_color: "#6599ffe0",
     bacteria_rank_color: "#ff8080e0",
@@ -133,15 +133,25 @@ function polygons_style() {
     return function (feature) {
         const prop = feature.getProperties();
         const ref = prop.ref;
-        const fill_color =
+        const themeColor =
             ref == 1
                 ? theme["archae_fill_color"]
                 : ref == 2
                 ? theme["eukaryotes_fill_color"]
                 : theme["bacteria_fill_color"];
+        const currentZoom = map.getView().getZoom();
+        const zoomLevel = feature.get("zoomview");
+        const opacityFactor =
+            currentZoom !== undefined ? 1 - Math.abs(currentZoom - zoomLevel - 1) / 5 : 1;
+        const fillColor = [
+            themeColor[0],
+            themeColor[1],
+            themeColor[2],
+            themeColor[3] * opacityFactor,
+        ];
         return new Style({
-            fill: new Fill({ color: fill_color }),
-            zIndex: 1,
+            fill: new Fill({ color: fillColor }),
+            zIndex: 0,
         });
     };
 }
@@ -191,14 +201,39 @@ function ranks_style() {
     };
 }
 
+function composite_style() {
+    const poly_style = polygons_style();
+    const branch_style = branches_style();
+    const rank_style = ranks_style();
+
+    return function (feature) {
+        const type = feature.getProperties()["layer"];
+        return type == "poly-layer"
+            ? poly_style(feature)
+            : type == "branches-layer"
+            ? branch_style
+            : rank_style(feature);
+    };
+}
+
 // --- LAYERS ---
 
-const labels_source = new Vector();
-const labels_layer = new VectorLayer({
-    source: labels_source,
-    style: labels_style(),
+const composite_layer = new VectorTileLayer({
+    name: "composite",
+    background: theme["background_color"],
+    source: new VectorTileSource({
+        maxZoom: 42,
+        format: new MVT(),
+        url: BACKEND_HOSTNAME + "/vector_tiles/xyz/composite/{z}/{x}/{y}.pbf",
+        transition: 100,
+    }),
+    style: composite_style(),
     declutter: true,
-    zIndex: 5,
+    renderMode: "vector",
+    updateWhileAnimating: true,
+    updateWhileInteracting: true,
+    renderBuffer: 256,
+    preload: Infinity,
 });
 
 const polygons_layer = new VectorTileLayer({
@@ -207,11 +242,16 @@ const polygons_layer = new VectorTileLayer({
     source: new VectorTileSource({
         maxZoom: 42,
         format: new MVT(),
-        url: BACKEND_HOSTNAME + "/vector_tiles/xyz/polygons/{z}/{x}/{y}.pbf",
+        url: BACKEND_HOSTNAME + "/vector_tiles/xyz/composite/{z}/{x}/{y}.pbf",
+        transition: 500,
     }),
     style: polygons_style(),
     declutter: false,
     renderMode: "vector",
+    updateWhileAnimating: true,
+    updateWhileInteracting: true,
+    renderBuffer: 256,
+    preload: Infinity,
 });
 
 const branches_layer = new VectorTileLayer({
@@ -219,11 +259,15 @@ const branches_layer = new VectorTileLayer({
     source: new VectorTileSource({
         maxZoom: 42,
         format: new MVT(),
-        url: BACKEND_HOSTNAME + "/vector_tiles/xyz/branches/{z}/{x}/{y}.pbf",
+        url: BACKEND_HOSTNAME + "/vector_tiles/xyz/composite/{z}/{x}/{y}.pbf",
     }),
     style: branches_style(),
     declutter: true,
     renderMode: "vector",
+    updateWhileAnimating: true,
+    updateWhileInteracting: true,
+    renderBuffer: 256,
+    preload: Infinity,
 });
 
 const ranks_layer = new VectorTileLayer({
@@ -231,11 +275,23 @@ const ranks_layer = new VectorTileLayer({
     source: new VectorTileSource({
         maxZoom: 42,
         format: new MVT(),
-        url: BACKEND_HOSTNAME + "/vector_tiles/xyz/ranks/{z}/{x}/{y}.pbf",
+        url: BACKEND_HOSTNAME + "/vector_tiles/xyz/composite/{z}/{x}/{y}.pbf",
     }),
     style: ranks_style(),
     declutter: true,
     renderMode: "vector",
+    updateWhileAnimating: true,
+    updateWhileInteracting: true,
+    renderBuffer: 256,
+    preload: Infinity,
+});
+
+const labels_source = new Vector();
+const labels_layer = new VectorLayer({
+    source: labels_source,
+    style: labels_style(),
+    declutter: true,
+    zIndex: 5,
 });
 
 // --- MAP ---
@@ -252,7 +308,7 @@ const map = new Map({
         constrainResolution: false,
         smoothResolutionConstraint: false,
     }),
-    layers: [polygons_layer, ranks_layer, branches_layer, labels_layer],
+    layers: [composite_layer, labels_layer],
     interactions: defaults().extend([
         new MouseWheelZoom({
             onFocusOnly: false,
@@ -291,7 +347,7 @@ languageSelect.addEventListener("change", () => {
     localStorage.setItem("selectedLanguage", selectedLanguage);
     refresh_labels(map);
     // Refresh rank names
-    map.getLayers().item(1).getSource().refresh();
+    map.getLayers().item(0).getSource().refresh();
 });
 
 // theme selection
@@ -310,6 +366,10 @@ themeSelect.addEventListener("change", () => {
     }
     // Refresh layers
     map.getLayers().forEach((l) => {
+        if (l == composite_layer) {
+            l.setBackground(theme["background_color"]);
+            l.setStyle(composite_style());
+        }
         if (l == polygons_layer) {
             l.setBackground(theme["background_color"]);
             l.setStyle(polygons_style());
