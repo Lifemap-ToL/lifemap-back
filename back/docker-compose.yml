@@ -14,7 +14,7 @@ services:
             - postgis_data:/var/lib/postgresql/data
             - ./postgis/postgresql.conf:/etc/postgresql/postgresql.conf
         ports:
-            - 5432:5432
+            - 127.0.0.1:5432:5432
         command: -c config_file=/etc/postgresql/postgresql.conf
     solr:
         image: lifemap_solr
@@ -31,7 +31,7 @@ services:
         volumes:
             - solr_data:/var/solr/data
         ports:
-            - 8983:8983
+            - 127.0.0.1:8983:8983
     mod_tile:
         image: lifemap_mod_tile
         container_name: lifemap-mod_tile
@@ -39,7 +39,7 @@ services:
         build:
             context: ./mod_tile_deepzoom
         ports:
-            - 8888:80
+            - 127.0.0.1:8888:80
         volumes:
             - $HOME/builder_results:/opt/build_results
         depends_on:
@@ -49,7 +49,7 @@ services:
         image: sourcepole/bbox-server-qgis
         restart: always
         ports:
-            - 8080:8080
+            - 127.0.0.1:8080:8080
         volumes:
             - ./bbox/assets:/var/www/assets:ro
             - ./bbox/bbox.toml:/var/www/bbox.toml:ro
