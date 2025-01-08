@@ -1,5 +1,5 @@
 ---
-- name: lifemap-back test frontends install
+- name: Lifemap-back test frontends install
   hosts: lifemap-back
 
   tasks:
@@ -25,15 +25,16 @@
             rsync_opts:
                 - "--exclude=build"
 
-      - name: Copy server-address-bbox.js to bbox front
+      - name: Copy backend_hostname_bbox.js to bbox front
         become: true
         ansible.builtin.template:
-            src: templates/server-address-bbox.js.j2
-            dest: "{{ front_root_dir }}/bbox/server-address.js"
+            src: templates/backend_hostname_bbox.js.j2
+            dest: "{{ front_root_dir }}/bbox/backend_hostname.js"
             mode: preserve
             force: true
 
       - name: Build bbox_openlayers
-        ansible.builtin.shell:
+        ansible.builtin.command:
             chdir: "{{ front_root_dir }}/bbox"
             cmd: "npm run build"
+        changed_when: true

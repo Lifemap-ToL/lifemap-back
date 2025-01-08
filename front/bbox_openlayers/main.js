@@ -12,8 +12,8 @@ import Feature from "ol/Feature.js";
 import Point from "ol/geom/Point.js";
 import { boundingExtent, getBottomLeft, getTopRight } from "ol/extent.js";
 import { MouseWheelZoom, defaults } from "ol/interaction.js";
+import { BACKEND_HOSTNAME } from "./backend_hostname";
 
-const BACKEND_HOSTNAME = "https://lifemap-back.univ-lyon1.fr";
 const SOLR_API_URL = BACKEND_HOSTNAME + "/solr";
 
 // --- THEMES DEFINITION ---
