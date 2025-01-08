@@ -3,6 +3,8 @@
   hosts: lifemap-back
 
   tasks:
+      ### --- SYSTEM ---
+
       - name: Apt update
         become: true
         ansible.builtin.apt:
@@ -48,6 +50,8 @@
             force: true
             mode: preserve
 
+      ### --- UFW ---
+
       - name: Deny everything and enable UFW
         become: true
         community.general.ufw:
@@ -78,6 +82,8 @@
             rule: allow
             port: 443
             proto: udp
+
+      ### --- DOCKER INSTALL ---
 
       - name: Add Ubuntu Docker GPG apt Key
         become: true
@@ -111,6 +117,8 @@
             append: true
             groups: docker
 
+      ### --- NODE INSTALL ---
+
       - name: Remove nodejs if present
         become: true
         ansible.builtin.apt:
@@ -136,6 +144,8 @@
             name: nodejs
             update_cache: true
             cache_valid_time: 3600
+
+      ### --- DIRECTORIES CREATION ---
 
       - name: Create www/static directory
         become: true
