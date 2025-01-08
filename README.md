@@ -10,6 +10,13 @@ You must first [install Ansible](https://docs.ansible.com/ansible/latest/install
 pipx install --include-deps ansible
 ```
 
+Or with `uv`:
+
+```sh
+uv tool install ansible-core
+uv tool install ansible
+```
+
 The backend is composed of several elements:
 
 -   A postgis server, deployed with docker. The database contains "build" tables (`points`, `lines` and `polygons` tables), as well as "production" tables (`points_prod`, `lines_prod` and `polygons_prod` tables). When the tree is updated, build tables are emptied and recreated, and production tables are copied from build tables only if the update process is successful.
@@ -30,22 +37,19 @@ The backend should be deployable on any recent debian-based distribution by foll
 3. Install the base system by running:
 
 ```sh
-cd ansible/
-ansible-playbook -i inventory.yml install_system.yml
+ansible-playbook -i ansible/inventory.yml ansible/install_system.yml
 ```
 
 4. Install the backend elements with:
 
 ```sh
-cd ansible/
-ansible-playbook -i inventory.yml install_back.yml
+ansible-playbook -i ansible/inventory.yml ansible/install_back.yml
 ```
 
 5. Install the builder with:
 
 ```sh
-cd ansible/
-ansible-playbook -i inventory.yml install_builder.yml
+ansible-playbook -i ansible/inventory.yml ansible/install_builder.yml
 ```
 
 ### Optional test frontends deployment
@@ -55,8 +59,7 @@ This repository also contains two test frontends which are deployable on the bac
 To deploy these frontends:
 
 ```sh
-cd ansible/
-ansible-playbook -i inventory.yml install_front.yml
+ansible-playbook -i ansible/inventory.yml ansible/install_front.yml
 ```
 
 They will be accessible at the `/ncbi/` (for the mod_tile bitmap frontend) and `/bbox/` (for the bbox vector frontend) urls.
