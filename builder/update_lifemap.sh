@@ -2,11 +2,10 @@
 
 set -e
 
+# WWW_STATIC_DIR and BUILD_RESULTS_DIR environment variables
 source ~/.env
 
-BUILD_DIRECTORY=~/builder_results
 SOLR_CONTAINER=lifemap-solr
-WWW_DIRECTORY=/var/www/lifemap_back
 
 # Update tree
 echo "Builder started at `date`"
@@ -15,9 +14,9 @@ uv run python tree/Main.py
 
 # Copy lmdata and metadata files
 echo "- COPYING lmdata AND metadata.json FILES TO WEB ROOT"
-mkdir -p $WWW_DIRECTORY/data
-cp $BUILD_DIRECTORY/lmdata/* $WWW_DIRECTORY/data
-cp $BUILD_DIRECTORY/metadata.json $WWW_DIRECTORY/
+mkdir -p $WWW_STATIC_DIR/data
+cp $BUILD_RESULTS_DIR/lmdata/* $WWW_STATIC_DIR/data
+cp $BUILD_RESULTS_DIR/metadata.json $WWW_STATIC_DIR/
 
 # Update Solr
 echo "- UPDATING SOLR"
@@ -29,12 +28,12 @@ curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/addi/update -H 'Content
 echo "-- Uploading tree features"
 for num in $(seq 1 3); do
     echo "Uploading TreeFeatures${num}..."
-    curl --progress-bar --user solr:$SOLR_PASSWD http://localhost:8983/solr/taxo/update -H 'Content-type:application/json' -T $BUILD_DIRECTORY/TreeFeatures${num}.json -X POST -o /dev/null | cat
+    curl --progress-bar --user solr:$SOLR_PASSWD http://localhost:8983/solr/taxo/update -H 'Content-type:application/json' -T $BUILD_RESULTS_DIR/TreeFeatures${num}.json -X POST -o /dev/null | cat
 done
 echo "-- Uploading additional informations"
 for num in $(seq 1 3); do
     echo "Uploading ADDITIONAL.${num}..."
-    curl --progress-bar --user solr:$SOLR_PASSWD http://localhost:8983/solr/addi/update -H 'Content-type:application/json' -T $BUILD_DIRECTORY/ADDITIONAL.${num}.json -X POST -o /dev/null | cat
+    curl --progress-bar --user solr:$SOLR_PASSWD http://localhost:8983/solr/addi/update -H 'Content-type:application/json' -T $BUILD_RESULTS_DIR/ADDITIONAL.${num}.json -X POST -o /dev/null | cat
 done
 echo "-- Committing changes"
 curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/taxo/update?commit=true -o /dev/null

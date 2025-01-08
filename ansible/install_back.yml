@@ -37,6 +37,14 @@
             rsync_opts:
                 - "--exclude=*.j2"
 
+      - name: Copy docker Caddy config
+        become: true
+        ansible.builtin.template:
+            src: ../back/caddy/Caddyfile.j2
+            dest: "{{ docker_dir }}/caddy/Caddyfile"
+            mode: preserve
+            force: true
+
       - name: Copy datasource-settings to style directory
         become: true
         ansible.builtin.template:

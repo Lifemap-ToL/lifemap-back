@@ -2,7 +2,7 @@ services:
     postgis:
         image: postgis/postgis:16-3.4
         container_name: lifemap-postgis
-        restart: always
+        restart: unless-stopped
         env_file:
             - path: .env
               required: true
@@ -19,7 +19,7 @@ services:
     solr:
         image: lifemap_solr
         container_name: lifemap-solr
-        restart: always
+        restart: unless-stopped
         build:
             context: ./solr
         env_file:
@@ -30,16 +30,15 @@ services:
             - SOLR_AUTHENTICATION_OPTS=-Dbasicauth=solr:${SOLR_PASSWD}
         volumes:
             - solr_data:/var/solr/data
-        ports:
-            - 127.0.0.1:8983:8983
     mod_tile:
         image: lifemap_mod_tile
         container_name: lifemap-mod_tile
-        restart: always
+        restart: unless-stopped
         build:
             context: ./mod_tile_deepzoom
-        ports:
-            - 127.0.0.1:8888:80
+        env_file:
+            - path: .env
+              required: true
         volumes:
             - ../builder_results:/opt/build_results
         depends_on:
@@ -47,15 +46,32 @@ services:
     bbox:
         container_name: lifemap-bbox
         image: sourcepole/bbox-server-qgis
-        restart: always
-        ports:
-            - 127.0.0.1:8080:8080
+        restart: unless-stopped
+        env_file:
+            - path: .env
+              required: true
         volumes:
             - ./bbox/assets:/var/www/assets:ro
             - ./bbox/bbox.toml:/var/www/bbox.toml:ro
         depends_on:
             - postgis
+    caddy:
+        container_name: lifemap-caddy
+        image: caddy:2
+        restart: unless-stopped
+        ports:
+            - "80:80"
+            - "443:443"
+            - "443:443/udp"
+        volumes:
+            - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+            - caddy_data:/data
+            - caddy_config:/config
+            - ../www/static:/static
+            - ../www/front:/front
 
 volumes:
     solr_data:
     postgis_data:
+    caddy_data:
+    caddy_config:

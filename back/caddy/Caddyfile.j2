@@ -20,25 +20,25 @@
     # --- SOLR ---
 
     redir /solr /solr/
-    reverse_proxy /solr/* localhost:8983
+    reverse_proxy /solr/* solr:8983
 
     # --- MOD_TILE ---
 
-    reverse_proxy /osm_tiles/* localhost:8888
-    reverse_proxy /nolabels/* localhost:8888
-    reverse_proxy /onlylabels/* localhost:8888
+    reverse_proxy /osm_tiles/* mod_tile:80
+    reverse_proxy /nolabels/* mod_tile:80
+    reverse_proxy /onlylabels/* mod_tile:80
 
     # --- BBOX ---
 
     handle_path /vector_tiles/* {
-        reverse_proxy localhost:8080
+        reverse_proxy bbox:8080
         header Cache-Control "public, max-age=86400"
     }
 
     # --- METADATA ---
 
     handle_path /static/* {
-        root {{ static_root_dir }}
+        root /static
         file_server
     }
 
@@ -51,14 +51,14 @@
     redir /bbox /bbox/
 
     handle_path /bbox/* {
-        root {{ front_root_dir }}/bbox/dist
+        root /front/bbox/dist
         file_server
     }
 
     redir /ncbi /ncbi/
 
     handle_path /ncbi/* {
-        root {{ front_root_dir }}/ncbi
+        root /front/ncbi
         file_server
     }
 
@@ -67,9 +67,5 @@
     handle /health {
         respond "OK" 200
     }
-
-    root * {{ front_root_dir }}
-    file_server
-
 
 }
