@@ -17,32 +17,35 @@ The backend is composed of several elements:
 -   A modified mod_tile server for bitmap tiles generation, build and deployed with docker.
 -   A [bbox](https://www.bbox.earth/index.html) vector tiles server, deployed with docker.
 
-These elements are build and deployed with docker compose, from `back/docker/docker-compose.yml`.
+These elements are build and deployed with docker compose, from `back/docker-compose.yml`.
 
 Another element deployed to the backend is the `builder`, a set of Python and shell scripts that download and process data to build both the tree data in postgis and additional informations stored in solr.
 
 The backend should be deployable on any recent debian-based distribution by following these steps:
 
-1. Copy the file `inventory_example.yml` to `inventory.yml`.
+1. Copy the file `ansible/inventory_example.yml` to `ansible/inventory.yml`.
 
-2. Edit `inventory.yml` and change the values of `backend_hostname`, `ansible-user`, `postgresql_password` and `solr_password`.
+2. Edit `ansible/inventory.yml` and change the values of `backend_hostname`, `ansible-user`, `postgresql_password` and `solr_password`.
 
 3. Install the base system by running:
 
 ```sh
-ansible-playbook -i inventory.yml back/00_install_system_back.yml
+cd ansible/
+ansible-playbook -i inventory.yml install_system.yml
 ```
 
 4. Install the backend elements with:
 
 ```sh
-ansible-playbook -i inventory.yml back/install_back.yml
+cd ansible/
+ansible-playbook -i inventory.yml install_back.yml
 ```
 
 5. Install the builder with:
 
 ```sh
-ansible-playbook -i inventory.yml back/install_builder.yml
+cd ansible/
+ansible-playbook -i inventory.yml install_builder.yml
 ```
 
 ### Optional test frontends deployment
@@ -52,7 +55,8 @@ This repository also contains two test frontends which are deployable on the bac
 To deploy these frontends:
 
 ```sh
-ansible-playbook -i inventory.yml back/install_front.yml
+cd ansible/
+ansible-playbook -i inventory.yml install_front.yml
 ```
 
 They will be accessible at the `/ncbi/` (for the mod_tile bitmap frontend) and `/bbox/` (for the bbox vector frontend) urls.
@@ -68,6 +72,12 @@ cd ~/builder/
 ./prerender_mod_tiles.sh
 # Optional: seed bbox vector tiles
 ./prerender_bbox.sh
+```
+
+The `~/builder/cron_update.sh` can be used to automate updates. To have an automated weekly update each sunday at 2am, you can create a cronjob such as:
+
+```
+0 2 * * 1 user . /home/user/.profile && cd /home/user/builder && ./cron_update.sh
 ```
 
 ## Endpoints
