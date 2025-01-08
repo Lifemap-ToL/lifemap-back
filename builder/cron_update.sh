@@ -1,8 +1,9 @@
 #!/bin/bash
 
+# Get DISCORD_WEBHOOK_URL environment variable
+source .env
 
 OUTPUT_FILE=/tmp/lifemap_update.log
-WEBHOOK_URL=https://discord.com/api/webhooks/1294229537584054354/U0rcCqt1P8M2hz4tDa0Nm_xwjGQDa68lEw8OSARKQkdT7PtlTEnIlnCQ1HjNfiStd5I6
 
 # Lifemap update
 
@@ -13,7 +14,7 @@ MESSAGE="Lifemap update has run.\nExit status: $EXIT_STATUS."
 
 curl -F "file=@$OUTPUT_FILE" \
      -F "payload_json={\"content\":\"$MESSAGE\"}" \
-     "$WEBHOOK_URL"
+     "$DISCORD_WEBHOOK_URL"
 
 
 # Bbox prerender
@@ -26,7 +27,7 @@ MESSAGE="Bbox tiles prerendering has run.\nExit status: $EXIT_STATUS."
 
 curl -F "file=@$OUTPUT_FILE" \
      -F "payload_json={\"content\":\"$MESSAGE\"}" \
-     "$WEBHOOK_URL"
+     "$DISCORD_WEBHOOK_URL"
 
 
 # mod_tile prerender
@@ -39,7 +40,7 @@ MESSAGE="mod_tile tiles prerendering has run.\nExit status: $EXIT_STATUS."
 
 curl -F "file=@$OUTPUT_FILE" \
      -F "payload_json={\"content\":\"$MESSAGE\"}" \
-     "$WEBHOOK_URL"
+     "$DISCORD_WEBHOOK_URL"
 
 
 exit 0

@@ -16,3 +16,4 @@ lifemap:
             postgresql_password: "CHANGE_ME"
             solr_password: "CHANGE_ME"
             front_root_dir: "/var/www/lifemap_front"
+            discord_webhook_url: "CHANGE_ME"
