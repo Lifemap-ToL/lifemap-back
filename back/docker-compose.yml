@@ -41,7 +41,7 @@ services:
         ports:
             - 127.0.0.1:8888:80
         volumes:
-            - $HOME/builder_results:/opt/build_results
+            - ../builder_results:/opt/build_results
         depends_on:
             - postgis
     bbox:
