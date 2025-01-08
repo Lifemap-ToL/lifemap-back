@@ -5,7 +5,6 @@ BUILD_DIRECTORY = Path.home() / ("builder_results")
 TAXO_DIRECTORY = BUILD_DIRECTORY / "taxo"
 GENOMES_DIRECTORY = BUILD_DIRECTORY / "genomes"
 
-# LMDATA_DIRECTORY = "/var/www/html/data"
 LMDATA_DIRECTORY = BUILD_DIRECTORY / "lmdata"
 
 config = dotenv_values(".env")
