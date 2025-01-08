@@ -15,13 +15,6 @@
             mode: "0600"
             force: true
 
-      - name: Create results directory if needed
-        ansible.builtin.file:
-            path: "{{ build_results_dir }}"
-            state: directory
-            owner: "{{ ansible_user }}"
-            mode: "0755"
-
       - name: Apt update
         become: true
         ansible.builtin.apt:

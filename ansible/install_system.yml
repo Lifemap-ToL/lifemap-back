@@ -207,3 +207,36 @@
             name: nodejs
             update_cache: true
             cache_valid_time: 3600
+
+      - name: Create results directory if needed
+        ansible.builtin.file:
+            path: "{{ build_results_dir }}"
+            state: directory
+            owner: "{{ ansible_user }}"
+            mode: "0755"
+
+      - name: Create /var/www/lifemap_front/ncbi
+        become: true
+        ansible.builtin.file:
+            path: "{{ front_root_dir }}/ncbi"
+            state: directory
+            mode: "0775"
+            owner: caddy
+            group: caddy
+
+      - name: Create /var/www/lifemap_front/bbox
+        become: true
+        ansible.builtin.file:
+            path: "{{ front_root_dir }}/bbox"
+            state: directory
+            mode: "0775"
+            owner: caddy
+            group: caddy
+
+      - name: Create bbox data directory
+        become: true
+        ansible.builtin.file:
+            path: "{{ docker_dir }}/bbox/data"
+            state: directory
+            mode: "0755"
+            owner: "www-data"

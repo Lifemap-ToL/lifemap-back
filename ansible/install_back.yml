@@ -53,14 +53,6 @@
             mode: preserve
             force: true
 
-      - name: Create bbox data directory
-        become: true
-        ansible.builtin.file:
-            path: "{{ docker_dir }}/bbox/data"
-            state: directory
-            mode: "0755"
-            owner: "www-data"
-
       - name: Build and launch containers
         become: true
         ansible.builtin.command:

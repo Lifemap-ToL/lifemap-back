@@ -3,15 +3,6 @@
   hosts: lifemap-back
 
   tasks:
-      - name: Create /var/www/lifemap_front/ncbi
-        become: true
-        ansible.builtin.file:
-            path: "{{ front_root_dir }}/ncbi"
-            state: directory
-            mode: "0775"
-            owner: caddy
-            group: caddy
-
       - name: Rsync ncbi
         become: true
         ansible.posix.synchronize:
@@ -25,15 +16,6 @@
             dest: "{{ front_root_dir }}/ncbi/server-address.js"
             mode: preserve
             force: true
-
-      - name: Create /var/www/lifemap_front/bbox
-        become: true
-        ansible.builtin.file:
-            path: "{{ front_root_dir }}/bbox"
-            state: directory
-            mode: "0775"
-            owner: caddy
-            group: caddy
 
       - name: Rsync bbox
         become: true
