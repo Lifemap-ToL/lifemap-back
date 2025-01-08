@@ -32,7 +32,7 @@
 
       - name: Rsync docker files
         ansible.posix.synchronize:
-            src: "docker/"
+            src: "../back/"
             dest: "{{ docker_dir }}"
             rsync_opts:
                 - "--exclude=*.j2"
@@ -40,7 +40,7 @@
       - name: Copy datasource-settings to style directory
         become: true
         ansible.builtin.template:
-            src: docker/mod_tile_deepzoom/datasource-settings.xml.inc.j2
+            src: ../back/mod_tile_deepzoom/datasource-settings.xml.inc.j2
             dest: "{{ docker_dir }}/mod_tile_deepzoom/style/inc/datasource-settings.xml.inc"
             mode: preserve
             force: true
@@ -48,7 +48,7 @@
       - name: Copy bbox.toml to bbox docker directory
         become: true
         ansible.builtin.template:
-            src: docker/bbox/bbox.toml.j2
+            src: ../back/bbox/bbox.toml.j2
             dest: "{{ docker_dir }}/bbox/bbox.toml"
             mode: preserve
             force: true
