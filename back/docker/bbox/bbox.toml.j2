@@ -146,6 +146,94 @@ ORDER BY zoomview
 """
 
 
+# --- COMPOSITE TILESET ---
+
+[[tileset]]
+name = "composite"
+cache = "tilecache"
+
+[[tileset.tms]]
+id = "CustomWebMercator"
+
+[tileset.postgis]
+datasource = "pg"
+extent = [-15.64262, -20.99848, 15.64848, 9.57778]
+
+# --- Polygons layer
+
+[[tileset.postgis.layer]]
+name = "poly-layer"
+table_name = "polygons_prod"
+geometry_field = "way"
+geometry_type = "POLYGON"
+buffer_size = 256
+query_limit = 0
+simplify = false
+srid = 3857
+no_transform = true
+fid_field = "id"
+minzoom = 0
+maxzoom = 42
+
+[[tileset.postgis.layer.query]]
+sql = """SELECT 
+way,id,ref,zoomview,clade,taxid
+FROM polygons_prod 
+WHERE zoomview between !zoom!-4 and !zoom! + 1
+ORDER BY nbdesc DESC 
+"""
+
+# --- Ranks layer
+
+[[tileset.postgis.layer]]
+name = "ranks-layer"
+table_name = "ranks_prod"
+geometry_field = "way"
+geometry_type = "LINESTRING"
+buffer_size = 256
+query_limit = 100
+srid = 3857
+no_transform = true
+fid_field = "id"
+minzoom = 0
+maxzoom = 42
+
+[[tileset.postgis.layer.query]]
+sql = """SELECT 
+way, id, ref, zoomview, clade, rankname, rank_en, rank_fr, convex, taxid
+FROM ranks_prod
+WHERE rankname=True and zoomview between !zoom!-4 and !zoom!-2 """
+
+# --- Branches layer
+
+[[tileset.postgis.layer]]
+name = "branches-layer"
+table_name = "branches_prod"
+geometry_field = "way"
+geometry_type = "LINESTRING"
+buffer_size = 256
+query_limit = 0
+srid = 3857
+no_transform = true
+fid_field = "id"
+minzoom = 0
+maxzoom = 42
+
+[[tileset.postgis.layer.query]]
+# The query must be passed to !zoom!+16 to display unclassified bacteria and environmental 
+# samples in bacteria
+# -> WHERE (zoomview < !zoom!+13) or (ref = 3 and zoomview < !zoom!+16)
+sql = """SELECT
+way,id,ref,z_order,branch,zoomview,nbdesc,taxid
+FROM branches_prod
+WHERE (zoomview < !zoom!+11)
+ORDER BY zoomview
+"""
+
+
+
+
+
 
 # --- BRANCHES LAYER ---
 
