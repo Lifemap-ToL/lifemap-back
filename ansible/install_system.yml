@@ -148,16 +148,17 @@
       ### --- DIRECTORIES CREATION ---
 
       - name: Create www/static directory
-        become: true
         ansible.builtin.file:
             path: "{{ static_root_dir }}"
             state: directory
+            owner: "{{ ansible_user }}"
             mode: "0775"
 
       - name: Create ~/back directory
         ansible.builtin.file:
             path: "{{ docker_dir }}"
             state: directory
+            owner: "{{ ansible_user }}"
             mode: "0775"
 
       - name: Create results directory
@@ -168,23 +169,22 @@
             mode: "0755"
 
       - name: Create ncbi front directory
-        become: true
         ansible.builtin.file:
             path: "{{ front_root_dir }}/ncbi"
             state: directory
+            owner: "{{ ansible_user }}"
             mode: "0775"
 
       - name: Create bbox front directory
-        become: true
         ansible.builtin.file:
             path: "{{ front_root_dir }}/bbox"
             state: directory
+            owner: "{{ ansible_user }}"
             mode: "0775"
 
       - name: Create bbox data directory
-        become: true
         ansible.builtin.file:
             path: "{{ docker_dir }}/bbox/data"
             state: directory
+            owner: "{{ ansible_user }}"
             mode: "0755"
-            owner: "www-data"
