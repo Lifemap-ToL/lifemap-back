@@ -28,6 +28,8 @@ services:
         environment:
             - SOLR_AUTH_TYPE=basic
             - SOLR_AUTHENTICATION_OPTS=-Dbasicauth=solr:${SOLR_PASSWD}
+        ports:
+            - 127.0.0.1:8983:8983
         volumes:
             - solr_data:/var/solr/data
     mod_tile:
