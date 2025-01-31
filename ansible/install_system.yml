@@ -145,9 +145,45 @@
             update_cache: true
             cache_valid_time: 3600
 
+      ### --- PROMETHEUS INSTALL AND START ---
+
+      - name: Create ~/prometheus directory
+        ansible.builtin.file:
+            path: "{{ prometheus_dir }}"
+            state: directory
+            owner: "{{ ansible_user }}"
+            mode: "0775"
+
+      - name: Check if docker-compose.yml already exists
+        ansible.builtin.stat:
+            path: "{{ prometheus_dir }}/docker-compose.yml"
+        register: docker_compose
+
+      - name: Stop containers if needed
+        become: true
+        ansible.builtin.command:
+            chdir: "{{ prometheus_dir }}"
+            cmd: docker compose -f docker-compose.yml down
+        changed_when: true
+        when: docker_compose.stat.exists
+
+      - name: Rsync docker files
+        ansible.posix.synchronize:
+            src: "../templates/prometheus/"
+            dest: "{{ prometheus_dir }}"
+
+      - name: Stop containers if needed
+        become: true
+        ansible.builtin.command:
+            chdir: "{{ prometheus_dir }}"
+            cmd: docker compose -f docker-compose.yml up -d
+        changed_when: true
+        when: docker_compose.stat.exists
+
       ### --- DIRECTORIES CREATION ---
 
       - name: Create www/static directory
+        become: true
         ansible.builtin.file:
             path: "{{ static_root_dir }}"
             state: directory
@@ -183,6 +219,7 @@
             mode: "0775"
 
       - name: Create bbox data directory
+        become: true
         ansible.builtin.file:
             path: "{{ docker_dir }}/bbox/data"
             state: directory
