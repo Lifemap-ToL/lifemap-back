@@ -6,7 +6,7 @@ MAX_ZOOM=10
 
 # Remove cached tiles
 echo "- REMOVE OLD TILES"
-docker exec -t $BBOX_CONTAINER rm -rf /opt/data/*
+docker exec -t $BBOX_CONTAINER rm -rf /var/www/bbox-map-server/tilecache/*
 
 # Compute tiles for the 5 first zoom levels on 7 threads
 echo "- SEEDING TILES"
