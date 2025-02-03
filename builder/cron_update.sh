@@ -19,15 +19,15 @@ curl -F "file=@$OUTPUT_FILE" \
 
 # Bbox prerender
 
-OUTPUT_FILE=/tmp/bbox_prerender.log
-./prerender_bbox.sh > "$OUTPUT_FILE" 2>&1
-EXIT_STATUS=$?
+# OUTPUT_FILE=/tmp/bbox_prerender.log
+# ./prerender_bbox.sh > "$OUTPUT_FILE" 2>&1
+# EXIT_STATUS=$?
 
-MESSAGE="Bbox tiles prerendering has run.\nExit status: $EXIT_STATUS."
+# MESSAGE="Bbox tiles prerendering has run.\nExit status: $EXIT_STATUS."
 
-curl -F "file=@$OUTPUT_FILE" \
-     -F "payload_json={\"content\":\"$MESSAGE\"}" \
-     "$DISCORD_WEBHOOK_URL"
+# curl -F "file=@$OUTPUT_FILE" \
+#      -F "payload_json={\"content\":\"$MESSAGE\"}" \
+#      "$DISCORD_WEBHOOK_URL"
 
 
 # mod_tile prerender
