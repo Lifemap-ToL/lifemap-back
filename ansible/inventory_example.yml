@@ -10,6 +10,7 @@ lifemap:
             builder_dir: "/home/{{ ansible_user }}/builder"
             build_results_dir: "/home/{{ ansible_user }}/builder_results/"
             docker_dir: "/home/{{ ansible_user }}/back"
+            prometheus_dir: "/home/{{ ansible_user }}/prometheus"
             static_root_dir: "/home/{{ ansible_user }}/www/static"
             postgresql_db: "tree"
             postgresql_user: "lm"
