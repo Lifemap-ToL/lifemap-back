@@ -5,6 +5,7 @@
 }
 
 
+
 {{ backend_hostname }} {
 
     import logging_back
@@ -32,7 +33,7 @@
 
     handle_path /vector_tiles/* {
         reverse_proxy bbox:8080
-        header Cache-Control "public, max-age=86400"
+        header Cache-Control "public, max-age=300"
     }
 
     # --- METADATA ---
@@ -66,6 +67,43 @@
 
     handle /health {
         respond "OK" 200
+    }
+
+}
+
+# REDIRECTIONS
+
+lifemap.univ-lyon1.fr, lifemap-ncbi.univ-lyon1.fr, lifemap-fr.univ-lyon1.fr,
+lifemap.univ-lyon1.fr:80, lifemap-ncbi.univ-lyon1.fr:80, lifemap-fr.univ-lyon1.fr:80  {
+
+
+    # lmdata redirection for lifemapR
+    handle /data* {
+        redir https://lifemap-back.univ-lyon1.fr{uri}
+    }
+
+    # Raster tiles redirections
+    handle /osm_tiles* {
+        redir https://lifemap-back.univ-lyon1.fr{uri}
+    }
+    handle /nolabels* {
+        redir https://lifemap-back.univ-lyon1.fr{uri}
+    }
+    handle /onlylabels* {
+        redir https://lifemap-back.univ-lyon1.fr{uri}
+    }
+
+    # Redirection links from NCBI website
+    @has_tid {
+        path /
+        query tid=*
+    }
+    handle @has_tid {
+        redir https://lifemap.cnrs.fr/tree?tid={query.tid} 301
+    }
+
+    handle /* {
+        redir https://lifemap.cnrs.fr/ 301
     }
 
 }
