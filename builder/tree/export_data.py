@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 import logging
-import shutil
 import subprocess
 from datetime import datetime
 from pathlib import Path
@@ -104,11 +103,21 @@ def export_lmdata() -> None:
     try:
         features_file = BUILD_DIRECTORY / "TreeFeaturesComplete.parquet"
         features = pl.read_parquet(features_file)
+
+        # We save data to two different parquet files:
+        # - lmdata_R.parquet is the raw features dataset compressed with lz4,
+        #   which is less efficient but supported in R arrow package
+        dest_file_R = LMDATA_DIRECTORY / "lmdata_R.parquet"
+        features.write_parquet(dest_file_R, compression="lz4")
+
+        # - lmdata.parquet contains the converted features compressed with the
+        #   default zstd compression
         lmdata = convert_features(features)
-        dest_file = LMDATA_DIRECTORY / "lmdata.parquet"
-        lmdata.write_parquet(dest_file)
+        dest_file_py = LMDATA_DIRECTORY / "lmdata.parquet"
+        lmdata.write_parquet(dest_file_py)
+
     except Exception as e:
-        raise RuntimeError(f"Error exporting data to {dest_file}: {e}")
+        raise RuntimeError(f"Error exporting data to parquet: {e}")
 
     logger.info(" Converting parquet file to Rdata file...")
     # Execute the R conversion script
