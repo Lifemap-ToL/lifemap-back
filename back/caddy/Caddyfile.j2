@@ -16,10 +16,10 @@
             prometheus
             souin
         }
-        ttl 12h
+        ttl 1d
         timeout {
             backend 10s
-            cache 100ms
+            cache 200ms
         }
         default_cache_control public
     }
@@ -52,15 +52,18 @@
     # --- BBOX ---
 
     handle_path /vector_tiles/* {
+        header Cache-Control "public, max-age=300"
         # Only cache composite vector tiles from zoom levels 0 to 8
         @cacheable {
             path_regexp ^/xyz/composite/[0-8]/.*$
         }
         handle @cacheable {
-            cache
+            cache {
+                ttl 1d
+            }
+            header Cache-Control "public, max-age=86400"
         }
         reverse_proxy bbox:8080
-        header Cache-Control "public, max-age=300"
     }
 
     # --- METADATA ---
