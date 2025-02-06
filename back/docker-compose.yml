@@ -59,7 +59,9 @@ services:
             - postgis
     caddy:
         container_name: lifemap-caddy
-        image: caddy:2
+        build:
+            context: caddy/
+            dockerfile: Dockerfile
         restart: unless-stopped
         ports:
             - "80:80"
