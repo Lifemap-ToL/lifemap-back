@@ -11,12 +11,14 @@ superclass,super-classe
 subphylum,sous-embranchement
 subspecies,sous-espèce
 no rank,sans rang
+no_rank,sans rang
 superorder,super-ordre
 infraorder,infra-ordre
 subclass,sous-classe
 species,espèce
 superphylum,super-embranchement
 kingdom,règne
+realm,realm
 subtribe,sous-tribu
 forma,forme
 infraclass,infra-classe
@@ -44,3 +46,6 @@ subvariety,sous-variété
 morph,morph
 genotype,génotype
 pathogroup,pathogroupe
+domain,domaine
+acellular root,racine acellulaire
+cellular root,racine cellulaire
