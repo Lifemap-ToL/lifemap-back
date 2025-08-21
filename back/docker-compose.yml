@@ -47,7 +47,7 @@ services:
             - postgis
     bbox:
         container_name: lifemap-bbox
-        image: sourcepole/bbox-server-qgis
+        image: sourcepole/bbox-server-qgis:v0.6.2
         restart: unless-stopped
         env_file:
             - path: .env
