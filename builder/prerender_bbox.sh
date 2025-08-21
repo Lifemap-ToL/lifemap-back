@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Note: this script is now obsolete, caching is made by the Caddy http server
+
 BBOX_CONTAINER=lifemap-bbox
 PRERENDER_THREADS=7
 MAX_ZOOM=10
@@ -13,4 +15,3 @@ echo "- SEEDING TILES"
 docker exec -t $BBOX_CONTAINER sh -c "bbox-server seed --tileset branches --minzoom 4 --maxzoom $MAX_ZOOM --threads $PRERENDER_THREADS"
 docker exec -t $BBOX_CONTAINER sh -c "bbox-server seed --tileset polygons --minzoom 4 --maxzoom $MAX_ZOOM --threads $PRERENDER_THREADS"
 docker exec -t $BBOX_CONTAINER sh -c "bbox-server seed --tileset ranks --minzoom 4 --maxzoom $MAX_ZOOM --threads $PRERENDER_THREADS"
-

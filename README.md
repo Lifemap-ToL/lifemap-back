@@ -73,8 +73,6 @@ cd ~/builder/
 ./update_lifemap.sh
 # Optional: prerender mod_tile tiles
 ./prerender_mod_tiles.sh
-# Optional: seed bbox vector tiles
-./prerender_bbox.sh
 ```
 
 The `~/builder/cron_update.sh` can be used to automate updates. To have an automated weekly update each sunday at 2am, you can create a cronjob such as:
