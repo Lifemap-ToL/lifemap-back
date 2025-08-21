@@ -39,11 +39,10 @@
             executable: /bin/bash
         changed_when: true
 
-      - name: Install uv with pip
-        ansible.builtin.shell:
-            cmd: python3 -m pip install --break-system-packages uv
-            executable: /bin/bash
-        changed_when: true
+      - name: Install uv
+        ansible.builtin.shell: curl -LsSf https://astral.sh/uv/install.sh | sh
+        args:
+            creates: "/home/{{ ansible_user }}/.local/bin/uv"
 
       - name: Install python and python packages for builder
         ansible.builtin.command:
