@@ -2,7 +2,7 @@
 
 set -e
 
-# WWW_STATIC_DIR and BUILD_RESULTS_DIR environment variables
+# Load environment variables
 source ~/.env
 
 SOLR_CONTAINER=lifemap-solr
