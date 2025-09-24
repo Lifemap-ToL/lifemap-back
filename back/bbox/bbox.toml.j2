@@ -68,8 +68,8 @@ minzoom = 0
 maxzoom = 42
 
 [[tileset.postgis.layer.query]]
-sql = """SELECT 
-way, id, ref, zoomview, clade, rankname, rank_en, rank_fr, convex, taxid 
+sql = """SELECT
+way, id, ref, zoomview, clade, rankname, rank_en, rank_fr, convex, taxid
 FROM ranks_prod
 WHERE rankname=True and zoomview between !zoom!-4 and !zoom!-2 """
 
@@ -101,11 +101,11 @@ minzoom = 0
 maxzoom = 42
 
 [[tileset.postgis.layer.query]]
-sql = """SELECT 
+sql = """SELECT
 way,id,ref,zoomview,clade,taxid
-FROM polygons_prod 
+FROM polygons_prod
 WHERE (zoomview between !zoom!-4 and !zoom! + 1) or (ref=3 and zoomview between !zoom!-4 and !zoom!+1)
-ORDER BY nbdesc DESC 
+ORDER BY nbdesc DESC
 """
 
 # --- BRANCHES ---
@@ -135,7 +135,7 @@ minzoom = 0
 maxzoom = 42
 
 [[tileset.postgis.layer.query]]
-# The query must be passed to !zoom!+16 to display unclassified bacteria and environmental 
+# The query must be passed to !zoom!+16 to display unclassified bacteria and environmental
 # samples in bacteria
 # -> WHERE (zoomview < !zoom!+13) or (ref = 3 and zoomview < !zoom!+16)
 sql = """SELECT
@@ -176,11 +176,11 @@ minzoom = 0
 maxzoom = 42
 
 [[tileset.postgis.layer.query]]
-sql = """SELECT 
+sql = """SELECT
 way,id,ref,zoomview,clade,taxid
-FROM polygons_prod 
+FROM polygons_prod
 WHERE zoomview between !zoom!-4 and !zoom! + 1
-ORDER BY nbdesc DESC 
+ORDER BY nbdesc DESC
 """
 
 # --- Ranks layer
@@ -199,7 +199,7 @@ minzoom = 0
 maxzoom = 42
 
 [[tileset.postgis.layer.query]]
-sql = """SELECT 
+sql = """SELECT
 way, id, ref, zoomview, clade, rankname, rank_en, rank_fr, convex, taxid
 FROM ranks_prod
 WHERE rankname=True and zoomview between !zoom!-4 and !zoom!-2 """
@@ -220,7 +220,7 @@ minzoom = 0
 maxzoom = 42
 
 [[tileset.postgis.layer.query]]
-# The query must be passed to !zoom!+16 to display unclassified bacteria and environmental 
+# The query must be passed to !zoom!+16 to display unclassified bacteria and environmental
 # samples in bacteria
 # -> WHERE (zoomview < !zoom!+13) or (ref = 3 and zoomview < !zoom!+16)
 sql = """SELECT
@@ -229,7 +229,3 @@ FROM branches_prod
 WHERE (zoomview < !zoom!+11)
 ORDER BY zoomview
 """
-
-
-
-

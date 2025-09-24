@@ -41,13 +41,13 @@
     # --- SOLR ---
 
     redir /solr /solr/
-    reverse_proxy /solr/* solr:8983
+    reverse_proxy /solr/* 127.0.0.1:8983
 
     # --- MOD_TILE ---
 
-    reverse_proxy /osm_tiles/* mod_tile:80
-    reverse_proxy /nolabels/* mod_tile:80
-    reverse_proxy /onlylabels/* mod_tile:80
+    reverse_proxy /osm_tiles/* 127.0.0.1:8888
+    reverse_proxy /nolabels/* 127.0.0.1:8888
+    reverse_proxy /onlylabels/* 127.0.0.1:8888
 
     # --- BBOX ---
 
@@ -63,7 +63,7 @@
             }
             header Cache-Control "public, max-age=86400"
         }
-        reverse_proxy bbox:8080
+        reverse_proxy 127.0.0.1:8080
     }
 
     # --- METADATA ---
