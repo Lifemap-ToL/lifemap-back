@@ -35,6 +35,7 @@
                 - zip
                 - ufw
                 - unattended-upgrades
+                - cron
             state: present
 
       - name: Set timezone to Europe/Paris
