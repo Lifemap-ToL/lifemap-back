@@ -74,13 +74,11 @@ services:
             - "443:443/udp"
         volumes:
             - ./caddy/Caddyfile:/etc/caddy/Caddyfile
-            - caddy_data:/data
-            - caddy_config:/config
+            - ./caddy/data:/data
+            - ./caddy/config:/config
             - ../www/static:/static
             - ../www/front:/front
 
 volumes:
     solr_data:
     postgis_data:
-    caddy_data:
-    caddy_config:
