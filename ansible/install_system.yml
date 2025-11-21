@@ -187,13 +187,12 @@
             src: "../templates/prometheus/"
             dest: "{{ prometheus_dir }}"
 
-      - name: Stop containers if needed
+      - name: Start containers if needed
         become: true
         ansible.builtin.command:
             chdir: "{{ prometheus_dir }}"
             cmd: docker compose -f docker-compose.yml up -d
         changed_when: true
-        when: docker_compose.stat.exists
 
       ### --- DIRECTORIES CREATION ---
 
