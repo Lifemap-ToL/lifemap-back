@@ -19,10 +19,10 @@ uv tool install ansible
 
 The backend is composed of several elements:
 
--   A postgis server, deployed with docker. The database contains "build" tables (`points`, `lines` and `polygons` tables), as well as "production" tables (`points_prod`, `lines_prod` and `polygons_prod` tables). When the tree is updated, build tables are emptied and recreated, and production tables are copied from build tables only if the update process is successful.
--   A solr server, deployed with docker. The server contains two cores, `taxo` for tree data and `addi` for additional data.
--   A modified mod_tile server for bitmap tiles generation, build and deployed with docker.
--   A [bbox](https://www.bbox.earth/index.html) vector tiles server, deployed with docker.
+- A postgis server, deployed with docker. The database contains "build" tables (`points`, `lines` and `polygons` tables), as well as "production" tables (`points_prod`, `lines_prod` and `polygons_prod` tables). When the tree is updated, build tables are emptied and recreated, and production tables are copied from build tables only if the update process is successful.
+- A solr server, deployed with docker. The server contains two cores, `taxo` for tree data and `addi` for additional data.
+- A modified mod_tile server for bitmap tiles generation, build and deployed with docker.
+- A [bbox](https://www.bbox.earth/index.html) vector tiles server, deployed with docker.
 
 These elements are build and deployed with docker compose, from `back/docker-compose.yml`.
 
@@ -83,23 +83,23 @@ The `~/builder/cron_update.sh` can be used to automate updates. To have an autom
 
 ## Endpoints
 
--   Solr API is at `/solr/`
-    -   Solr english taxonomy autocompletion is at `/solr/taxo/suggesthandler`
-    -   Solr french taxonomy autocompletion is at `/solr/taxo/suggesthandlerfr`
--   JSON metadata file is at `/static/metadata.json`
--   Vector tiles are at `/vector_tiles/`
--   Bitmap mod_tile tiles are at `/osm_tiles/`, `/nolabels/` and `/only_labels/`
--   Optional test vector frontend is at `/bbox/`
--   Optional bitmap mod_tile frontend is at `/ncbi/`
--   Data files for `pylifemap` and `lifemapR` are at `/static/data/` or `/data/`
+- Solr API is at `/solr/`
+  - Solr english taxonomy autocompletion is at `/solr/taxo/suggesthandler`
+  - Solr french taxonomy autocompletion is at `/solr/taxo/suggesthandlerfr`
+- JSON metadata file is at `/static/metadata.json`
+- Vector tiles are at `/vector_tiles/`
+- Bitmap mod_tile tiles are at `/osm_tiles/`, `/nolabels/` and `/only_labels/`
+- Optional test vector frontend is at `/bbox/`
+- Optional bitmap mod_tile frontend is at `/ncbi/`
+- Data files for `pylifemap` and `lifemapR` are at `/static/data/` or `/data/`
 
 ### Health endpoints
 
--   Global backend health endpoint is at `/health`
--   Solr health endpointsare at `/solr/taxo/admin/ping` and `/solr/addi/admin/ping`
--   Bbox health endpoint is at `/vector_tiles/health`
+- Global backend health endpoint is at `/health`
+- Solr health endpointsare at `/solr/taxo/admin/ping` and `/solr/addi/admin/ping`
+- Bbox health endpoint is at `/vector_tiles/health`
 
 ## Notes
 
--   If not deploying on Ubuntu 24.04, the binary R arrow package installation and docker apt repository must be modified in Ansible scripts.
--   If the file TAXONOMIC-VERNACULAR-FR.txt has changed, remove the cache pkl file
+- If not deploying on Ubuntu 24.04, the binary R arrow package installation and docker apt repository must be modified in Ansible scripts.
+- If the file TAXONOMIC-VERNACULAR-FR.txt has changed, remove `builder_results/taxo/fr_common_name.pkl`.
