@@ -293,7 +293,7 @@ def traverse_tree(
         t.y = 9.660254 - 10.0
         t.alpha = 30.0
         t.ray = 10.0
-    if groupnb == "2":
+    elif groupnb == "2":
         t = tree["2759"].copy()
         logger.info("Eukaryotic tree loaded")
         t.x = -6.0
