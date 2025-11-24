@@ -1,4 +1,5 @@
 import logging
+
 import polars as pl
 from config import TAXO_DIRECTORY
 from db import db_connection

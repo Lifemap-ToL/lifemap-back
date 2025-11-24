@@ -1,7 +1,7 @@
 import logging
 from dataclasses import dataclass, field
 
-from config import TAXO_DIRECTORY, LANG_LIST
+from config import LANG_LIST, TAXO_DIRECTORY
 from ete3 import Tree
 from utils import get_ranks_translations, get_translations_fr
 
@@ -63,15 +63,9 @@ def get_attributes() -> dict:
         attr[tax_id].sci_name = attr[tax_id].sci_name.replace("'", "''")
         for lang in LANG_LIST:
             if len(attr[tax_id].common_name[lang]) > 0:
-                attr[tax_id].common_name_long[lang] = (
-                    "(" + ", ".join(attr[tax_id].common_name[lang]) + ")"
-                )
-                attr[tax_id].common_name[lang] = (
-                    attr[tax_id].common_name[lang][0].replace("'", "''")
-                )
-                attr[tax_id].common_name[lang] = (
-                    "(" + attr[tax_id].common_name[lang] + ")"
-                )
+                attr[tax_id].common_name_long[lang] = "(" + ", ".join(attr[tax_id].common_name[lang]) + ")"
+                attr[tax_id].common_name[lang] = attr[tax_id].common_name[lang][0].replace("'", "''")
+                attr[tax_id].common_name[lang] = "(" + attr[tax_id].common_name[lang] + ")"
             else:
                 attr[tax_id].common_name[lang] = ""
                 attr[tax_id].common_name_long[lang] = ""
@@ -80,7 +74,6 @@ def get_attributes() -> dict:
 
 
 def getTheTrees() -> dict:
-
     attr = get_attributes()
     ranks_translations = get_ranks_translations()
 

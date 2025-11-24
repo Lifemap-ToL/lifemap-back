@@ -240,12 +240,12 @@ def node2json(node) -> str:
         "taxid": "{node.taxid}",
         "sci_name": "{sci_name}",
         "suggest_weight": "{300 - len(sci_name)}",
-        "common_name_en": "{common_name['en']}",
-        "common_name_fr": "{common_name['fr']}",
+        "common_name_en": "{common_name["en"]}",
+        "common_name_fr": "{common_name["fr"]}",
         "authority": "{authority}",
         "synonym": "{synonym}",
-        "rank_en": "{node.rank['en']}",
-        "rank_fr": "{node.rank['fr']}",
+        "rank_en": "{node.rank["en"]}",
+        "rank_fr": "{node.rank["fr"]}",
         "all_en": "{sci_name} | {common_name["en"]} | {node.rank["en"]} | {node.taxid}",
         "all_fr": "{sci_name} | {common_name["fr"]} | {node.rank["fr"]} | {node.taxid}",
         "zoom": {int(node.zoomview + 4)},
@@ -300,7 +300,7 @@ def traverse_tree(
         t.y = 9.660254 - 10.0
         t.alpha = 150.0
         t.ray = 10.0
-    if groupnb == "3":
+    else:
         t = tree["2"].copy()
         logger.info("Bacterial tree loaded")
         t.x = 0.0
@@ -422,9 +422,7 @@ def traverse_tree(
             lines_records.append(get_way_record(n, ndid, groupnb))
         if not n.is_leaf():
             indexes = np.linspace(ndid + 1, ndid + 63, num=63)
-            polygon_record, cladecenter_record, rank_record = get_polyg_record(
-                n, indexes, groupnb
-            )
+            polygon_record, cladecenter_record, rank_record = get_polyg_record(n, indexes, groupnb)
             polygons_records.append(polygon_record)
             cladecenters_records.append(cladecenter_record)
             ranks_records.append(rank_record)
@@ -447,9 +445,7 @@ def traverse_tree(
     ascends.write_parquet(BUILD_DIRECTORY / f"ascends_{groupnb}.parquet")
 
     logger.info("Inserting branches data into postgis...")
-    with cur.copy(
-        "COPY branches (id, branch, zoomview, ref, name, geom_txt) FROM STDIN"
-    ) as copy:
+    with cur.copy("COPY branches (id, branch, zoomview, ref, name, geom_txt) FROM STDIN") as copy:
         for record in tqdm(lines_records):
             copy.write_row(record)
     conn.commit()

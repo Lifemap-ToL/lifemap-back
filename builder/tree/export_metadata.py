@@ -5,15 +5,13 @@ import logging
 from datetime import datetime
 from pathlib import Path
 
-from db import db_connection
-
 from config import BUILD_DIRECTORY, TAXO_DIRECTORY
+from db import db_connection
 
 logger = logging.getLogger("LifemapBuilder")
 
 
 def export_metadata() -> None:
-
     meta = {}
 
     # Date of NCBI data
