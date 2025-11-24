@@ -2,21 +2,30 @@
 name = "lifemap-builder"
 version = "0.1.0"
 description = "Lifemap backend data builder"
-authors = [
-    { name = "Damien de Vienne", email = "damien.de-vienne@univ-lyon1.fr" }
-]
-dependencies = [
-    "ete3>=3.1.3",
-    "numpy>=1.26.4",
-    "psycopg[binary]>=3.1.19",
-    "six>=1.16.0",
-    "python-dotenv>=1.0.1",
-    "tqdm>=4.66.4",
-    "polars>=1.6.0",
-    "requests>=2.32.3",
-]
 readme = "README.md"
 requires-python = ">= 3.11"
+authors = [
+  { name = "Damien de Vienne", email = "damien.de-vienne@univ-lyon1.fr" }
+]
+dependencies = [
+  "ete3>=3.1.3",
+  "numpy>=1.26.4",
+  "polars>=1.6.0",
+  "psycopg[binary]>=3.1.19",
+  "python-dotenv>=1.0.1",
+  "requests>=2.32.3",
+  "six>=1.16.0",
+  "tqdm>=4.66.4",
+]
+
+[dependency-groups]
+dev = [
+  "ruff>=0.14.6",
+  "ty>=0.0.1a27",
+]
+
+[tool.ty.environment]
+root = ["./tree"]
 
 [tool.uv]
 package = false
