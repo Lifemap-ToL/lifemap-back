@@ -43,11 +43,11 @@ def get_attributes() -> dict:
                     attr[taxid].common_name[lang] = []
             if tid_type == "common name":
                 attr[taxid].common_name["en"].append(tid_val)
+            if taxid in taxo_fr_translations:
+                attr[taxid].common_name["fr"] = taxo_fr_translations[taxid]
             if tid_type == "scientific name":
                 attr[taxid].sci_name = tid_val
                 # and get translation in french (if any)
-                if tid_val in taxo_fr_translations:
-                    attr[taxid].common_name["fr"] = taxo_fr_translations[tid_val]
             if tid_type == "authority":
                 if attr[taxid].authority != "":
                     attr[taxid].authority = attr[taxid].authority + ", " + tid_val
@@ -63,9 +63,10 @@ def get_attributes() -> dict:
         attr[tax_id].sci_name = attr[tax_id].sci_name.replace("'", "''")
         for lang in LANG_LIST:
             if len(attr[tax_id].common_name[lang]) > 0:
-                attr[tax_id].common_name_long[lang] = "(" + ", ".join(attr[tax_id].common_name[lang]) + ")"
-                attr[tax_id].common_name[lang] = attr[tax_id].common_name[lang][0].replace("'", "''")
-                attr[tax_id].common_name[lang] = "(" + attr[tax_id].common_name[lang] + ")"
+                common_name_long = ", ".join(attr[tax_id].common_name[lang])
+                attr[tax_id].common_name_long[lang] = f"{common_name_long}"
+                common_name = next(iter(attr[tax_id].common_name[lang]))
+                attr[tax_id].common_name[lang] = f"{common_name.replace("'", "''")}"
             else:
                 attr[tax_id].common_name[lang] = ""
                 attr[tax_id].common_name_long[lang] = ""

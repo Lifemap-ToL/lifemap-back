@@ -10,7 +10,6 @@ from datetime import datetime
 from ftplib import FTP
 
 import polars as pl
-
 from config import TAXO_DIRECTORY
 
 logger = logging.getLogger("LifemapBuilder")
@@ -40,9 +39,7 @@ def download_file_if_newer(host, remote_file, local_file) -> bool:
                 print(f"Downloaded {remote_file} (newer than local file)")
                 downloaded = True
             else:
-                print(
-                    f"Remote file {remote_file} is not newer than local file, skipping download"
-                )
+                print(f"Remote file {remote_file} is not newer than local file, skipping download")
 
     except Exception as e:
         print(f"Error downloading file: {e}")
@@ -50,7 +47,7 @@ def download_file_if_newer(host, remote_file, local_file) -> bool:
     return downloaded
 
 
-def get_translations_fr() -> dict:
+def get_translations_fr() -> dict[str, set]:
     """
     Import french translations of taxonomy as dictionary from TAXONOMIC-VERNACULAR-FR.txt
 
@@ -68,12 +65,12 @@ def get_translations_fr() -> dict:
         with open(pkl_file, "rb") as f:
             trans = pickle.load(f)
     else:
-        trans = defaultdict(list)
+        trans = defaultdict(set)
         with open(TAXO_DIRECTORY / "TAXONOMIC-VERNACULAR-FR.txt") as f:
             lines = f.readlines()
         lines = [line.split("\t") for line in lines]
-        for k, v in lines:
-            trans[k.strip()].append(v.strip())
+        for taxid, _, vernacular_name in lines:
+            trans[taxid.strip()].add(vernacular_name.strip())
         with open(pkl_file, "wb") as f:
             pickle.dump(trans, f)
     return trans
