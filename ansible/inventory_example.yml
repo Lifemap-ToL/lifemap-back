@@ -2,10 +2,11 @@
 lifemap:
     vars:
         backend_hostname: lifemap-back.example.com
+        backend_ip: CHANGE_ME
         ansible_python_interpreter: "/usr/bin/python3"
     hosts:
         lifemap-back:
-            ansible_host: "{{ backend_hostname }}"
+            ansible_host: "{{ backend_ip }}"
             ansible_user: CHANGE_ME
             builder_dir: "/home/{{ ansible_user }}/builder"
             build_results_dir: "/home/{{ ansible_user }}/builder_results/"
