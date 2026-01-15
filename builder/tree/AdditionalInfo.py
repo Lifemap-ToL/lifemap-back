@@ -4,14 +4,14 @@ import logging
 
 import polars as pl
 from config import BUILD_DIRECTORY, GENOMES_DIRECTORY, TAXO_DIRECTORY
-from utils import download_file_if_newer
+from utils import download_ftp_file_if_newer
 
 logger = logging.getLogger("LifemapBuilder")
 
 
 def download_genomes() -> None:
     for name in ["eukaryotes", "prokaryotes"]:
-        genome_downloaded = download_file_if_newer(
+        genome_downloaded = download_ftp_file_if_newer(
             host="ftp.ncbi.nlm.nih.gov",
             remote_file=f"genomes/GENOME_REPORTS/{name}.txt",
             local_file=GENOMES_DIRECTORY / f"{name}.txt",
@@ -53,9 +53,7 @@ def add_info(nbgroup: str):
     )
 
     addi = ascends
-    ascend = ascends.with_columns(
-        pl.col("ascend").list.concat(pl.col("taxid"))
-    ).explode("ascend")
+    ascend = ascends.with_columns(pl.col("ascend").list.concat(pl.col("taxid"))).explode("ascend")
     logger.info("  Merging additional data...")
     n_genomes = (
         ascend.join(genomes, left_on="taxid", right_on="taxid", how="left")
@@ -64,9 +62,7 @@ def add_info(nbgroup: str):
         .agg(genomes=pl.sum("n"))
         .rename({"ascend": "taxid"})
     )
-    addi = addi.join(n_genomes, on="taxid", how="left").with_columns(
-        pl.col("genomes").fill_null(0)
-    )
+    addi = addi.join(n_genomes, on="taxid", how="left").with_columns(pl.col("genomes").fill_null(0))
 
     addi = addi.join(ages, on="taxid", how="left")
 

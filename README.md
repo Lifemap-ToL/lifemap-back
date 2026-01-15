@@ -102,4 +102,4 @@ The `~/builder/cron_update.sh` can be used to automate updates. To have an autom
 ## Notes
 
 - If not deploying on Ubuntu 24.04, the binary R arrow package installation and docker apt repository must be modified in Ansible scripts.
-- If the file TAXONOMIC-VERNACULAR-FR.txt has changed, remove `builder_results/taxo/fr_common_name.pkl`.
+- Vernacular taxonomic french names are automatically imported from <https://github.com/Lifemap-ToL/taxonomy-fr/blob/master/TAXONOMIC-VERNACULAR-FR-LATEST.txt>

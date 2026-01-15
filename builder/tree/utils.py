@@ -8,14 +8,16 @@ import pickle
 from collections import defaultdict
 from datetime import datetime
 from ftplib import FTP
+from pathlib import Path
 
 import polars as pl
+import requests
 from config import TAXO_DIRECTORY
 
 logger = logging.getLogger("LifemapBuilder")
 
 
-def download_file_if_newer(host, remote_file, local_file) -> bool:
+def download_ftp_file_if_newer(host, remote_file, local_file) -> bool:
     downloaded = False
     try:
         with FTP(host) as ftp:
@@ -47,9 +49,49 @@ def download_file_if_newer(host, remote_file, local_file) -> bool:
     return downloaded
 
 
+def download_github_file_if_newer(github_url: str, local_file: Path | str) -> bool:
+    downloaded = False
+    try:
+        # Get the last modified time of the github file
+        api_url = github_url.replace("github.com", "api.github.com/repos").replace(
+            "/blob/master/", "/contents/"
+        )
+        response = requests.get(api_url)
+        if response.status_code != 200:
+            print(f"Failed to fetch {github_url} metadata.")
+            return False
+
+        remote_last_modified = datetime.strptime(
+            response.headers["Last-Modified"], "%a, %d %b %Y %H:%M:%S %Z"
+        )
+
+        # Get the last modified time of the local file
+        local_path = Path(local_file)
+        if local_path.exists():
+            local_last_modified = datetime.fromtimestamp(local_path.stat().st_mtime)
+        else:
+            local_last_modified = datetime.min  # Treat as very old if the file doesn't exist
+
+        # Compare and download if remote is newer
+        if remote_last_modified > local_last_modified:
+            download_url = response.json()["download_url"]
+            r = requests.get(download_url)
+            local_path.write_bytes(r.content)
+            downloaded = True
+            print(f"Downloaded {github_url} (newer than local file)")
+        else:
+            print(f"Remote file {github_url} is not newer than local file, skipping download")
+
+    except Exception as e:
+        print(f"Error downloading file: {e}")
+
+    return downloaded
+
+
 def get_translations_fr() -> dict[str, set]:
     """
-    Import french translations of taxonomy as dictionary from TAXONOMIC-VERNACULAR-FR.txt
+    Import french translations of taxonomy as dictionary from:
+    https://github.com/Lifemap-ToL/taxonomy-fr/blob/master/TAXONOMIC-VERNACULAR-FR-LATEST.txt
 
     There can be several common names for one sciname, so each dict value is a list.
 
@@ -59,14 +101,19 @@ def get_translations_fr() -> dict[str, set]:
         dictionary of translations.
     """
     logger.info("  Importing french common names")
+    github_url = "https://github.com/Lifemap-ToL/taxonomy-fr/blob/master/TAXONOMIC-VERNACULAR-FR-LATEST.txt"
+    local_file = TAXO_DIRECTORY / "TAXONOMIC-VERNACULAR-FR-LATEST.txt"
     pkl_file = TAXO_DIRECTORY / "fr_common_name.pkl"
-    if pkl_file.exists():
+
+    downloaded = download_github_file_if_newer(github_url=github_url, local_file=local_file)
+
+    if not downloaded and pkl_file.exists():
         logger.info(f"  Importing from {pkl_file}")
         with open(pkl_file, "rb") as f:
             trans = pickle.load(f)
     else:
         trans = defaultdict(set)
-        with open(TAXO_DIRECTORY / "TAXONOMIC-VERNACULAR-FR.txt") as f:
+        with open(local_file) as f:
             lines = f.readlines()
         lines = [line.split("\t") for line in lines]
         for taxid, _, vernacular_name in lines:

@@ -17,7 +17,7 @@ import polars as pl
 from config import BUILD_DIRECTORY, LANG_LIST, TAXO_DIRECTORY
 from db import db_connection
 from tqdm import tqdm
-from utils import download_file_if_newer
+from utils import download_ftp_file_if_newer
 
 # print args
 
@@ -27,7 +27,7 @@ logger = logging.getLogger("LifemapBuilder")
 ##update db (if requested?)
 def updateDB():
     logger.info("Updating databases...")
-    downloaded = download_file_if_newer(
+    downloaded = download_ftp_file_if_newer(
         host="ftp.ncbi.nlm.nih.gov",
         remote_file="/pub/taxonomy/taxdump.tar.gz",
         local_file=TAXO_DIRECTORY / "taxdump.tar.gz",
