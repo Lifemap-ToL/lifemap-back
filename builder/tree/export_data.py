@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 import logging
-import subprocess
 from datetime import datetime
 from pathlib import Path
 
@@ -118,15 +117,6 @@ def export_lmdata() -> None:
 
     except Exception as e:
         raise RuntimeError(f"Error exporting data to parquet: {e}")
-
-    logger.info(" Converting parquet file to Rdata file...")
-    # Execute the R conversion script
-    script_dir = Path(__file__).parent.absolute()
-    script_file = script_dir / "Convert2Rdata.R"
-    try:
-        subprocess.run(["Rscript", str(script_file), BUILD_DIRECTORY])
-    except Exception as e:
-        raise RuntimeError(f"Error executing R script: {e}")
 
     logger.info(" Creating timestamp file...")
     # Get the current datetime

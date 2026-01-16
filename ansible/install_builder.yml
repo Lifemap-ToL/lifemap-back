@@ -15,30 +15,6 @@
             mode: "0600"
             force: true
 
-      - name: Apt update
-        become: true
-        ansible.builtin.apt:
-            cache_valid_time: 3600
-            update_cache: true
-
-      - name: Install apt packages for builder
-        become: true
-        ansible.builtin.apt:
-            name:
-                - python3-pip
-                - r-base-core
-                - r-cran-jsonlite
-                - unzip
-                - curl
-            state: present
-
-      - name: Install R arrow package
-        become: true
-        ansible.builtin.shell:
-            cmd: Rscript -e 'options(HTTPUserAgent = sprintf("R/%s R (%s)", getRversion(), paste (getRversion(), R.version["platform"], R.version["arch"], R.version["os"]))); install.packages("arrow", repos = "https://packagemanager.rstudio.com/all/__linux__/noble/latest")'
-            executable: /bin/bash
-        changed_when: true
-
       - name: Install uv
         ansible.builtin.shell: curl -LsSf https://astral.sh/uv/install.sh | sh
         args:
