@@ -22,6 +22,7 @@ def download_genomes() -> None:
                 separator="\t",
                 infer_schema_length=20000,
                 null_values=["-"],
+                quote_char=None,
             )
             # For the moment we only keep the total number of complete genomes
             # by taxid
