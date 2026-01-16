@@ -70,7 +70,7 @@
 
       - name: Wait for Solr to be up
         ansible.builtin.uri:
-            url: "https://{{ backend_hostname }}/solr/"
+            url: "http://localhost:8983/solr/"
             status_code: 200
             validate_certs: false
         register: solr_main_page
@@ -80,7 +80,7 @@
 
       - name: Check solr password
         ansible.builtin.uri:
-            url: "https://{{ backend_hostname }}/solr/admin/authentication"
+            url: "http://localhost:8983/solr/admin/authentication"
             method: POST
             user: "solr"
             password: "SolrRocks"
@@ -95,7 +95,7 @@
 
       - name: Change solr password
         ansible.builtin.uri:
-            url: "https://{{ backend_hostname }}/solr/admin/authentication"
+            url: "http://localhost:8983/solr/admin/authentication"
             method: POST
             user: "solr"
             password: "SolrRocks"
