@@ -3,7 +3,7 @@ name = "lifemap-builder"
 version = "0.1.0"
 description = "Lifemap backend data builder"
 readme = "README.md"
-requires-python = ">= 3.12"
+requires-python = ">= 3.13"
 authors = [
   { name = "Damien de Vienne", email = "damien.de-vienne@univ-lyon1.fr" }
 ]
