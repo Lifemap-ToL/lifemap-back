@@ -1,3 +1,4 @@
+import gc
 import logging
 import sys
 from argparse import ArgumentParser
@@ -39,7 +40,6 @@ def lifemap_build(
     skip_rdata: bool = False,
     skip_index: bool = False,
 ) -> None:
-
     logger.info("-- Creating genomes directory if needed")
     Path(GENOMES_DIRECTORY).mkdir(exist_ok=True)
     logger.info("-- Done")
@@ -69,6 +69,7 @@ def lifemap_build(
         logger.info("---- Create Postgis geometries ----")
         db.create_geometries()
         logger.info("---- Done")
+        del tree
 
     # Copy postgis data to production tables
     logger.info("-- Copy postgis data to production tables --")
@@ -78,6 +79,9 @@ def lifemap_build(
     logger.info("-- Creating indexes... ")
     db.create_index()
     logger.info("-- Done")
+
+    # Garbage collect
+    gc.collect()
 
     ## Get additional info
     if skip_add_info:
@@ -97,6 +101,9 @@ def lifemap_build(
         logger.info("-- Combining tree and additional features...")
         AdditionalInfo.merge_features()
         logger.info("-- Done")
+
+    # Garbage collect
+    gc.collect()
 
     ## Write whole data to Rdada file for use in R package LifemapR (among others)
     if skip_rdata:
@@ -124,24 +131,15 @@ def lifemap_build(
 
 
 if __name__ == "__main__":
-
-    parser = ArgumentParser(
-        description="Perform all Lifemap tree analysis, cleaning previous data if any."
-    )
+    parser = ArgumentParser(description="Perform all Lifemap tree analysis, cleaning previous data if any.")
     parser.add_argument(
         "--simplify",
         action="store_true",
         help="Should the tree be simplified by removing environmental and unidentified species?",
     )
-    parser.add_argument(
-        "--skip-traversal", action="store_true", help="Skip tree building"
-    )
-    parser.add_argument(
-        "--skip-add-info", action="store_true", help="Skip additional info"
-    )
-    parser.add_argument(
-        "--skip-merge-jsons", action="store_true", help="Skip JSONs merging"
-    )
+    parser.add_argument("--skip-traversal", action="store_true", help="Skip tree building")
+    parser.add_argument("--skip-add-info", action="store_true", help="Skip additional info")
+    parser.add_argument("--skip-merge-jsons", action="store_true", help="Skip JSONs merging")
     parser.add_argument("--skip-rdata", action="store_true", help="Skip Rdata export")
     parser.add_argument("--skip-index", action="store_true", help="Skip index creation")
 
