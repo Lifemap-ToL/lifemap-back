@@ -19,6 +19,7 @@ from config import (
 # Init logging
 log_path = BUILD_DIRECTORY / "builder.log"
 logger = logging.getLogger("LifemapBuilder")
+logger.handlers.clear()
 fh = logging.FileHandler(log_path, mode="w")
 ch = logging.StreamHandler(stream=sys.stdout)
 # formatter = logging.Formatter("%(asctime)s   %(message)s", datefmt="%Y-%m-%d %H:%M:%S")
@@ -27,6 +28,7 @@ ch = logging.StreamHandler(stream=sys.stdout)
 logger.addHandler(ch)
 logger.addHandler(fh)
 logger.setLevel(logging.DEBUG)
+logger.propagate = False
 
 
 def lifemap_build(
