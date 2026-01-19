@@ -40,18 +40,18 @@ def simplify_tree(arbre):
     logger.info("Simplifying tree...")
     initialSize = len(arbre)
     for n in arbre.traverse():
-        if n.is_leaf() and (n.rank_en == "no rank"):
+        if n.is_leaf and (n.props["rank_en"] == "no rank"):
             n.detach()
         else:
             if (
-                ("Unclassified" in n.sci_name)
-                or ("unclassified" in n.sci_name)
-                or ("uncultured" in n.sci_name)
-                or ("Uncultured" in n.sci_name)
-                or ("unidentified" in n.sci_name)
-                or ("Unidentified" in n.sci_name)
-                or ("environmental" in n.sci_name)
-                or ("sp." in n.sci_name)
+                ("Unclassified" in n.props["sci_name"])
+                or ("unclassified" in n.props["sci_name"])
+                or ("uncultured" in n.props["sci_name"])
+                or ("Uncultured" in n.props["sci_name"])
+                or ("unidentified" in n.props["sci_name"])
+                or ("Unidentified" in n.props["sci_name"])
+                or ("environmental" in n.props["sci_name"])
+                or ("sp." in n.props["sci_name"])
             ):
                 n.detach()
     logger.info("Tree HAS BEEN simplified")
@@ -123,27 +123,27 @@ def HalfCircPlusEllips(x, y, r, alpha, start, end, nsteps):
 
 def get_way_record(node, id, groupnb):
     # Create branch names
-    Upsci_name = node.up.sci_name
-    Upcommon_name_en = node.up.common_name["en"]
-    Downsci_name = node.sci_name
-    Downcommon_name_en = node.common_name["en"]
+    Upsci_name = node.up.props["sci_name"]
+    Upcommon_name_en = node.up.props["common_name"]["en"]
+    Downsci_name = node.props["sci_name"]
+    Downcommon_name_en = node.props["common_name"]["en"]
     left = Upsci_name + " " + Upcommon_name_en
     right = Downsci_name + " " + Downcommon_name_en
-    if node.x >= node.up.x:  # we are on the right
+    if node.props["x"] >= node.up.props["x"]:  # we are on the right
         wayName = "\\u2190  " + left + "     -     " + right + "  \\u2192"
     else:  # we are on the left
         wayName = "\\u2190  " + right + "     -     " + left + "  \\u2192"
 
     ##new with midpoints:
-    midlatlon = midpoint(node.up.x, node.up.y, node.x, node.y)
+    midlatlon = midpoint(node.up.props["x"], node.up.props["y"], node.props["x"], node.props["y"])
 
     record = (
         id,
         "TRUE",
-        int(node.zoomview),
+        int(node.props["zoomview"]),
         groupnb,
         wayName,
-        f"LINESTRING({node.up.x:.20f} {node.up.y:.20f}, {midlatlon[0]:.20f} {midlatlon[1]:.20f}, {node.x:.20f} {node.y:.20f} )",
+        f"LINESTRING({node.up.props['x']:.20f} {node.up.props['y']:.20f}, {midlatlon[0]:.20f} {midlatlon[1]:.20f}, {node.props['x']:.20f} {node.props['y']:.20f} )",
     )
 
     return record
@@ -151,12 +151,12 @@ def get_way_record(node, id, groupnb):
 
 def get_polyg_record(node, ids, groupnb):
     polyg = HalfCircPlusEllips(
-        node.x,
-        node.y,
-        node.ray,
-        rad(node.alpha) + np.pi / 2,
-        rad(node.alpha) - np.pi / 2,
-        rad(node.alpha) + np.pi / 2,
+        node.props["x"],
+        node.props["y"],
+        node.props["ray"],
+        rad(node.props["alpha"]) + np.pi / 2,
+        rad(node.props["alpha"]) - np.pi / 2,
+        rad(node.props["alpha"]) + np.pi / 2,
         30,
     )
     polygcenter = (np.mean(polyg[0]), np.mean(polyg[1]))
@@ -170,24 +170,24 @@ def get_polyg_record(node, ids, groupnb):
         int(ids[60]),
         groupnb,
         True,
-        node.taxid,
-        node.sci_name,
-        node.common_name["en"],
-        node.rank["en"],
-        int(node.nbdesc),
-        int(node.zoomview),
+        node.props["taxid"],
+        node.props["sci_name"],
+        node.props["common_name"]["en"],
+        node.props["rank"]["en"],
+        int(node.props["nbdesc"]),
+        int(node.props["zoomview"]),
         cooPolyg,
     )
 
     cladecenter_record = (
         int(ids[61]),
         True,
-        node.taxid,
-        node.sci_name,
-        node.common_name["en"],
-        node.rank["en"],
-        int(node.nbdesc),
-        int(node.zoomview),
+        node.props["taxid"],
+        node.props["sci_name"],
+        node.props["common_name"]["en"],
+        node.props["rank"]["en"],
+        int(node.props["nbdesc"]),
+        int(node.props["zoomview"]),
         f"POINT({polygcenter[0]:.20f} {polygcenter[1]:.20f})",
     )
 
@@ -210,12 +210,12 @@ def get_polyg_record(node, ids, groupnb):
         int(ids[62]),
         groupnb,
         True,
-        node.taxid,
-        node.sci_name,
-        int(node.zoomview),
-        node.rank["en"],
-        node.rank["fr"],
-        int(node.nbdesc),
+        node.props["taxid"],
+        node.props["sci_name"],
+        int(node.props["zoomview"]),
+        node.props["rank"]["en"],
+        node.props["rank"]["fr"],
+        int(node.props["nbdesc"]),
         convexity,
         cooLine,
     )
@@ -224,35 +224,35 @@ def get_polyg_record(node, ids, groupnb):
 
 
 def node2json(node) -> str:
-    sci_name = node.sci_name
+    sci_name = node.props["sci_name"]
     sci_name = sci_name.replace('"', '\\"')
     common_name = {}
     for lang in LANG_LIST:
-        common_name[lang] = node.common_name_long[lang]
+        common_name[lang] = node.props["common_name_long"][lang]
         common_name[lang] = common_name[lang].replace('"', '\\"')
     ##new attributes
-    authority = node.authority
+    authority = node.props["authority"]
     authority = authority.replace("\\", "\\\\")
     authority = authority.replace('"', '\\"')
-    synonym = node.synonym
+    synonym = node.props["synonym"]
     synonym = synonym.replace('"', '\\"')
     out = f"""{{
-        "taxid": "{node.taxid}",
+        "taxid": "{node.props["taxid"]}",
         "sci_name": "{sci_name}",
         "suggest_weight": "{300 - len(sci_name)}",
         "common_name_en": "{common_name["en"]}",
         "common_name_fr": "{common_name["fr"]}",
         "authority": "{authority}",
         "synonym": "{synonym}",
-        "rank_en": "{node.rank["en"]}",
-        "rank_fr": "{node.rank["fr"]}",
-        "all_en": "{sci_name} | {common_name["en"]} | {node.rank["en"]} | {node.taxid}",
-        "all_fr": "{sci_name} | {common_name["fr"]} | {node.rank["fr"]} | {node.taxid}",
-        "zoom": {int(node.zoomview + 4)},
-        "nbdesc": {node.nbdesc},
-        "coordinates": [{node.y:.20f}, {node.x:.20f}],
-        "lat": {node.y:.20f},
-        "lon": {node.x:.20f}
+        "rank_en": "{node.props["rank"]["en"]}",
+        "rank_fr": "{node.props["rank"]["fr"]}",
+        "all_en": "{sci_name} | {common_name["en"]} | {node.props["rank"]["en"]} | {node.props["taxid"]}",
+        "all_fr": "{sci_name} | {common_name["fr"]} | {node.props["rank"]["fr"]} | {node.props["taxid"]}",
+        "zoom": {int(node.props["zoomview"] + 4)},
+        "nbdesc": {node.props["nbdesc"]},
+        "coordinates": [{node.props["y"]:.20f}, {node.props["x"]:.20f}],
+        "lat": {node.props["y"]:.20f},
+        "lon": {node.props["x"]:.20f}
     }}"""
     return out
 
@@ -289,28 +289,28 @@ def traverse_tree(
     if groupnb == "1":
         logger.info("Archaeal tree...")
         t = tree["2157"].copy()
-        t.x = 6.0
-        t.y = 9.660254 - 10.0
-        t.alpha = 30.0
-        t.ray = 10.0
+        t.props["x"] = 6.0
+        t.props["y"] = 9.660254 - 10.0
+        t.props["alpha"] = 30.0
+        t.props["ray"] = 10.0
     elif groupnb == "2":
         t = tree["2759"].copy()
         logger.info("Eukaryotic tree loaded")
-        t.x = -6.0
-        t.y = 9.660254 - 10.0
-        t.alpha = 150.0
-        t.ray = 10.0
+        t.props["x"] = -6.0
+        t.props["y"] = 9.660254 - 10.0
+        t.props["alpha"] = 150.0
+        t.props["ray"] = 10.0
     else:
         t = tree["2"].copy()
         logger.info("Bacterial tree loaded")
-        t.x = 0.0
-        t.y = -11.0
-        t.alpha = 270.0
-        t.ray = 10.0
+        t.props["x"] = 0.0
+        t.props["y"] = -11.0
+        t.props["alpha"] = 270.0
+        t.props["ray"] = 10.0
 
-    t.zoomview = np.ceil(np.log2(30 / t.ray))
+    t.props["zoomview"] = np.ceil(np.log2(30 / t.props["ray"]))
 
-    # specis and node ids
+    # species and node ids
     nbsp = len(t)
     spid = starti
     ndid = starti + nbsp
@@ -320,14 +320,14 @@ def traverse_tree(
     points_records = []
     for n in tqdm(t.traverse(), total=len(t)):
         special = 0
-        n.dist = 1.0
+        n.props["dist"] = 1.0
         tot = 0.0
-        if n.is_leaf():
+        if n.is_leaf:
             spid = spid + 1
-            n.id = spid
+            n.props["id"] = spid
         else:
             ndid = ndid + 1
-            n.id = ndid
+            n.props["id"] = ndid
         child = n.children
         ##NEW  -->|
         if (len(child) == 1) & (len(n) > 1):
@@ -338,53 +338,53 @@ def traverse_tree(
         for i in child:
             tot = tot + np.sqrt(len(i))
         nbdesc = len(n)
-        n.nbdesc = nbdesc
+        n.props["nbdesc"] = nbdesc
 
         angles = []
-        ray = n.ray
+        ray = n.props["ray"]
         for i in child:
             # i.ang = 180*(len(i)/float(nbdesc))/2;
-            i.ang = 180 * (np.sqrt(len(i)) / tot) / 2
+            i.props["ang"] = 180 * (np.sqrt(len(i)) / tot) / 2
             # using sqrt we decrease difference between large and small groups
-            angles.append(i.ang)
+            angles.append(i.props["ang"])
             if special == 1:
-                i.ray = ray - (ray * 20) / 100
+                i.props["ray"] = ray - (ray * 20) / 100
             else:
                 if special == 2:
-                    i.ray = ray - (ray * 50) / 100
+                    i.props["ray"] = ray - (ray * 50) / 100
                 else:
-                    i.ray = (ray * np.sin(rad(i.ang)) / np.cos(rad(i.ang))) / (
-                        1 + (np.sin(rad(i.ang)) / np.cos(rad(i.ang)))
+                    i.props["ray"] = (ray * np.sin(rad(i.props["ang"])) / np.cos(rad(i.props["ang"]))) / (
+                        1 + (np.sin(rad(i.props["ang"])) / np.cos(rad(i.props["ang"])))
                     )
-            i.dist = ray - i.ray
+            i.props["dist"] = ray - i.props["ray"]
         ang = np.repeat(angles, 2)
         ang = np.cumsum(ang)
         ang = ang[0::2]
-        ang = [i - (90 - n.alpha) for i in ang]
+        ang = [i - (90 - n.props["alpha"]) for i in ang]
         cpt = 0
         for i in child:
-            i.alpha = ang[cpt]
-            i.x = n.x + i.dist * np.cos(rad(i.alpha))
-            i.y = n.y + i.dist * np.sin(rad(i.alpha))
-            i.zoomview = np.ceil(np.log2(30 / i.ray))
-            if i.zoomview <= 0:
-                i.zoomview = 0
-            if maxZoomView < i.zoomview:
-                maxZoomView = i.zoomview
+            i.props["alpha"] = ang[cpt]
+            i.props["x"] = n.props["x"] + i.props["dist"] * np.cos(rad(i.props["alpha"]))
+            i.props["y"] = n.props["y"] + i.props["dist"] * np.sin(rad(i.props["alpha"]))
+            i.props["zoomview"] = np.ceil(np.log2(30 / i.props["ray"]))
+            if i.props["zoomview"] <= 0:
+                i.props["zoomview"] = 0
+                if maxZoomView < i.props["zoomview"]:
+                    maxZoomView = i.props["zoomview"]
             cpt = cpt + 1
         # Append node info to postgis COPY records
         points_records.append(
             (
-                n.id,
-                n.taxid,
+                n.props["id"],
+                n.props["taxid"],
                 groupnb,
-                n.sci_name,
-                n.common_name["en"],
-                n.rank["en"],
-                n.nbdesc,
-                int(n.zoomview),
-                n.is_leaf(),
-                f"POINT({n.x:.20f} {n.y:.20f})",
+                n.props["sci_name"],
+                n.props["common_name"]["en"],
+                n.props["rank"]["en"],
+                n.props["nbdesc"],
+                int(n.props["zoomview"]),
+                n.is_leaf,
+                f"POINT({n.props['x']:.20f} {n.props['y']:.20f})",
             )
         )
 
@@ -417,10 +417,10 @@ def traverse_tree(
             first = False
         else:
             json_file.write(",")
-        if not n.is_root():
+        if not n.is_root:
             ndid = ndid + 1
             lines_records.append(get_way_record(n, ndid, groupnb))
-        if not n.is_leaf():
+        if not n.is_leaf:
             indexes = np.linspace(ndid + 1, ndid + 63, num=63)
             polygon_record, cladecenter_record, rank_record = get_polyg_record(n, indexes, groupnb)
             polygons_records.append(polygon_record)
@@ -429,10 +429,10 @@ def traverse_tree(
             ndid = ndid + 63
         json_file.write(node2json(n))
         # Compute note ascend list
-        row = {"taxid": n.taxid, "ascend": []}
+        row = {"taxid": n.props["taxid"], "ascend": []}
         node = n
         while node.up:
-            row["ascend"].append(node.up.taxid)
+            row["ascend"].append(node.up.props["taxid"])
             node = node.up
         row["ascend"].append("0")
         ascends.append(row)
@@ -476,7 +476,7 @@ def traverse_tree(
 
     ##we add the way from LUCA to the root of the subtree
     ndid = ndid + 1
-    command = f"INSERT INTO branches (id, branch, zoomview, ref, way) VALUES ({ndid},'TRUE', '4', '{groupnb}', ST_Transform(ST_GeomFromText('LINESTRING(0 -4.226497, {t.x:.20f} {t.y:.20f})', 4326), 3857));"
+    command = f"INSERT INTO branches (id, branch, zoomview, ref, way) VALUES ({ndid},'TRUE', '4', '{groupnb}', ST_Transform(ST_GeomFromText('LINESTRING(0 -4.226497, {t.props['x']:.20f} {t.props['y']:.20f})', 4326), 3857));"
     cur.execute(command)  # type: ignore
     conn.commit()
 

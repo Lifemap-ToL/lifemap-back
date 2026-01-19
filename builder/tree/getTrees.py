@@ -2,7 +2,7 @@ import logging
 from dataclasses import dataclass, field
 
 from config import LANG_LIST, TAXO_DIRECTORY
-from ete3 import Tree
+from ete4 import Tree
 from utils import get_ranks_translations, get_translations_fr
 
 logger = logging.getLogger("LifemapBuilder")
@@ -95,35 +95,35 @@ def getTheTrees() -> dict:
 
             if dad not in tree:
                 tree[dad] = Tree()
-                tree[dad].name = dad
-                tree[dad].taxid = dad
-                tree[dad].sci_name = attr[dad].sci_name
-                tree[dad].common_name = {}
-                tree[dad].common_name_long = {}
+                tree[dad].props["name"] = dad
+                tree[dad].props["taxid"] = dad
+                tree[dad].props["sci_name"] = attr[dad].sci_name
+                tree[dad].props["common_name"] = {}
+                tree[dad].props["common_name_long"] = {}
                 for lang in LANG_LIST:
-                    tree[dad].common_name[lang] = attr[dad].common_name[lang]
-                    tree[dad].common_name_long[lang] = attr[dad].common_name_long[lang]
-                tree[dad].synonym = attr[dad].synonym
-                tree[dad].authority = attr[dad].authority
+                    tree[dad].props["common_name"][lang] = attr[dad].common_name[lang]
+                    tree[dad].props["common_name_long"][lang] = attr[dad].common_name_long[lang]
+                tree[dad].props["synonym"] = attr[dad].synonym
+                tree[dad].props["authority"] = attr[dad].authority
             if son not in tree:
                 tree[son] = Tree()
-                tree[son].name = son
-                tree[son].taxid = son
-                tree[son].sci_name = attr[son].sci_name
-                tree[son].common_name = {}
-                tree[son].common_name_long = {}
-                tree[son].rank = {}
-                tree[son].rank["en"] = rank_en
-                tree[son].rank["fr"] = rank_fr
+                tree[son].props["name"] = son
+                tree[son].props["taxid"] = son
+                tree[son].props["sci_name"] = attr[son].sci_name
+                tree[son].props["common_name"] = {}
+                tree[son].props["common_name_long"] = {}
+                tree[son].props["rank"] = {}
+                tree[son].props["rank"]["en"] = rank_en
+                tree[son].props["rank"]["fr"] = rank_fr
                 for lang in LANG_LIST:
-                    tree[son].common_name[lang] = attr[son].common_name[lang]
-                    tree[son].common_name_long[lang] = attr[son].common_name_long[lang]
-                tree[son].synonym = attr[son].synonym
-                tree[son].authority = attr[son].authority
+                    tree[son].props["common_name"][lang] = attr[son].common_name[lang]
+                    tree[son].props["common_name_long"][lang] = attr[son].common_name_long[lang]
+                tree[son].props["synonym"] = attr[son].synonym
+                tree[son].props["authority"] = attr[son].authority
             else:
-                if not hasattr(tree[son], "rank"):
-                    tree[son].rank = {}
-                    tree[son].rank["en"] = rank_en
-                    tree[son].rank["fr"] = rank_fr
+                if "rank" not in tree[son].props:
+                    tree[son].props["rank"] = {}
+                    tree[son].props["rank"]["en"] = rank_en
+                    tree[son].props["rank"]["fr"] = rank_fr
             tree[dad].add_child(tree[son])
     return tree
