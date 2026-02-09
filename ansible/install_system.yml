@@ -37,6 +37,8 @@
                 - ufw
                 - unattended-upgrades
                 - cron
+                - build-essential
+                - python3-dev
             state: present
 
       - name: Set timezone to Europe/Paris
