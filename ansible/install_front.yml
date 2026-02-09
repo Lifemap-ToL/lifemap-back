@@ -3,6 +3,24 @@
   hosts: lifemap-back, lifemap-dev
 
   tasks:
+      - name: Add nodejs repository
+        become: true
+        deb822_repository:
+            name: node
+            types: deb
+            uris: https://deb.nodesource.com/node_22.x/
+            suites: nodistro
+            components: main
+            architectures: amd64
+            signed_by: https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key
+
+      - name: Update apt and install nodejs
+        become: true
+        ansible.builtin.apt:
+            name: nodejs
+            update_cache: true
+            state: latest
+
       - name: Rsync ncbi
         become: true
         ansible.posix.synchronize:
