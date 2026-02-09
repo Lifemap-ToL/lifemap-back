@@ -1,6 +1,6 @@
 ---
 - name: Base lifemap-back install
-  hosts: lifemap-back
+  hosts: lifemap-back, lifemap-dev
 
   tasks:
       - name: Copy env to docker-compose directory

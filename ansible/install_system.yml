@@ -1,6 +1,6 @@
 ---
 - name: Base server install
-  hosts: lifemap-back
+  hosts: lifemap-back, lifemap-dev
 
   tasks:
       ### --- SYSTEM ---

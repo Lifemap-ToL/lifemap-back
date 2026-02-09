@@ -1,6 +1,6 @@
 ---
 - name: Lifemap builder install
-  hosts: lifemap-back
+  hosts: lifemap-back, lifemap-dev
 
   tasks:
       - name: Rsync builder
