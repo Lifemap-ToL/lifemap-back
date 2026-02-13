@@ -6,10 +6,9 @@ from pathlib import Path
 
 import polars as pl
 from config import BUILD_DIRECTORY, LMDATA_DIRECTORY
+from utils import LUCA
 
 logger = logging.getLogger("LifemapBuilder")
-
-LUCA = {"lat": -4.226497, "lon": 0}
 
 
 def clean_lmdata() -> None:
