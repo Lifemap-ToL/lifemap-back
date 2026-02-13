@@ -3,11 +3,11 @@ The goal of this script is to list which NCBI taxonomy ids are not present in wi
 Must be run after the builder has been run as it gets ncbi taxids from TreeFeaturesComplete.parquet.
 """
 
+import logging
 from pathlib import Path
 
-import logging
-import requests
 import polars as pl
+import requests
 
 logging.basicConfig()
 logger = logging.getLogger()
@@ -39,17 +39,15 @@ if __name__ == "__main__":
     logger.info("Querying wikidata for taxids")
     try:
         results = query_wikidata()
-        wikidata_taxids = [
-            result["ncbiId"]["value"] for result in results["results"]["bindings"]
-        ]
+        wikidata_taxids = [result["ncbiId"]["value"] for result in results["results"]["bindings"]]
         logger.info(f"Got {len(wikidata_taxids)} wikidata taxids")
     except Exception as e:
         print(f"Error: {e}")
 
     logger.info("Reading ncbi taxids from TreeFeaturesComplete.parquet")
-    ncbi_taxids = pl.read_parquet(
-        BUILD_DIRECTORY / "TreeFeaturesComplete.parquet"
-    ).select("taxid", "sci_name")
+    ncbi_taxids = pl.read_parquet(BUILD_DIRECTORY / "TreeFeaturesComplete.parquet").select(
+        "taxid", "sci_name"
+    )
     logger.info(f"Got {ncbi_taxids.height} ncbi taxids")
 
     logger.info("Computing missing taxids")
