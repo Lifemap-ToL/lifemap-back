@@ -71,6 +71,9 @@ def lifemap_build(
         logger.info("---- Done")
         del tree
 
+    # Garbage collect
+    gc.collect()
+
     # Copy postgis data to production tables
     logger.info("-- Copy postgis data to production tables --")
     db.copy_db_to_prod()
