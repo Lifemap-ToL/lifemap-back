@@ -16,6 +16,8 @@ from config import TAXO_DIRECTORY
 
 logger = logging.getLogger("LifemapBuilder")
 
+LUCA = {"lat": -4.226497, "lon": 0}
+
 
 def download_ftp_file_if_newer(host, remote_file, local_file) -> bool:
     downloaded = False
