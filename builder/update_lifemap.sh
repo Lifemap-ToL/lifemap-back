@@ -9,6 +9,10 @@ SOLR_CONTAINER=lifemap-solr
 
 # Update tree
 echo "Builder started at `date`"
+
+echo "- RESTARTING CONTAINERS"
+docker compose -f ~/back/docker-compose.yml restart
+
 echo "- BUILD TREE"
 uv run python tree/Main.py
 
@@ -22,9 +26,9 @@ cp $BUILD_RESULTS_DIR/metadata.json $WWW_STATIC_DIR/
 echo "- UPDATING SOLR"
 echo "-- deleting taxo collection content"
 echo "Deleting taxo..."
-curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/taxo/update -H 'Content-type:application/xml' -d '<delete><query>*:*</query></delete>' -o /dev/null 
+curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/taxo/update -H 'Content-type:application/xml' -d '<delete><query>*:*</query></delete>' -o /dev/null
 echo "Deleting addi..."
-curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/addi/update -H 'Content-type:application/xml' -d '<delete><query>*:*</query></delete>' -o /dev/null 
+curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/addi/update -H 'Content-type:application/xml' -d '<delete><query>*:*</query></delete>' -o /dev/null
 echo "-- Uploading tree features"
 for num in $(seq 1 3); do
     echo "Uploading TreeFeatures${num}..."
@@ -38,5 +42,9 @@ done
 echo "-- Committing changes"
 curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/taxo/update?commit=true -o /dev/null
 curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/addi/update?commit=true -o /dev/null
-echo "Builder ended at `date`"
 
+# Restart Caddy to clean cache
+echo "-- Restart Caddy"
+docker exec -it lifemap-caddy sh -c "caddy stop && caddy start"
+
+echo "Builder ended at `date`"
