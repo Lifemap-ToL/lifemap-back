@@ -19,15 +19,15 @@ curl -F "file=@$OUTPUT_FILE" \
 
 # mod_tile prerender
 
-OUTPUT_FILE=/tmp/mod_tiles_prerender.log
-./prerender_mod_tiles.sh > "$OUTPUT_FILE" 2>&1
-EXIT_STATUS=$?
+# OUTPUT_FILE=/tmp/mod_tiles_prerender.log
+# ./prerender_mod_tiles.sh > "$OUTPUT_FILE" 2>&1
+# EXIT_STATUS=$?
 
-MESSAGE="mod_tile tiles prerendering has run.\nExit status: $EXIT_STATUS."
+# MESSAGE="mod_tile tiles prerendering has run.\nExit status: $EXIT_STATUS."
 
-curl -F "file=@$OUTPUT_FILE" \
-     -F "payload_json={\"content\":\"$MESSAGE\"}" \
-     "$DISCORD_WEBHOOK_URL"
+# curl -F "file=@$OUTPUT_FILE" \
+#      -F "payload_json={\"content\":\"$MESSAGE\"}" \
+#      "$DISCORD_WEBHOOK_URL"
 
 
 exit 0
