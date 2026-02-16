@@ -45,6 +45,6 @@ curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/addi/update?commit=true
 
 # Restart Caddy to clean cache
 echo "-- Restart Caddy"
-docker exec -it lifemap-caddy sh -c "caddy stop && caddy start"
+docker exec lifemap-caddy sh -c "caddy stop && caddy start"
 
 echo "Builder ended at `date`"
