@@ -14,7 +14,7 @@ echo "- RESTARTING CONTAINERS"
 docker compose -f ~/back/docker-compose.yml restart
 
 echo "- BUILD TREE"
-uv run python tree/Main.py
+uv run python tree/Main.py --disable-progress
 
 # Copy lmdata and metadata files
 echo "- COPYING lmdata AND metadata.json FILES TO WEB ROOT"
@@ -32,15 +32,17 @@ curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/addi/update -H 'Content
 echo "-- Uploading tree features"
 for num in $(seq 1 3); do
     echo "Uploading TreeFeatures${num}..."
-    curl --progress-bar --user solr:$SOLR_PASSWD http://localhost:8983/solr/taxo/update -H 'Content-type:application/json' -T $BUILD_RESULTS_DIR/TreeFeatures${num}.json -X POST -o /dev/null | cat
+    curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/taxo/update -H 'Content-type:application/json' -T $BUILD_RESULTS_DIR/TreeFeatures${num}.json -X POST -o /dev/null | cat
 done
 echo "-- Uploading additional informations"
 for num in $(seq 1 3); do
     echo "Uploading ADDITIONAL.${num}..."
-    curl --progress-bar --user solr:$SOLR_PASSWD http://localhost:8983/solr/addi/update -H 'Content-type:application/json' -T $BUILD_RESULTS_DIR/ADDITIONAL.${num}.json -X POST -o /dev/null | cat
+    curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/addi/update -H 'Content-type:application/json' -T $BUILD_RESULTS_DIR/ADDITIONAL.${num}.json -X POST -o /dev/null | cat
 done
 echo "-- Committing changes"
+echo "Committing taxo changes..."
 curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/taxo/update?commit=true -o /dev/null
+echo "Committing addi changes..."
 curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/addi/update?commit=true -o /dev/null
 
 # Restart Caddy to clean cache

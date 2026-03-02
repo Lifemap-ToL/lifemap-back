@@ -261,6 +261,7 @@ def traverse_tree(
     tree: dict,
     groupnb: Literal["1", "2", "3"],
     starti: int,
+    disable_progress: bool = False,
 ) -> int:
     """
     Open taxonomic tree and recode it into PostGRES/PostGIS database for visualisation in Lifemap.
@@ -273,8 +274,8 @@ def traverse_tree(
         Group to look at. Can be 1,2 or 3 for Archaea, Eukaryotes and Bacteria respectively
     starti : int
         index of the first node met in the tree
-    updatedb : bool, optional
-        Should the NCBI taxonomy db be updated ?, by default True
+    disable_progress : bool
+        If True, disable progress bars
 
     Returns
     -------
@@ -396,7 +397,7 @@ def traverse_tree(
     with cur.copy(
         "COPY points (id, taxid, ref, sci_name, common_name_en, rank_en, nbdesc, zoomview, tip,geom_txt) FROM STDIN"
     ) as copy:
-        for record in tqdm(points_records):
+        for record in tqdm(points_records, disable=disable_progress):
             copy.write_row(record)
     conn.commit()
 
@@ -411,7 +412,7 @@ def traverse_tree(
     json_file = open(BUILD_DIRECTORY / f"TreeFeatures{groupnb}.json", "w")
     first = True
     ascends = []
-    for n in tqdm(t.traverse(), total=len(t)):
+    for n in tqdm(t.traverse(), total=len(t), disable=disable_progress):
         if first:
             json_file.write("[")
             first = False
@@ -446,7 +447,7 @@ def traverse_tree(
 
     logger.info("Inserting branches data into postgis...")
     with cur.copy("COPY branches (id, branch, zoomview, ref, name, geom_txt) FROM STDIN") as copy:
-        for record in tqdm(lines_records):
+        for record in tqdm(lines_records, disable=disable_progress):
             copy.write_row(record)
     conn.commit()
 
@@ -454,7 +455,7 @@ def traverse_tree(
     with cur.copy(
         "COPY polygons (id, ref, clade, taxid, sci_name, common_name_en, rank_en, nbdesc,zoomview, geom_txt) FROM STDIN"
     ) as copy:
-        for record in tqdm(polygons_records):
+        for record in tqdm(polygons_records, disable=disable_progress):
             copy.write_row(record)
     conn.commit()
 
@@ -462,7 +463,7 @@ def traverse_tree(
     with cur.copy(
         "COPY cladecenters (id, cladecenter, taxid, sci_name, common_name_en, rank_en, nbdesc,zoomview, geom_txt) FROM STDIN"
     ) as copy:
-        for record in tqdm(cladecenters_records):
+        for record in tqdm(cladecenters_records, disable=disable_progress):
             copy.write_row(record)
     conn.commit()
 
@@ -470,7 +471,7 @@ def traverse_tree(
     with cur.copy(
         "COPY ranks (id, ref, rankname, taxid, sci_name, zoomview, rank_en, rank_fr, nbdesc, convex, geom_txt) FROM STDIN"
     ) as copy:
-        for record in tqdm(ranks_records):
+        for record in tqdm(ranks_records, disable=disable_progress):
             copy.write_row(record)
     conn.commit()
 

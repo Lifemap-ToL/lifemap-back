@@ -39,6 +39,7 @@ def lifemap_build(
     skip_merge_jsons: bool = False,
     skip_rdata: bool = False,
     skip_index: bool = False,
+    disable_progress: bool = False,
 ) -> None:
     logger.info("-- Creating genomes directory if needed")
     Path(GENOMES_DIRECTORY).mkdir(exist_ok=True)
@@ -58,13 +59,13 @@ def lifemap_build(
         logger.info("---- Initialize Postgis database ----")
         db.init_db()
         logger.info("---- Doing Archaeal tree...")
-        ndid = Traverse.traverse_tree(tree, groupnb="1", starti=1)
+        ndid = Traverse.traverse_tree(tree, groupnb="1", starti=1, disable_progress=disable_progress)
         logger.info("---- Done")
         logger.info("---- Doing Eukaryotic tree... start at id: %s" % ndid)
-        ndid = Traverse.traverse_tree(tree, groupnb="2", starti=ndid)
+        ndid = Traverse.traverse_tree(tree, groupnb="2", starti=ndid, disable_progress=disable_progress)
         logger.info("---- Done")
         logger.info("---- Doing Bact tree... start at id:%s " % ndid)
-        ndid = Traverse.traverse_tree(tree, groupnb="3", starti=ndid)
+        ndid = Traverse.traverse_tree(tree, groupnb="3", starti=ndid, disable_progress=disable_progress)
         logger.info("---- Done")
         logger.info("---- Create Postgis geometries ----")
         db.create_geometries()
@@ -145,6 +146,7 @@ if __name__ == "__main__":
     parser.add_argument("--skip-merge-jsons", action="store_true", help="Skip JSONs merging")
     parser.add_argument("--skip-rdata", action="store_true", help="Skip Rdata export")
     parser.add_argument("--skip-index", action="store_true", help="Skip index creation")
+    parser.add_argument("--disable-progress", action="store_true", help="Disable progress bars")
 
     args = parser.parse_args()
 
@@ -156,4 +158,5 @@ if __name__ == "__main__":
         skip_merge_jsons=args.skip_merge_jsons,
         skip_rdata=args.skip_rdata,
         skip_index=args.skip_index,
+        disable_progress=args.disable_progress,
     )
