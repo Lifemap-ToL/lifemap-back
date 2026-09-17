@@ -236,6 +236,7 @@ def node2json(node) -> str:
     authority = authority.replace('"', '\\"')
     synonym = node.props["synonym"]
     synonym = synonym.replace('"', '\\"')
+    # Damien — 2026-09-17
     out = f"""{{
         "taxid": "{node.props["taxid"]}",
         "sci_name": "{sci_name}",
@@ -246,8 +247,8 @@ def node2json(node) -> str:
         "synonym": "{synonym}",
         "rank_en": "{node.props["rank"]["en"]}",
         "rank_fr": "{node.props["rank"]["fr"]}",
-        "all_en": "{sci_name} | {common_name["en"]} | {node.props["rank"]["en"]} | {node.props["taxid"]}",
-        "all_fr": "{sci_name} | {common_name["fr"]} | {node.props["rank"]["fr"]} | {node.props["taxid"]}",
+        "all_en": "{sci_name} | {common_name["en"]} | {node.props["rank"]["en"]} | {node.props["taxid"]} | {synonym}",
+        "all_fr": "{sci_name} | {common_name["fr"]} | {node.props["rank"]["fr"]} | {node.props["taxid"]} | {synonym}",
         "zoom": {int(node.props["zoomview"] + 4)},
         "nbdesc": {node.props["nbdesc"]},
         "coordinates": [{node.props["y"]:.20f}, {node.props["x"]:.20f}],
