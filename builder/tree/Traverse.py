@@ -236,7 +236,6 @@ def node2json(node) -> str:
     authority = authority.replace('"', '\\"')
     synonym = node.props["synonym"]
     synonym = synonym.replace('"', '\\"')
-    # Damien — 2026-09-17
     out = f"""{{
         "taxid": "{node.props["taxid"]}",
         "sci_name": "{sci_name}",
