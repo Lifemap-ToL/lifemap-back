@@ -32,6 +32,12 @@ services:
             - 127.0.0.1:8983:8983
         volumes:
             - solr_data:/var/solr/data
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "50m"
+                max-file: "5"
+                compress: "true"
     mod_tile:
         image: lifemap_mod_tile
         container_name: lifemap-mod_tile
