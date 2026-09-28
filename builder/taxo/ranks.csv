@@ -1,51 +1,51 @@
-en,fr
-superkingdom,domaine
-subkingdom,sous-domaine
-tribe,tribu
-subgenus,sous-genre
-family,famille
-species subgroup,sous-groupe d'espèces
-species group,groupe d'espèces
-phylum,embranchement
-superclass,super-classe
-subphylum,sous-embranchement
-subspecies,sous-espèce
-no rank,sans rang
-no_rank,sans rang
-superorder,super-ordre
-infraorder,infra-ordre
-subclass,sous-classe
-species,espèce
-superphylum,super-embranchement
-kingdom,règne
-realm,realm
-subtribe,sous-tribu
-forma,forme
-infraclass,infra-classe
-varietas,variété
-subfamily,sous-famille
-class,classe
-superfamily,super-famille
-parvorder,parvordre
-suborder,sous-ordre
-genus,genre
-order,ordre
-cohort,cohorte
-subcohort,sous-cohorte
-section,section
-series,série
-subsection,sous-section
-strain,souche
-serogroup,sérogroupe
-biotype,biotype
-clade,clade
-forma specialis,forma specialis
-isolate,isolat
-serotype,sérotype
-subvariety,sous-variété
-morph,morph
-genotype,génotype
-pathogroup,pathogroupe
-domain,domaine
-acellular root,racine acellulaire
-cellular root,racine cellulaire
+en,fr,es
+superkingdom,domaine,superreino
+subkingdom,sous-domaine,subreino
+tribe,tribu,tribu
+subgenus,sous-genre,subgénero
+family,famille,familia
+species subgroup,sous-groupe d'espèces,subgrupo de especies
+species group,groupe d'espèces,grupo de especies
+phylum,embranchement,filo
+superclass,super-classe,superclase
+subphylum,sous-embranchement,subfilo
+subspecies,sous-espèce,subespecie
+no rank,sans rang,sin rango
+no_rank,sans rang,sin rango
+superorder,super-ordre,superorden
+infraorder,infra-ordre,infraorden
+subclass,sous-classe,subclase
+species,espèce,especie
+superphylum,super-embranchement,superfilo
+kingdom,règne,reino
+realm,realm,dominio
+subtribe,sous-tribu,subtribu
+forma,forme,forma
+infraclass,infra-classe,infraclase
+varietas,variété,variedad
+subfamily,sous-famille,subfamilia
+class,classe,clase
+superfamily,super-famille,superfamilia
+parvorder,parvordre,parvorden
+suborder,sous-ordre,suborden
+genus,genre,género
+order,ordre,orden
+cohort,cohorte,cohorte
+subcohort,sous-cohorte,subcohorte
+section,section,sección
+series,série,serie
+subsection,sous-section,subsección
+strain,souche,cepa
+serogroup,sérogroupe,serogrupo
+biotype,biotype,biotipo
+clade,clade,clado
+forma specialis,forma specialis,forma especial
+isolate,isolat,aislado
+serotype,sérotype,serotipo
+subvariety,sous-variété,subvariedad
+morph,morph,morfo
+genotype,génotype,genotipo
+pathogroup,pathogroupe,grupo patógeno
+domain,domaine,dominio
+acellular root,racine acellulaire,raíz acelular
+cellular root,racine cellulaire,raíz celular
