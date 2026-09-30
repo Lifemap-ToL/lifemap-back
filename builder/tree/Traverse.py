@@ -207,19 +207,21 @@ def get_polyg_record(node, ids, groupnb):
     slope2 = (y3 - y2) / (x3 - x2)
     convexity = slope1 - slope2
 
-    rank_record = (
+    rank_record = [
         int(ids[62]),
         groupnb,
         True,
         node.props["taxid"],
         node.props["sci_name"],
         int(node.props["zoomview"]),
-        node.props["rank"]["en"],
-        node.props["rank"]["fr"],
+    ]
+    for lang in LANG_LIST:
+        rank_record.append(node.props["rank"][lang])
+    rank_record.extend([
         int(node.props["nbdesc"]),
         convexity,
         cooLine,
-    )
+    ])
 
     return polygon_record, cladecenter_record, rank_record
 
@@ -466,8 +468,11 @@ def traverse_tree(
     conn.commit()
 
     logger.info("Inserting ranks data into postgis...")
+    rank_columns = ""
+    for lang in LANG_LIST:
+        rank_columns += f", rank_{lang}"
     with cur.copy(
-        "COPY ranks (id, ref, rankname, taxid, sci_name, zoomview, rank_en, rank_fr, nbdesc, convex, geom_txt) FROM STDIN"
+        f"COPY ranks (id, ref, rankname, taxid, sci_name, zoomview{rank_columns}, nbdesc, convex, geom_txt) FROM STDIN"
     ) as copy:
         for record in tqdm(ranks_records, disable=disable_progress):
             copy.write_row(record)

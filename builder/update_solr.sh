@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -e
+
+source ~/.env
+
+echo "- RESTARTING CONTAINERS"
+docker compose -f ~/back/docker-compose.yml restart
+
+echo "- UPDATING SOLR"
+echo "-- deleting taxo collection content"
+echo "Deleting taxo..."
+curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/taxo/update -H 'Content-type:application/xml' -d '<delete><query>*:*</query></delete>' -o /dev/null
+echo "Deleting addi..."
+curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/addi/update -H 'Content-type:application/xml' -d '<delete><query>*:*</query></delete>' -o /dev/null
+echo "-- Uploading tree features"
+for num in $(seq 1 3); do
+    echo "Uploading TreeFeatures${num}..."
+    curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/taxo/update -H 'Content-type:application/json' -T $BUILD_RESULTS_DIR/TreeFeatures${num}.json -X POST -o /dev/null | cat
+done
+echo "-- Uploading additional informations"
+for num in $(seq 1 3); do
+    echo "Uploading ADDITIONAL.${num}..."
+    curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/addi/update -H 'Content-type:application/json' -T $BUILD_RESULTS_DIR/ADDITIONAL.${num}.json -X POST -o /dev/null | cat
+done
+echo "-- Committing changes"
+echo "Committing taxo changes..."
+curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/taxo/update?commit=true -o /dev/null
+echo "Committing addi changes..."
+curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/addi/update?commit=true -o /dev/null
+
+echo "-- Restart Caddy"
+docker compose -f ~/back/docker-compose.yml restart caddy

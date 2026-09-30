@@ -1,7 +1,7 @@
 import logging
 
 import psycopg
-from config import PSYCOPG_CONNECT_URL
+from config import LANG_LIST, PSYCOPG_CONNECT_URL
 
 logger = logging.getLogger("LifemapBuilder")
 
@@ -45,6 +45,10 @@ def init_db() -> None:
     conn.commit()
 
     logger.info("Creating new tables...")
+    rank_columns = ""
+    for lang in LANG_LIST:
+        rank_columns += f", rank_{lang} text"
+
     cur.execute(
         "CREATE TABLE points (id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankname boolean,sci_name text,common_name_en text, full_name text,rank_en text, name text, nbdesc integer,taxid text,geom_txt text, way geometry(POINT,3857));"
     )
@@ -55,7 +59,7 @@ def init_db() -> None:
         "CREATE TABLE polygons (id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankname boolean,sci_name text,common_name_en text,  full_name text,rank_en text, name text, nbdesc integer,taxid text,geom_txt text, way geometry(POLYGON,3857));"
     )
     cur.execute(
-        "CREATE TABLE ranks (id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankname boolean,sci_name text,common_name_en text,  full_name text, rank_en text, rank_fr text, name text, nbdesc integer, convex real, taxid text,geom_txt text, way geometry(LINESTRING,3857));"
+        f"CREATE TABLE ranks (id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankname boolean,sci_name text,common_name_en text, full_name text{rank_columns}, name text, nbdesc integer, convex real, taxid text,geom_txt text, way geometry(LINESTRING,3857));"
     )
     cur.execute(
         "CREATE TABLE cladecenters (id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankname boolean,sci_name text,common_name_en text, full_name text,rank_en text, name text, nbdesc integer,taxid text,geom_txt text, way geometry(POINT,3857));"
