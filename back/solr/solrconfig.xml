@@ -254,6 +254,60 @@
     </arr>
   </requestHandler>
 
+  <!-- Spanish autocompletion suggester -->
+
+  <searchComponent name="suggestEs" class="solr.SuggestComponent">
+    <lst name="suggester">
+      <str name="name">mySuggesterEs</str>
+      <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
+      <str name="indexPath">suggester_infix_dir_es</str>
+      <str name="dictionaryImpl">DocumentDictionaryFactory</str>
+      <str name="field">all-search-es</str>
+      <str name="weightField">suggest_weight</str>
+      <str name="suggestAnalyzerFieldType">textSuggest</str>
+      <str name="buildOnStartup">true</str>
+      <str name="buildOnCommit">true</str>
+    </lst>
+  </searchComponent>
+
+  <requestHandler name="/suggesthandleres" class="solr.SearchHandler" startup="lazy">
+    <lst name="defaults">
+      <str name="suggest">true</str>
+      <str name="suggest.count">15</str>
+      <str name="suggest.dictionary">mySuggesterEs</str>
+    </lst>
+    <arr name="components">
+      <str>suggestEs</str>
+    </arr>
+  </requestHandler>
+
+  <!-- German autocompletion suggester -->
+
+  <searchComponent name="suggestDe" class="solr.SuggestComponent">
+    <lst name="suggester">
+      <str name="name">mySuggesterDe</str>
+      <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
+      <str name="indexPath">suggester_infix_dir_de</str>
+      <str name="dictionaryImpl">DocumentDictionaryFactory</str>
+      <str name="field">all-search-de</str>
+      <str name="weightField">suggest_weight</str>
+      <str name="suggestAnalyzerFieldType">textSuggest</str>
+      <str name="buildOnStartup">true</str>
+      <str name="buildOnCommit">true</str>
+    </lst>
+  </searchComponent>
+
+  <requestHandler name="/suggesthandlerde" class="solr.SearchHandler" startup="lazy">
+    <lst name="defaults">
+      <str name="suggest">true</str>
+      <str name="suggest.count">15</str>
+      <str name="suggest.dictionary">mySuggesterDe</str>
+    </lst>
+    <arr name="components">
+      <str>suggestDe</str>
+    </arr>
+  </requestHandler>
+
 
   <searchComponent name="tvComponent" class="solr.TermVectorComponent"/>
 

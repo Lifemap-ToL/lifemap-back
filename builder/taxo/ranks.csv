@@ -1,51 +1,51 @@
-en,fr,es
-superkingdom,domaine,superreino
-subkingdom,sous-domaine,subreino
-tribe,tribu,tribu
-subgenus,sous-genre,subgénero
-family,famille,familia
-species subgroup,sous-groupe d'espèces,subgrupo de especies
-species group,groupe d'espèces,grupo de especies
-phylum,embranchement,filo
-superclass,super-classe,superclase
-subphylum,sous-embranchement,subfilo
-subspecies,sous-espèce,subespecie
-no rank,sans rang,sin rango
-no_rank,sans rang,sin rango
-superorder,super-ordre,superorden
-infraorder,infra-ordre,infraorden
-subclass,sous-classe,subclase
-species,espèce,especie
-superphylum,super-embranchement,superfilo
-kingdom,règne,reino
-realm,realm,dominio
-subtribe,sous-tribu,subtribu
-forma,forme,forma
-infraclass,infra-classe,infraclase
-varietas,variété,variedad
-subfamily,sous-famille,subfamilia
-class,classe,clase
-superfamily,super-famille,superfamilia
-parvorder,parvordre,parvorden
-suborder,sous-ordre,suborden
-genus,genre,género
-order,ordre,orden
-cohort,cohorte,cohorte
-subcohort,sous-cohorte,subcohorte
-section,section,sección
-series,série,serie
-subsection,sous-section,subsección
-strain,souche,cepa
-serogroup,sérogroupe,serogrupo
-biotype,biotype,biotipo
-clade,clade,clado
-forma specialis,forma specialis,forma especial
-isolate,isolat,aislado
-serotype,sérotype,serotipo
-subvariety,sous-variété,subvariedad
-morph,morph,morfo
-genotype,génotype,genotipo
-pathogroup,pathogroupe,grupo patógeno
-domain,domaine,dominio
-acellular root,racine acellulaire,raíz acelular
-cellular root,racine cellulaire,raíz celular
+en,fr,es,de
+superkingdom,domaine,superreino,Überreich
+subkingdom,sous-domaine,subreino,Unterreich
+tribe,tribu,tribu,Tribus
+subgenus,sous-genre,subgénero,Untergattung
+family,famille,familia,Familie
+species subgroup,sous-groupe d'espèces,subgrupo de especies,Artuntergruppe
+species group,groupe d'espèces,grupo de especies,Artengruppe
+phylum,embranchement,filo,Stamm
+superclass,super-classe,superclase,Überklasse
+subphylum,sous-embranchement,subfilo,Unterstamm
+subspecies,sous-espèce,subespecie,Unterart
+no rank,sans rang,sin rango,ohne Rang
+no_rank,sans rang,sin rango,ohne Rang
+superorder,super-ordre,superorden,Überordnung
+infraorder,infra-ordre,infraorden,Infraordnung
+subclass,sous-classe,subclase,Unterklasse
+species,espèce,especie,Art
+superphylum,super-embranchement,superfilo,Überstamm
+kingdom,règne,reino,Reich
+realm,realm,dominio,Realm
+subtribe,sous-tribu,subtribu,Untertribus
+forma,forme,forma,Form
+infraclass,infra-classe,infraclase,Infraklasse
+varietas,variété,variedad,Varietät
+subfamily,sous-famille,subfamilia,Unterfamilie
+class,classe,clase,Klasse
+superfamily,super-famille,superfamilia,Überfamilie
+parvorder,parvordre,parvorden,Parvordnung
+suborder,sous-ordre,suborden,Unterordnung
+genus,genre,género,Gattung
+order,ordre,orden,Ordnung
+cohort,cohorte,cohorte,Kohorte
+subcohort,sous-cohorte,subcohorte,Unterkohorte
+section,section,sección,Sektion
+series,série,serie,Serie
+subsection,sous-section,subsección,Untersektion
+strain,souche,cepa,Stamm (Mikroorganismus)
+serogroup,sérogroupe,serogrupo,Serogruppe
+biotype,biotype,biotipo,Biotyp
+clade,clade,clado,Klade
+forma specialis,forma specialis,forma especial,forma specialis
+isolate,isolat,aislado,Isolat
+serotype,sérotype,serotipo,Serotyp
+subvariety,sous-variété,subvariedad,Untervarietät
+morph,morph,morfo,Morph
+genotype,génotype,genotipo,Genotyp
+pathogroup,pathogroupe,grupo patógeno,Pathogruppe
+domain,domaine,dominio,Domäne
+acellular root,racine acellulaire,raíz acelular,Wurzel der azellulären Organismen
+cellular root,racine cellulaire,raíz celular,Wurzel der zellulären Organismen

@@ -5,6 +5,7 @@
 # We read the tree from external file (trees are retrieved with the code called "gettrees.py").
 # Added possibility to have groups containing only one descendants to be visible. Adds a few zoom levels (not so many)
 
+import json
 import logging
 import math
 import os
@@ -224,37 +225,34 @@ def get_polyg_record(node, ids, groupnb):
 
 
 def node2json(node) -> str:
+    taxid = node.props["taxid"]
     sci_name = node.props["sci_name"]
-    sci_name = sci_name.replace('"', '\\"')
-    common_name = {}
-    for lang in LANG_LIST:
-        common_name[lang] = node.props["common_name_long"][lang]
-        common_name[lang] = common_name[lang].replace('"', '\\"')
-    ##new attributes
-    authority = node.props["authority"]
-    authority = authority.replace("\\", "\\\\")
-    authority = authority.replace('"', '\\"')
     synonym = node.props["synonym"]
-    synonym = synonym.replace('"', '\\"')
-    out = f"""{{
-        "taxid": "{node.props["taxid"]}",
-        "sci_name": "{sci_name}",
-        "suggest_weight": "{300 - len(sci_name)}",
-        "common_name_en": "{common_name["en"]}",
-        "common_name_fr": "{common_name["fr"]}",
-        "authority": "{authority}",
-        "synonym": "{synonym}",
-        "rank_en": "{node.props["rank"]["en"]}",
-        "rank_fr": "{node.props["rank"]["fr"]}",
-        "all_en": "{sci_name} | {common_name["en"]} | {node.props["rank"]["en"]} | {node.props["taxid"]} | {synonym}",
-        "all_fr": "{sci_name} | {common_name["fr"]} | {node.props["rank"]["fr"]} | {node.props["taxid"]} | {synonym}",
-        "zoom": {int(node.props["zoomview"] + 4)},
-        "nbdesc": {node.props["nbdesc"]},
-        "coordinates": [{node.props["y"]:.20f}, {node.props["x"]:.20f}],
-        "lat": {node.props["y"]:.20f},
-        "lon": {node.props["x"]:.20f}
-    }}"""
-    return out
+
+    document = {
+        "taxid": taxid,
+        "sci_name": sci_name,
+        "suggest_weight": str(300 - len(sci_name)),
+        "authority": node.props["authority"],
+        "synonym": synonym,
+        "zoom": int(node.props["zoomview"] + 4),
+        "nbdesc": node.props["nbdesc"],
+        "coordinates": [node.props["y"], node.props["x"]],
+        "lat": node.props["y"],
+        "lon": node.props["x"],
+    }
+
+    for lang in LANG_LIST:
+        common_name = node.props["common_name_long"][lang]
+        rank = node.props["rank"][lang]
+
+        document[f"common_name_{lang}"] = common_name
+        document[f"rank_{lang}"] = rank
+        document[f"all_{lang}"] = (
+            f"{sci_name} | {common_name} | {rank} | {taxid} | {synonym}"
+        )
+
+    return json.dumps(document, ensure_ascii=False)
 
 
 def traverse_tree(
