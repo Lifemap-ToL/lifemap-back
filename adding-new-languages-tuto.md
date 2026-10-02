@@ -13,7 +13,7 @@
 
 - Add the language fields to `back/solr/schema.xml`: `common_name_<code>`, `rank_<code>`, `all_<code>`, and their matching search fields and copy rules.
 
-- Add `rank_<code>` to both rank queries in `back/bbox/bbox.toml.j2`.
+- DO NOT add `rank_<code>` to both rank queries in `back/bbox/bbox.toml.j2`: rank_en only appears there. Other languages are dealt with in the front directly.
 
 - After modifying `schema.xml`, copy it to Solr and restart Solr:
 
