@@ -69,7 +69,7 @@ maxzoom = 42
 
 [[tileset.postgis.layer.query]]
 sql = """SELECT
-way, id, ref, zoomview, clade, rankname, rank_en, convex, taxid
+way, id, ref, zoomview, clade, rankname, rank_en, rank_fr, rank_es, rank_de, convex, taxid
 FROM ranks_prod
 WHERE rankname=True and zoomview between !zoom!-4 and !zoom!-2 """
 
@@ -200,7 +200,7 @@ maxzoom = 42
 
 [[tileset.postgis.layer.query]]
 sql = """SELECT
-way, id, ref, zoomview, clade, rankname, rank_en, convex, taxid
+way, id, ref, zoomview, clade, rankname, rank_en, rank_fr, rank_es, rank_de, convex, taxid
 FROM ranks_prod
 WHERE rankname=True and zoomview between !zoom!-4 and !zoom!-2 """
 
