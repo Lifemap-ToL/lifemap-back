@@ -4,9 +4,6 @@ set -e
 
 source ~/.env
 
-echo "- RESTARTING CONTAINERS"
-docker compose -f ~/back/docker-compose.yml restart
-
 echo "- UPDATING SOLR"
 echo "-- deleting taxo collection content"
 echo "Deleting taxo..."
@@ -29,5 +26,6 @@ curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/taxo/update?commit=true
 echo "Committing addi changes..."
 curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/addi/update?commit=true -o /dev/null
 
+# Restart Caddy to clean cache
 echo "-- Restart Caddy"
 docker compose -f ~/back/docker-compose.yml restart caddy
