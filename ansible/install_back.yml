@@ -40,7 +40,7 @@
       - name: Copy docker Caddy config
         become: true
         ansible.builtin.template:
-            src: ../back/caddy/Caddyfile.j2
+            src: templates/caddy/Caddyfile.j2
             dest: "{{ docker_dir }}/caddy/Caddyfile"
             mode: preserve
             force: true
@@ -56,7 +56,7 @@
       - name: Copy bbox.toml to bbox docker directory
         become: true
         ansible.builtin.template:
-            src: ../back/bbox/bbox.toml.j2
+            src: templates/bbox/bbox.toml.j2
             dest: "{{ docker_dir }}/bbox/bbox.toml"
             mode: preserve
             force: true
