@@ -1,7 +1,8 @@
 import logging
 
 import psycopg
-from config import PSYCOPG_CONNECT_URL
+from config import LANG_LIST, PSYCOPG_CONNECT_URL
+from psycopg import Error
 
 logger = logging.getLogger("LifemapBuilder")
 
@@ -23,10 +24,8 @@ def db_connection() -> psycopg.Connection:
         If connection fails.
     """
     try:
-        conn = psycopg.connect(
-            PSYCOPG_CONNECT_URL
-        )  # password will be directly retrieved from ~/.pgpassconn
-    except Exception as e:
+        conn = psycopg.connect(PSYCOPG_CONNECT_URL)  # password will be directly retrieved from ~/.pgpassconn
+    except Error as e:
         raise RuntimeError(f"Unable to connect to the database: {e}")
     return conn
 
@@ -45,6 +44,10 @@ def init_db() -> None:
     conn.commit()
 
     logger.info("Creating new tables...")
+    rank_columns = ""
+    for lang in LANG_LIST:
+        rank_columns += f", rank_{lang} text"
+
     cur.execute(
         "CREATE TABLE points (id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankname boolean,sci_name text,common_name_en text, full_name text,rank_en text, name text, nbdesc integer,taxid text,geom_txt text, way geometry(POINT,3857));"
     )
@@ -55,7 +58,7 @@ def init_db() -> None:
         "CREATE TABLE polygons (id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankname boolean,sci_name text,common_name_en text,  full_name text,rank_en text, name text, nbdesc integer,taxid text,geom_txt text, way geometry(POLYGON,3857));"
     )
     cur.execute(
-        "CREATE TABLE ranks (id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankname boolean,sci_name text,common_name_en text,  full_name text, rank_en text, rank_fr text, name text, nbdesc integer, convex real, taxid text,geom_txt text, way geometry(LINESTRING,3857));"
+        f"CREATE TABLE ranks (id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankname boolean,sci_name text,common_name_en text, full_name text{rank_columns}, name text, nbdesc integer, convex real, taxid text,geom_txt text, way geometry(LINESTRING,3857));"
     )
     cur.execute(
         "CREATE TABLE cladecenters (id bigint,ref smallint,z_order smallint,branch boolean,tip boolean,zoomview integer,clade boolean,cladecenter boolean,rankname boolean,sci_name text,common_name_en text, full_name text,rank_en text, name text, nbdesc integer,taxid text,geom_txt text, way geometry(POINT,3857));"
@@ -98,7 +101,9 @@ def create_geometries() -> None:
 
     for table in TABLES:
         logger.info(f"Creating {table} geometry")
-        query = f"UPDATE {table} SET way = ST_Transform(ST_GeomFromText(geom_txt, 4326), 3857) WHERE way IS NULL;"
+        query = (
+            f"UPDATE {table} SET way = ST_Transform(ST_GeomFromText(geom_txt, 4326), 3857) WHERE way IS NULL;"
+        )
         cur.execute(query)  # type: ignore
         conn.commit()
 
@@ -119,21 +124,11 @@ def create_index() -> None:
     cur = conn.cursor()
 
     logger.info("Creating indexes...")
-    cur.execute(
-        "CREATE INDEX IF NOT EXISTS branches_prod_id ON branches_prod USING GIST(way);"
-    )
-    cur.execute(
-        "CREATE INDEX IF NOT EXISTS ranks_prod_id ON ranks_prod USING GIST(way);"
-    )
-    cur.execute(
-        "CREATE INDEX IF NOT EXISTS points_prod_id ON points_prod USING GIST(way);"
-    )
-    cur.execute(
-        "CREATE INDEX IF NOT EXISTS cladecenters_prod_id ON cladecenters_prod USING GIST(way);"
-    )
-    cur.execute(
-        "CREATE INDEX IF NOT EXISTS polygons_prod_id ON polygons_prod USING GIST(way);"
-    )
+    cur.execute("CREATE INDEX IF NOT EXISTS branches_prod_id ON branches_prod USING GIST(way);")
+    cur.execute("CREATE INDEX IF NOT EXISTS ranks_prod_id ON ranks_prod USING GIST(way);")
+    cur.execute("CREATE INDEX IF NOT EXISTS points_prod_id ON points_prod USING GIST(way);")
+    cur.execute("CREATE INDEX IF NOT EXISTS cladecenters_prod_id ON cladecenters_prod USING GIST(way);")
+    cur.execute("CREATE INDEX IF NOT EXISTS polygons_prod_id ON polygons_prod USING GIST(way);")
     conn.commit()
 
     logger.info("Clustering...")

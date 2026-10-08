@@ -4,7 +4,6 @@ Utility functions
 
 import logging
 import os
-import pickle
 from collections import defaultdict
 from datetime import datetime
 from ftplib import FTP
@@ -55,9 +54,9 @@ def download_github_file_if_newer(github_url: str, local_file: Path | str) -> bo
     downloaded = False
     try:
         # Get the last modified time of the github file
-        api_url = github_url.replace("github.com", "api.github.com/repos").replace(
-            "/blob/master/", "/contents/"
-        )
+        api_url = github_url.replace("github.com", "api.github.com/repos")
+        api_url = api_url.replace("/blob/main/", "/contents/")
+        api_url = api_url.replace("/blob/master/", "/contents/")
         response = requests.get(api_url)
         if response.status_code != 200:
             print(f"Failed to fetch {github_url} metadata.")
@@ -90,39 +89,27 @@ def download_github_file_if_newer(github_url: str, local_file: Path | str) -> bo
     return downloaded
 
 
-def get_translations_fr() -> dict[str, set]:
-    """
-    Import french translations of taxonomy as dictionary from:
-    https://github.com/Lifemap-ToL/taxonomy-fr/blob/master/TAXONOMIC-VERNACULAR-FR-LATEST.txt
+def get_vernacular_names(lang: str) -> dict[str, list[str]]:
+    """Read vernacular names for one language from taxonomy-all."""
+    logger.info(f"  Importing {lang} common names")
 
-    There can be several common names for one sciname, so each dict value is a list.
+    filename = f"TAXONOMIC-VERNACULAR-{lang.upper()}-LATEST.txt"
+    github_url = f"https://github.com/Lifemap-ToL/taxonomy-all/blob/main/{lang}/{filename}"
+    local_file = TAXO_DIRECTORY / filename
 
-    Returns
-    -------
-    dict
-        dictionary of translations.
-    """
-    logger.info("  Importing french common names")
-    github_url = "https://github.com/Lifemap-ToL/taxonomy-fr/blob/master/TAXONOMIC-VERNACULAR-FR-LATEST.txt"
-    local_file = TAXO_DIRECTORY / "TAXONOMIC-VERNACULAR-FR-LATEST.txt"
-    pkl_file = TAXO_DIRECTORY / "fr_common_name.pkl"
+    download_github_file_if_newer(github_url, local_file)
 
-    downloaded = download_github_file_if_newer(github_url=github_url, local_file=local_file)
+    names = defaultdict(list)
+    with open(local_file, encoding="utf-8") as file:
+        for line in file:
+            columns = line.rstrip("\n").split("\t")
+            taxid = columns[0].strip()
+            name = columns[2].strip()
 
-    if not downloaded and pkl_file.exists():
-        logger.info(f"  Importing from {pkl_file}")
-        with open(pkl_file, "rb") as f:
-            trans = pickle.load(f)
-    else:
-        trans = defaultdict(set)
-        with open(local_file) as f:
-            lines = f.readlines()
-        lines = [line.split("\t") for line in lines]
-        for taxid, _, vernacular_name in lines:
-            trans[taxid.strip()].add(vernacular_name.strip())
-        with open(pkl_file, "wb") as f:
-            pickle.dump(trans, f)
-    return trans
+            if name and name not in names[taxid]:
+                names[taxid].append(name)
+
+    return names
 
 
 def get_ranks_translations() -> dict:

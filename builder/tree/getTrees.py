@@ -3,7 +3,7 @@ from dataclasses import dataclass, field
 
 from config import LANG_LIST, TAXO_DIRECTORY
 from ete4 import Tree
-from utils import get_ranks_translations, get_translations_fr
+from utils import get_ranks_translations, get_vernacular_names
 
 logger = logging.getLogger("LifemapBuilder")
 
@@ -29,7 +29,9 @@ def get_attributes() -> dict:
 
     logger.info("Reading NCBI taxonomy...")
 
-    taxo_fr_translations = get_translations_fr()
+    vernacular_names = {}
+    for lang in LANG_LIST:
+        vernacular_names[lang] = get_vernacular_names(lang)
 
     attr = {}  ##here we will list attribute of each species per taxid
     with open(TAXO_DIRECTORY / "names.dmp") as f:
@@ -40,11 +42,7 @@ def get_attributes() -> dict:
             if taxid not in attr:
                 attr[taxid] = Taxid()
                 for lang in LANG_LIST:
-                    attr[taxid].common_name[lang] = []
-            if tid_type == "common name":
-                attr[taxid].common_name["en"].append(tid_val)
-            if taxid in taxo_fr_translations:
-                attr[taxid].common_name["fr"] = taxo_fr_translations[taxid]
+                    attr[taxid].common_name[lang] = vernacular_names[lang].get(taxid, [])
             if tid_type == "scientific name":
                 attr[taxid].sci_name = tid_val
                 # and get translation in french (if any)
@@ -90,8 +88,13 @@ def getTheTrees() -> dict:
             dad = line[1].replace("\t", "")
             son = line[0].replace("\t", "")
             rank = line[2].replace("\t", "")
-            rank_en = rank.replace("'", "''")
-            rank_fr = ranks_translations[rank]["fr"].replace("'", "''")
+            rank_names = {}
+            for lang in LANG_LIST:
+                if lang == "en":
+                    rank_names[lang] = rank
+                else:
+                    rank_names[lang] = ranks_translations[rank][lang]
+                rank_names[lang] = rank_names[lang].replace("'", "''")
 
             if dad not in tree:
                 tree[dad] = Tree()
@@ -112,9 +115,7 @@ def getTheTrees() -> dict:
                 tree[son].props["sci_name"] = attr[son].sci_name
                 tree[son].props["common_name"] = {}
                 tree[son].props["common_name_long"] = {}
-                tree[son].props["rank"] = {}
-                tree[son].props["rank"]["en"] = rank_en
-                tree[son].props["rank"]["fr"] = rank_fr
+                tree[son].props["rank"] = rank_names
                 for lang in LANG_LIST:
                     tree[son].props["common_name"][lang] = attr[son].common_name[lang]
                     tree[son].props["common_name_long"][lang] = attr[son].common_name_long[lang]
@@ -122,8 +123,6 @@ def getTheTrees() -> dict:
                 tree[son].props["authority"] = attr[son].authority
             else:
                 if "rank" not in tree[son].props:
-                    tree[son].props["rank"] = {}
-                    tree[son].props["rank"]["en"] = rank_en
-                    tree[son].props["rank"]["fr"] = rank_fr
+                    tree[son].props["rank"] = rank_names
             tree[dad].add_child(tree[son])
     return tree

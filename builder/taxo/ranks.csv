@@ -1,51 +1,51 @@
-en,fr
-superkingdom,domaine
-subkingdom,sous-domaine
-tribe,tribu
-subgenus,sous-genre
-family,famille
-species subgroup,sous-groupe d'espèces
-species group,groupe d'espèces
-phylum,embranchement
-superclass,super-classe
-subphylum,sous-embranchement
-subspecies,sous-espèce
-no rank,sans rang
-no_rank,sans rang
-superorder,super-ordre
-infraorder,infra-ordre
-subclass,sous-classe
-species,espèce
-superphylum,super-embranchement
-kingdom,règne
-realm,realm
-subtribe,sous-tribu
-forma,forme
-infraclass,infra-classe
-varietas,variété
-subfamily,sous-famille
-class,classe
-superfamily,super-famille
-parvorder,parvordre
-suborder,sous-ordre
-genus,genre
-order,ordre
-cohort,cohorte
-subcohort,sous-cohorte
-section,section
-series,série
-subsection,sous-section
-strain,souche
-serogroup,sérogroupe
-biotype,biotype
-clade,clade
-forma specialis,forma specialis
-isolate,isolat
-serotype,sérotype
-subvariety,sous-variété
-morph,morph
-genotype,génotype
-pathogroup,pathogroupe
-domain,domaine
-acellular root,racine acellulaire
-cellular root,racine cellulaire
+en,fr,es,de
+superkingdom,domaine,superreino,Überreich
+subkingdom,sous-domaine,subreino,Unterreich
+tribe,tribu,tribu,Tribus
+subgenus,sous-genre,subgénero,Untergattung
+family,famille,familia,Familie
+species subgroup,sous-groupe d'espèces,subgrupo de especies,Artuntergruppe
+species group,groupe d'espèces,grupo de especies,Artengruppe
+phylum,embranchement,filo,Stamm
+superclass,super-classe,superclase,Überklasse
+subphylum,sous-embranchement,subfilo,Unterstamm
+subspecies,sous-espèce,subespecie,Unterart
+no rank,sans rang,sin rango,ohne Rang
+no_rank,sans rang,sin rango,ohne Rang
+superorder,super-ordre,superorden,Überordnung
+infraorder,infra-ordre,infraorden,Infraordnung
+subclass,sous-classe,subclase,Unterklasse
+species,espèce,especie,Art
+superphylum,super-embranchement,superfilo,Überstamm
+kingdom,règne,reino,Reich
+realm,realm,dominio,Realm
+subtribe,sous-tribu,subtribu,Untertribus
+forma,forme,forma,Form
+infraclass,infra-classe,infraclase,Infraklasse
+varietas,variété,variedad,Varietät
+subfamily,sous-famille,subfamilia,Unterfamilie
+class,classe,clase,Klasse
+superfamily,super-famille,superfamilia,Überfamilie
+parvorder,parvordre,parvorden,Parvordnung
+suborder,sous-ordre,suborden,Unterordnung
+genus,genre,género,Gattung
+order,ordre,orden,Ordnung
+cohort,cohorte,cohorte,Kohorte
+subcohort,sous-cohorte,subcohorte,Unterkohorte
+section,section,sección,Sektion
+series,série,serie,Serie
+subsection,sous-section,subsección,Untersektion
+strain,souche,cepa,Stamm (Mikroorganismus)
+serogroup,sérogroupe,serogrupo,Serogruppe
+biotype,biotype,biotipo,Biotyp
+clade,clade,clado,Klade
+forma specialis,forma specialis,forma especial,forma specialis
+isolate,isolat,aislado,Isolat
+serotype,sérotype,serotipo,Serotyp
+subvariety,sous-variété,subvariedad,Untervarietät
+morph,morph,morfo,Morph
+genotype,génotype,genotipo,Genotyp
+pathogroup,pathogroupe,grupo patógeno,Pathogruppe
+domain,domaine,dominio,Domäne
+acellular root,racine acellulaire,raíz acelular,Wurzel der azellulären Organismen
+cellular root,racine cellulaire,raíz celular,Wurzel der zellulären Organismen
