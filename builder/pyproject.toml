@@ -3,10 +3,8 @@ name = "lifemap-builder"
 version = "0.1.0"
 description = "Lifemap backend data builder"
 readme = "README.md"
-requires-python = ">= 3.13"
-authors = [
-  { name = "Damien de Vienne", email = "damien.de-vienne@univ-lyon1.fr" }
-]
+requires-python = ">= 3.14"
+authors = [{ name = "Damien de Vienne", email = "damien.de-vienne@univ-lyon1.fr" }]
 dependencies = [
   "ete4>=4.4.0",
   "numpy>=1.26.4",
@@ -26,6 +24,7 @@ dev = [
 
 [tool.ty.environment]
 root = ["./tree"]
+python-version = "3.14"
 
 [tool.uv]
 package = false
