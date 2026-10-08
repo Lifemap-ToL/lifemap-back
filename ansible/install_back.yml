@@ -121,7 +121,26 @@
         become: true
         ansible.builtin.command:
             chdir: "{{ docker_dir }}"
-            cmd: docker compose -f docker-compose.yml up -d --build
+            cmd: docker compose -f docker-compose.yml up -d --build --pull always
+        changed_when: true
+
+      - name: Copy solr security.json
+        become: true
+        ansible.builtin.copy:
+            dest: "{{ docker_dir }}/solr/data/"
+            src: "assets/solr/security.json"
+            force: true
+            mode: preserve
+
+      - name: Change solr data ownership
+        ansible.builtin.command:
+            cmd: docker exec -u root lifemap-solr chown -R solr:solr /var/solr/data/
+
+      - name: Restart Solr
+        become: true
+        ansible.builtin.command:
+            chdir: "{{ docker_dir }}"
+            cmd: docker compose -f docker-compose.yml restart solr
         changed_when: true
 
       - name: Wait for Solr to be up
@@ -162,3 +181,57 @@
             body_format: json
             body: '{"set-user": {"solr": "{{ solr_password }}"} }'
         when: login_result.status == 200
+
+      - name: Check if Solr taxo core already exists
+        ansible.builtin.stat:
+            path: "{{ docker_dir }}/solr/data/taxo/conf"
+        register: taxo_core
+
+      - name: Check if Solr addi core already exists
+        ansible.builtin.stat:
+            path: "{{ docker_dir }}/solr/data/addi/conf"
+        register: addi_core
+
+      - name: Create Solr taxo core
+        become: true
+        ansible.builtin.command:
+            cmd: docker exec lifemap-solr solr create -c taxo -n data_driven_schema_configs
+        changed_when: true
+        when: not taxo_core.stat.exists
+
+      - name: Create Solr addi core
+        become: true
+        ansible.builtin.command:
+            cmd: docker exec lifemap-solr solr create -c addi -n data_driven_schema_configs
+        changed_when: true
+        when: not addi_core.stat.exists
+
+      - name: Stop Solr
+        become: true
+        ansible.builtin.command:
+            chdir: "{{ docker_dir }}"
+            cmd: docker compose -f docker-compose.yml stop solr
+        changed_when: true
+
+      - name: Copy schema.xml to Solr taxo core
+        become: true
+        ansible.builtin.copy:
+            dest: "{{ docker_dir }}/solr/data/taxo/conf"
+            src: "assets/solr/taxo/schema.xml"
+            force: true
+            mode: preserve
+
+      - name: Copy solrconfig.xml to Solr taxo core
+        become: true
+        ansible.builtin.copy:
+            dest: "{{ docker_dir }}/solr/data/taxo/conf"
+            src: "assets/solr/taxo/solrconfig.xml"
+            force: true
+            mode: preserve
+
+      - name: Start Solr
+        become: true
+        ansible.builtin.command:
+            chdir: "{{ docker_dir }}"
+            cmd: docker compose -f docker-compose.yml start solr
+        changed_when: true

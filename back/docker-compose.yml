@@ -17,11 +17,9 @@ services:
             - 127.0.0.1:5432:5432
         command: -c config_file=/etc/postgresql/postgresql.conf
     solr:
-        image: lifemap_solr
+        image: solr:9
         container_name: lifemap-solr
         restart: unless-stopped
-        build:
-            context: ./solr
         env_file:
             - path: .env
               required: true
@@ -31,7 +29,7 @@ services:
         ports:
             - 127.0.0.1:8983:8983
         volumes:
-            - solr_data:/var/solr/data
+            - ./solr/data:/var/solr/data
         logging:
             driver: "json-file"
             options:
@@ -84,7 +82,3 @@ services:
             - ./caddy/config:/config
             - ../www/static:/static
             - ../www/front:/front
-
-volumes:
-    solr_data:
-    postgis_data:
