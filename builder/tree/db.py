@@ -2,6 +2,7 @@ import logging
 
 import psycopg
 from config import LANG_LIST, PSYCOPG_CONNECT_URL
+from psycopg import Error
 
 logger = logging.getLogger("LifemapBuilder")
 
@@ -23,10 +24,8 @@ def db_connection() -> psycopg.Connection:
         If connection fails.
     """
     try:
-        conn = psycopg.connect(
-            PSYCOPG_CONNECT_URL
-        )  # password will be directly retrieved from ~/.pgpassconn
-    except Exception as e:
+        conn = psycopg.connect(PSYCOPG_CONNECT_URL)  # password will be directly retrieved from ~/.pgpassconn
+    except Error as e:
         raise RuntimeError(f"Unable to connect to the database: {e}")
     return conn
 
