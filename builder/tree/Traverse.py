@@ -217,11 +217,13 @@ def get_polyg_record(node, ids, groupnb):
     ]
     for lang in LANG_LIST:
         rank_record.append(node.props["rank"][lang])
-    rank_record.extend([
-        int(node.props["nbdesc"]),
-        convexity,
-        cooLine,
-    ])
+    rank_record.extend(
+        [
+            int(node.props["nbdesc"]),
+            convexity,
+            cooLine,
+        ]
+    )
 
     return polygon_record, cladecenter_record, rank_record
 
@@ -250,9 +252,7 @@ def node2json(node) -> str:
 
         document[f"common_name_{lang}"] = common_name
         document[f"rank_{lang}"] = rank
-        document[f"all_{lang}"] = (
-            f"{sci_name} | {common_name} | {rank} | {taxid} | {synonym}"
-        )
+        document[f"all_{lang}"] = f"{sci_name} | {common_name} | {rank} | {taxid} | {synonym}"
 
     return json.dumps(document, ensure_ascii=False)
 
@@ -370,8 +370,7 @@ def traverse_tree(
             i.props["zoomview"] = np.ceil(np.log2(30 / i.props["ray"]))
             if i.props["zoomview"] <= 0:
                 i.props["zoomview"] = 0
-                if maxZoomView < i.props["zoomview"]:
-                    maxZoomView = i.props["zoomview"]
+                maxZoomView = max(maxZoomView, i.props["zoomview"])
             cpt = cpt + 1
         # Append node info to postgis COPY records
         points_records.append(
@@ -478,7 +477,7 @@ def traverse_tree(
             copy.write_row(record)
     conn.commit()
 
-    ##we add the way from LUCA to the root of the subtree
+    ##we add the way from LUCA to the root of the subtreeS
     ndid = ndid + 1
     command = f"INSERT INTO branches (id, branch, zoomview, ref, way) VALUES ({ndid},'TRUE', '4', '{groupnb}', ST_Transform(ST_GeomFromText('LINESTRING(0 -4.226497, {t.props['x']:.20f} {t.props['y']:.20f})', 4326), 3857));"
     cur.execute(command)  # type: ignore

@@ -101,7 +101,9 @@ def create_geometries() -> None:
 
     for table in TABLES:
         logger.info(f"Creating {table} geometry")
-        query = f"UPDATE {table} SET way = ST_Transform(ST_GeomFromText(geom_txt, 4326), 3857) WHERE way IS NULL;"
+        query = (
+            f"UPDATE {table} SET way = ST_Transform(ST_GeomFromText(geom_txt, 4326), 3857) WHERE way IS NULL;"
+        )
         cur.execute(query)  # type: ignore
         conn.commit()
 
@@ -122,21 +124,11 @@ def create_index() -> None:
     cur = conn.cursor()
 
     logger.info("Creating indexes...")
-    cur.execute(
-        "CREATE INDEX IF NOT EXISTS branches_prod_id ON branches_prod USING GIST(way);"
-    )
-    cur.execute(
-        "CREATE INDEX IF NOT EXISTS ranks_prod_id ON ranks_prod USING GIST(way);"
-    )
-    cur.execute(
-        "CREATE INDEX IF NOT EXISTS points_prod_id ON points_prod USING GIST(way);"
-    )
-    cur.execute(
-        "CREATE INDEX IF NOT EXISTS cladecenters_prod_id ON cladecenters_prod USING GIST(way);"
-    )
-    cur.execute(
-        "CREATE INDEX IF NOT EXISTS polygons_prod_id ON polygons_prod USING GIST(way);"
-    )
+    cur.execute("CREATE INDEX IF NOT EXISTS branches_prod_id ON branches_prod USING GIST(way);")
+    cur.execute("CREATE INDEX IF NOT EXISTS ranks_prod_id ON ranks_prod USING GIST(way);")
+    cur.execute("CREATE INDEX IF NOT EXISTS points_prod_id ON points_prod USING GIST(way);")
+    cur.execute("CREATE INDEX IF NOT EXISTS cladecenters_prod_id ON cladecenters_prod USING GIST(way);")
+    cur.execute("CREATE INDEX IF NOT EXISTS polygons_prod_id ON polygons_prod USING GIST(way);")
     conn.commit()
 
     logger.info("Clustering...")

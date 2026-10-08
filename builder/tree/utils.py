@@ -94,10 +94,7 @@ def get_vernacular_names(lang: str) -> dict[str, list[str]]:
     logger.info(f"  Importing {lang} common names")
 
     filename = f"TAXONOMIC-VERNACULAR-{lang.upper()}-LATEST.txt"
-    github_url = (
-        "https://github.com/Lifemap-ToL/taxonomy-all/"
-        f"blob/main/{lang}/{filename}"
-    )
+    github_url = f"https://github.com/Lifemap-ToL/taxonomy-all/blob/main/{lang}/{filename}"
     local_file = TAXO_DIRECTORY / filename
 
     download_github_file_if_newer(github_url, local_file)

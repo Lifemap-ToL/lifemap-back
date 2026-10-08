@@ -1,4 +1,5 @@
 from pathlib import Path
+
 from dotenv import dotenv_values
 
 BUILD_DIRECTORY = Path.home() / ("builder_results")
@@ -16,6 +17,4 @@ DB_PASSWD = config["PG_PASSWD"]
 
 LANG_LIST = ["en", "es", "fr", "de"]
 
-PSYCOPG_CONNECT_URL = (
-    f"dbname='{DB_NAME}' user='{DB_USER}' host='{DB_HOST}' password='{DB_PASSWD}'"
-)
+PSYCOPG_CONNECT_URL = f"dbname='{DB_NAME}' user='{DB_USER}' host='{DB_HOST}' password='{DB_PASSWD}'"
