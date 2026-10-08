@@ -2,3 +2,4 @@
 .venv/
 inventory.yml
 inventory_dev.yml
+/.ansible/
