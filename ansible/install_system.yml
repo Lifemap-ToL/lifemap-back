@@ -54,6 +54,13 @@
             force: true
             mode: preserve
 
+      - name: Set nofile limit for user
+        community.general.pam_limits:
+            domain: "{{ ansible_user }}"
+            limit_type: "-"
+            limit_item: nofile
+            value: "65536"
+
       ### --- UFW ---
 
       - name: Deny everything and enable UFW
