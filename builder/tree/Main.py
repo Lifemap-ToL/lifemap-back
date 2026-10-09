@@ -33,12 +33,12 @@ logger.propagate = False
 
 
 def lifemap_build(
+    *,
     simplify: bool,
     skip_traversal: bool = False,
     skip_add_info: bool = False,
-    skip_merge_jsons: bool = False,
-    skip_rdata: bool = False,
-    skip_index: bool = False,
+    skip_db: bool = False,
+    skip_data: bool = False,
     disable_progress: bool = False,
 ) -> None:
     logger.info("-- Creating genomes directory if needed")
@@ -56,33 +56,37 @@ def lifemap_build(
         tree = getTrees.getTheTrees()
         if simplify:
             tree = Traverse.simplify_tree(tree)
-        logger.info("---- Initialize Postgis database ----")
-        db.init_db()
         logger.info("---- Doing Archaeal tree...")
         ndid = Traverse.traverse_tree(tree, groupnb="1", starti=1, disable_progress=disable_progress)
         logger.info("---- Done")
-        logger.info("---- Doing Eukaryotic tree... start at id: %s" % ndid)
+        logger.info(f"---- Doing Eukaryotic tree... start at id: {ndid}")
         ndid = Traverse.traverse_tree(tree, groupnb="2", starti=ndid, disable_progress=disable_progress)
         logger.info("---- Done")
-        logger.info("---- Doing Bact tree... start at id:%s " % ndid)
+        logger.info(f"---- Doing Bact tree... start at id: {ndid}")
         ndid = Traverse.traverse_tree(tree, groupnb="3", starti=ndid, disable_progress=disable_progress)
-        logger.info("---- Done")
-        logger.info("---- Create Postgis geometries ----")
-        db.create_geometries()
         logger.info("---- Done")
         del tree
 
     # Garbage collect
     gc.collect()
 
-    # Copy postgis data to production tables
-    logger.info("-- Copy postgis data to production tables --")
-    db.copy_db_to_prod()
-    logger.info("-- Done --")
-
-    logger.info("-- Creating indexes... ")
-    db.create_index()
-    logger.info("-- Done")
+    if skip_db:
+        logger.info("--- Skipping postgis operations as requested ---")
+    else:
+        logger.info("---- Initialize Postgis database ----")
+        db.init_db()
+        # Create postgis geometries
+        logger.info("---- Create Postgis geometries ----")
+        db.create_geometries()
+        logger.info("---- Done")
+        # Copy postgis data to production tables
+        logger.info("-- Copy postgis data to production tables --")
+        db.copy_db_to_prod()
+        logger.info("-- Done --")
+        # Create postgis indexes
+        logger.info("-- Creating indexes... ")
+        db.create_index()
+        logger.info("-- Done")
 
     # Garbage collect
     gc.collect()
@@ -110,13 +114,16 @@ def lifemap_build(
     gc.collect()
 
     ## Write whole data to Rdada file for use in R package LifemapR (among others)
-    if skip_rdata:
-        logger.info("--- Skipping Rdata export as requested ---")
+    if skip_data:
+        logger.info("--- Skipping data export as requested ---")
     else:
-        logger.info("-- Exporting data to parquet and Rdata...")
+        logger.info("-- Exporting data to parquet...")
         export_data.clean_lmdata()
         export_data.export_lmdata()
         logger.info("-- Done ")
+
+    # Garbage collect
+    gc.collect()
 
     ## Get New coordinates for generating tiles
     logger.info("-- Get new tiles coordinates")
@@ -143,9 +150,8 @@ if __name__ == "__main__":
     )
     parser.add_argument("--skip-traversal", action="store_true", help="Skip tree building")
     parser.add_argument("--skip-add-info", action="store_true", help="Skip additional info")
-    parser.add_argument("--skip-merge-jsons", action="store_true", help="Skip JSONs merging")
-    parser.add_argument("--skip-rdata", action="store_true", help="Skip Rdata export")
-    parser.add_argument("--skip-index", action="store_true", help="Skip index creation")
+    parser.add_argument("--skip-db", action="store_true", help="Skip postgis operations")
+    parser.add_argument("--skip-data-export", action="store_true", help="Skip data export")
     parser.add_argument("--disable-progress", action="store_true", help="Disable progress bars")
 
     args = parser.parse_args()
@@ -155,8 +161,7 @@ if __name__ == "__main__":
         simplify=args.simplify,
         skip_traversal=args.skip_traversal,
         skip_add_info=args.skip_add_info,
-        skip_merge_jsons=args.skip_merge_jsons,
-        skip_rdata=args.skip_rdata,
-        skip_index=args.skip_index,
+        skip_db=args.skip_db,
+        skip_data=args.skip_data_export,
         disable_progress=args.disable_progress,
     )
