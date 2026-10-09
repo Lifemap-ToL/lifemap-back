@@ -39,13 +39,13 @@ def download_ftp_file_if_newer(host, remote_file, local_file) -> bool:
             if remote_mtime > local_mtime:
                 with open(local_file, "wb") as f:
                     ftp.retrbinary(f"RETR {remote_file}", f.write)
-                print(f"Downloaded {remote_file} (newer than local file)")
+                logger.info(f"Downloaded {remote_file} (newer than local file)")
                 downloaded = True
             else:
-                print(f"Remote file {remote_file} is not newer than local file, skipping download")
+                logger.info(f"Remote file {remote_file} is not newer than local file, skipping download")
 
     except Exception as e:
-        print(f"Error downloading file: {e}")
+        logger.error(f"Error downloading file: {e}")
 
     return downloaded
 
@@ -57,9 +57,9 @@ def download_github_file_if_newer(github_url: str, local_file: Path | str) -> bo
         api_url = github_url.replace("github.com", "api.github.com/repos")
         api_url = api_url.replace("/blob/main/", "/contents/")
         api_url = api_url.replace("/blob/master/", "/contents/")
-        response = requests.get(api_url)
+        response = requests.get(api_url, timeout=30)
         if response.status_code != 200:
-            print(f"Failed to fetch {github_url} metadata.")
+            logger.warning(f"Failed to fetch {github_url} metadata.")
             return False
 
         remote_last_modified = datetime.strptime(
@@ -76,15 +76,15 @@ def download_github_file_if_newer(github_url: str, local_file: Path | str) -> bo
         # Compare and download if remote is newer
         if remote_last_modified > local_last_modified:
             download_url = response.json()["download_url"]
-            r = requests.get(download_url)
+            r = requests.get(download_url, timeout=30)
             local_path.write_bytes(r.content)
             downloaded = True
-            print(f"Downloaded {github_url} (newer than local file)")
+            logger.info(f"Downloaded {github_url} (newer than local file)")
         else:
-            print(f"Remote file {github_url} is not newer than local file, skipping download")
+            logger.info(f"Remote file {github_url} is not newer than local file, skipping download")
 
     except Exception as e:
-        print(f"Error downloading file: {e}")
+        logger.error(f"Error downloading file: {e}")
 
     return downloaded
 
