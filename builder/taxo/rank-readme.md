@@ -21,6 +21,12 @@ Spanish labels were selected using Spanish-language taxonomic and nomenclatural 
 
 Some NCBI ranks are specialized or informal rather than standard ranks covered by general references. Their Spanish values are practical translations for Lifemap; in particular, `morph` is rendered literally as *morfo*, and the compound labels such as `species subgroup`, `pathogroup`, `acellular root`, and `cellular root` do not have a single authoritative Spanish form established here. Review these if a domain-specific Spanish vocabulary becomes available.
 
+## Greek (`el`)
+
+The principal labels follow Greek university material on [taxonomic and animal phylogeny](https://opencourses.uoa.gr/modules/units/?course=BIOL3&id=636): *βασίλειο*, *φύλο*, *ομοταξία*, *τάξη*, *οικογένεια*, *γένος*, and *είδος*. Subrank and superrank labels use the corresponding Greek forms. NCBI describes `realm` as the viral equivalent of `domain`, so both use *επικράτεια* here; see [NCBI's rank update](https://ncbiinsights.ncbi.nlm.nih.gov/2025/02/27/new-ranks-ncbi-taxonomy/).
+
+Specialized or informal ranks, including `species subgroup`, `pathogroup`, `morph`, and the cellular root labels, are practical Greek renderings for Lifemap rather than standardized nomenclature. The two source spellings `no rank` and `no_rank` deliberately share *χωρίς βαθμίδα*.
+
 ## Future languages
 
 For each new language, add a column named with its language code. Record the source and translation policy here, including authoritative references where available. Keep uncertain or ad-hoc rank translations identified as such rather than treating them as formally standardized terms.

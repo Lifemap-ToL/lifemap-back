@@ -15,6 +15,6 @@ DB_NAME = config["PG_DB"]
 DB_USER = config["PG_USER"]
 DB_PASSWD = config["PG_PASSWD"]
 
-LANG_LIST = ["en", "es", "fr", "de"]
+LANG_LIST = ["en", "es", "fr", "de", "el"]
 
 PSYCOPG_CONNECT_URL = f"dbname='{DB_NAME}' user='{DB_USER}' host='{DB_HOST}' password='{DB_PASSWD}'"

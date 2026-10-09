@@ -114,14 +114,14 @@ def get_vernacular_names(lang: str) -> dict[str, list[str]]:
 
 def get_ranks_translations() -> dict:
     """
-    Import french translations of ranks as dictionary from ranks.csv
+    Import rank translations for all configured languages from ranks.csv
 
     Returns
     -------
     dict
         dictionary of translations.
     """
-    logger.info("  Importing french rank names")
+    logger.info("  Importing translated rank names")
     trans_df = pl.read_csv(TAXO_DIRECTORY / "ranks.csv")
     trans = {}
     langs = trans_df.columns
