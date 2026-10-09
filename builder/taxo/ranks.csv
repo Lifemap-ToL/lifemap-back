@@ -1,51 +1,51 @@
-en,fr,es,de
-superkingdom,domaine,superreino,Überreich
-subkingdom,sous-domaine,subreino,Unterreich
-tribe,tribu,tribu,Tribus
-subgenus,sous-genre,subgénero,Untergattung
-family,famille,familia,Familie
-species subgroup,sous-groupe d'espèces,subgrupo de especies,Artuntergruppe
-species group,groupe d'espèces,grupo de especies,Artengruppe
-phylum,embranchement,filo,Stamm
-superclass,super-classe,superclase,Überklasse
-subphylum,sous-embranchement,subfilo,Unterstamm
-subspecies,sous-espèce,subespecie,Unterart
-no rank,sans rang,sin rango,ohne Rang
-no_rank,sans rang,sin rango,ohne Rang
-superorder,super-ordre,superorden,Überordnung
-infraorder,infra-ordre,infraorden,Infraordnung
-subclass,sous-classe,subclase,Unterklasse
-species,espèce,especie,Art
-superphylum,super-embranchement,superfilo,Überstamm
-kingdom,règne,reino,Reich
-realm,realm,dominio,Realm
-subtribe,sous-tribu,subtribu,Untertribus
-forma,forme,forma,Form
-infraclass,infra-classe,infraclase,Infraklasse
-varietas,variété,variedad,Varietät
-subfamily,sous-famille,subfamilia,Unterfamilie
-class,classe,clase,Klasse
-superfamily,super-famille,superfamilia,Überfamilie
-parvorder,parvordre,parvorden,Parvordnung
-suborder,sous-ordre,suborden,Unterordnung
-genus,genre,género,Gattung
-order,ordre,orden,Ordnung
-cohort,cohorte,cohorte,Kohorte
-subcohort,sous-cohorte,subcohorte,Unterkohorte
-section,section,sección,Sektion
-series,série,serie,Serie
-subsection,sous-section,subsección,Untersektion
-strain,souche,cepa,Stamm (Mikroorganismus)
-serogroup,sérogroupe,serogrupo,Serogruppe
-biotype,biotype,biotipo,Biotyp
-clade,clade,clado,Klade
-forma specialis,forma specialis,forma especial,forma specialis
-isolate,isolat,aislado,Isolat
-serotype,sérotype,serotipo,Serotyp
-subvariety,sous-variété,subvariedad,Untervarietät
-morph,morph,morfo,Morph
-genotype,génotype,genotipo,Genotyp
-pathogroup,pathogroupe,grupo patógeno,Pathogruppe
-domain,domaine,dominio,Domäne
-acellular root,racine acellulaire,raíz acelular,Wurzel der azellulären Organismen
-cellular root,racine cellulaire,raíz celular,Wurzel der zellulären Organismen
+en,fr,es,de,el
+superkingdom,domaine,superreino,Überreich,υπερβασίλειο
+subkingdom,sous-domaine,subreino,Unterreich,υποβασίλειο
+tribe,tribu,tribu,Tribus,ομοιογένεια
+subgenus,sous-genre,subgénero,Untergattung,υπογένος
+family,famille,familia,Familie,οικογένεια
+species subgroup,sous-groupe d'espèces,subgrupo de especies,Artuntergruppe,υποομάδα ειδών
+species group,groupe d'espèces,grupo de especies,Artengruppe,ομάδα ειδών
+phylum,embranchement,filo,Stamm,φύλο
+superclass,super-classe,superclase,Überklasse,υπερομοταξία
+subphylum,sous-embranchement,subfilo,Unterstamm,υποφύλο
+subspecies,sous-espèce,subespecie,Unterart,υποείδος
+no rank,sans rang,sin rango,ohne Rang,χωρίς βαθμίδα
+no_rank,sans rang,sin rango,ohne Rang,χωρίς βαθμίδα
+superorder,super-ordre,superorden,Überordnung,υπέρταξη
+infraorder,infra-ordre,infraorden,Infraordnung,ανθυποτάξη
+subclass,sous-classe,subclase,Unterklasse,υφομοταξία
+species,espèce,especie,Art,είδος
+superphylum,super-embranchement,superfilo,Überstamm,υπερφύλο
+kingdom,règne,reino,Reich,βασίλειο
+realm,realm,dominio,Realm,επικράτεια
+subtribe,sous-tribu,subtribu,Untertribus,υποομοιογένεια
+forma,forme,forma,Form,μορφή
+infraclass,infra-classe,infraclase,Infraklasse,ανθυφομοταξία
+varietas,variété,variedad,Varietät,ποικιλία
+subfamily,sous-famille,subfamilia,Unterfamilie,υποοικογένεια
+class,classe,clase,Klasse,ομοταξία
+superfamily,super-famille,superfamilia,Überfamilie,υπεροικογένεια
+parvorder,parvordre,parvorden,Parvordnung,μικροτάξη
+suborder,sous-ordre,suborden,Unterordnung,υπόταξη
+genus,genre,género,Gattung,γένος
+order,ordre,orden,Ordnung,τάξη
+cohort,cohorte,cohorte,Kohorte,κοόρτη
+subcohort,sous-cohorte,subcohorte,Unterkohorte,υποκοόρτη
+section,section,sección,Sektion,τομή
+series,série,serie,Serie,σειρά
+subsection,sous-section,subsección,Untersektion,υποτομή
+strain,souche,cepa,Stamm (Mikroorganismus),στέλεχος
+serogroup,sérogroupe,serogrupo,Serogruppe,οροομάδα
+biotype,biotype,biotipo,Biotyp,βιότυπος
+clade,clade,clado,Klade,κλάδος
+forma specialis,forma specialis,forma especial,forma specialis,ειδική μορφή
+isolate,isolat,aislado,Isolat,απομόνωμα
+serotype,sérotype,serotipo,Serotyp,ορότυπος
+subvariety,sous-variété,subvariedad,Untervarietät,υποποικιλία
+morph,morph,morfo,Morph,μορφικός τύπος
+genotype,génotype,genotipo,Genotyp,γονότυπος
+pathogroup,pathogroupe,grupo patógeno,Pathogruppe,ομάδα παθογένειας
+domain,domaine,dominio,Domäne,επικράτεια
+acellular root,racine acellulaire,raíz acelular,Wurzel der azellulären Organismen,ακυτταρική ρίζα
+cellular root,racine cellulaire,raíz celular,Wurzel der zellulären Organismen,κυτταρική ρίζα

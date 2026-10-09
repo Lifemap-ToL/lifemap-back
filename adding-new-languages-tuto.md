@@ -11,14 +11,14 @@
 
 - Add a column for the language to `builder/taxo/ranks.csv` and translate each rank.
 
-- Add the language fields to `back/solr/schema.xml`: `common_name_<code>`, `rank_<code>`, `all_<code>`, and their matching search fields and copy rules.
+- Add the language fields to `ansible/assets/solr/taxo/schema.xml`: `common_name_<code>`, `rank_<code>`, `all_<code>`, and their matching search fields and copy rules.
 
-- DO NOT add `rank_<code>` to both rank queries in `back/bbox/bbox.toml.j2`: rank_en only appears there. Other languages are dealt with in the front directly.
+- `ansible/templates/bbox/bbox.toml.j2` currently selects rank columns for vector tiles. Add `rank_<code>` to both rank queries only when the frontend is configured to read that tile property; Solr rank fields are configured separately.
 
 - After modifying `schema.xml`, copy it to Solr and restart Solr:
 
   ```bash
-  docker cp ~/back/solr/schema.xml lifemap-solr:/var/solr/data/taxo/conf/schema.xml
+  docker cp ansible/assets/solr/taxo/schema.xml lifemap-solr:/var/solr/data/taxo/conf/schema.xml
   docker restart lifemap-solr
   ```
 
