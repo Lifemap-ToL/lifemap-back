@@ -55,6 +55,7 @@
             mode: preserve
 
       - name: Set nofile limit for user
+        become: true
         community.general.pam_limits:
             domain: "{{ ansible_user }}"
             limit_type: "-"
