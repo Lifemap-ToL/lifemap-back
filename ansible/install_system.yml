@@ -204,3 +204,52 @@
             chdir: "{{ prometheus_dir }}"
             cmd: docker compose -f docker-compose.yml up -d
         changed_when: true
+
+      ### --- SWAP CREATION ---
+
+      - name: Swap - check if swapfile exists
+        become: true
+        ansible.builtin.stat:
+            path: "/swapfile"
+        register: swap_file
+
+      - name: Swap - create swapfile
+        become: true
+        ansible.builtin.command: >
+            fallocate -l 8G /swapfile
+        when: not swap_file.stat.exists
+
+      - name: Swap - check permissions
+        become: true
+        ansible.builtin.file:
+            path: "/swapfile"
+            mode: "0600"
+            owner: root
+            group: root
+
+      - name: Swap - format swap
+        become: true
+        ansible.builtin.command: mkswap /swapfile
+        when: not swap_file.stat.exists
+
+      - name: Swap - activate swap
+        become: true
+        ansible.builtin.command: swapon /swapfile
+        when: not swap_file.stat.exists
+
+      - name: Swap - add to fstab
+        become: true
+        ansible.posix.mount:
+            path: none
+            src: "/swapfile"
+            fstype: swap
+            opts: sw
+            state: present
+
+      - name: Swap - configure swappiness
+        become: true
+        ansible.posix.sysctl:
+            name: vm.swappiness
+            value: 10
+            sysctl_set: true
+            reload: true
