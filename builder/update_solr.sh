@@ -25,7 +25,3 @@ echo "Committing taxo changes..."
 curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/taxo/update?commit=true -o /dev/null
 echo "Committing addi changes..."
 curl --user solr:$SOLR_PASSWD http://localhost:8983/solr/addi/update?commit=true -o /dev/null
-
-# Restart Caddy to clean cache
-echo "-- Restart Caddy"
-docker compose -f ~/back/docker-compose.yml restart caddy

@@ -1,6 +1,6 @@
 ---
 - name: Lifemap-back test frontends install
-  hosts: lifemap-back, lifemap-dev
+  hosts: all
 
   tasks:
       - name: Add nodejs repository

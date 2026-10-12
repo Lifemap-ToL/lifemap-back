@@ -1,6 +1,6 @@
 ---
 - name: Base lifemap-back install
-  hosts: lifemap-back, lifemap-dev
+  hosts: all
 
   tasks:
       ### --- DIRECTORIES CREATION ---
