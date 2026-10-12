@@ -37,7 +37,6 @@ def lifemap_build(
     simplify: bool,
     skip_traversal: bool = False,
     skip_add_info: bool = False,
-    skip_db: bool = False,
     skip_data: bool = False,
     disable_progress: bool = False,
 ) -> None:
@@ -50,6 +49,8 @@ def lifemap_build(
         logger.info("--- Skipping tree traversal as requested ---")
     else:
         logger.info("-- CREATING DATABASE")
+        logger.info("---- Initialize Postgis database ----")
+        db.init_db()
         logger.info("---- Updating NCBI database...")
         Traverse.updateDB()
         logger.info("---- Building NCBI tree...")
@@ -70,23 +71,18 @@ def lifemap_build(
     # Garbage collect
     gc.collect()
 
-    if skip_db:
-        logger.info("--- Skipping postgis operations as requested ---")
-    else:
-        logger.info("---- Initialize Postgis database ----")
-        db.init_db()
-        # Create postgis geometries
-        logger.info("---- Create Postgis geometries ----")
-        db.create_geometries()
-        logger.info("---- Done")
-        # Copy postgis data to production tables
-        logger.info("-- Copy postgis data to production tables --")
-        db.copy_db_to_prod()
-        logger.info("-- Done --")
-        # Create postgis indexes
-        logger.info("-- Creating indexes... ")
-        db.create_index()
-        logger.info("-- Done")
+    # Create postgis geometries
+    logger.info("---- Create Postgis geometries ----")
+    db.create_geometries()
+    logger.info("---- Done")
+    # Copy postgis data to production tables
+    logger.info("-- Copy postgis data to production tables --")
+    db.copy_db_to_prod()
+    logger.info("-- Done --")
+    # Create postgis indexes
+    logger.info("-- Creating indexes... ")
+    db.create_index()
+    logger.info("-- Done")
 
     # Garbage collect
     gc.collect()
@@ -150,7 +146,6 @@ if __name__ == "__main__":
     )
     parser.add_argument("--skip-traversal", action="store_true", help="Skip tree building")
     parser.add_argument("--skip-add-info", action="store_true", help="Skip additional info")
-    parser.add_argument("--skip-db", action="store_true", help="Skip postgis operations")
     parser.add_argument("--skip-data-export", action="store_true", help="Skip data export")
     parser.add_argument("--disable-progress", action="store_true", help="Disable progress bars")
 
@@ -161,7 +156,6 @@ if __name__ == "__main__":
         simplify=args.simplify,
         skip_traversal=args.skip_traversal,
         skip_add_info=args.skip_add_info,
-        skip_db=args.skip_db,
         skip_data=args.skip_data_export,
         disable_progress=args.disable_progress,
     )
