@@ -1,6 +1,8 @@
 /.vscode/
 .venv/
-inventory.yml
-inventory_dev.yml
+
+/ansible/inventory*.yml
+!/ansible/inventory_example.yml
+
 /.ansible/
 /out/
