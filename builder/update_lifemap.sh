@@ -22,6 +22,10 @@ mkdir -p $WWW_STATIC_DIR/data
 cp $BUILD_RESULTS_DIR/lmdata/* $WWW_STATIC_DIR/data
 cp $BUILD_RESULTS_DIR/metadata.json $WWW_STATIC_DIR/
 
+# Restart Caddy to clean cache
+echo "-- Restart Caddy"
+docker compose -f ~/back/docker-compose.yml restart caddy
+
 # Update Solr
 source ./update_solr.sh
 
