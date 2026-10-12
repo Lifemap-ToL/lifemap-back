@@ -24,7 +24,11 @@ cp $BUILD_RESULTS_DIR/metadata.json $WWW_STATIC_DIR/
 
 # Restart containers
 echo "-- Restart containers"
-docker compose -f ~/back/docker-compose.yml restart
+docker compose -f ~/back/docker-compose.yml restart postgis
+docker compose -f ~/back/docker-compose.yml restart bbox
+docker compose -f ~/back/docker-compose.yml restart caddy
+
+sleep 5
 
 # Update Solr
 source ./update_solr.sh
