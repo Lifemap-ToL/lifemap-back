@@ -11,7 +11,9 @@ SOLR_CONTAINER=lifemap-solr
 echo "Builder started at `date`"
 
 echo "- RESTARTING CONTAINERS"
-docker compose -f ~/back/docker-compose.yml restart
+docker compose -f ~/back/docker-compose.yml restart postgis
+docker compose -f ~/back/docker-compose.yml restart bbox
+docker compose -f ~/back/docker-compose.yml restart caddy
 
 echo "- BUILD TREE"
 uv run python tree/Main.py --disable-progress
