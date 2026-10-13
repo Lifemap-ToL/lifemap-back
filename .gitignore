@@ -6,3 +6,4 @@
 
 /.ansible/
 /out/
+__pycache__/
