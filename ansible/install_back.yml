@@ -20,6 +20,13 @@
             owner: "{{ ansible_user }}"
             mode: "0775"
 
+      - name: Create api directory
+        ansible.builtin.file:
+            path: "{{ docker_dir }}/api"
+            state: directory
+            owner: "{{ ansible_user }}"
+            mode: "0775"
+
       - name: Create results directory
         ansible.builtin.file:
             path: "{{ build_results_dir }}"
@@ -78,6 +85,7 @@
             dest: "{{ docker_dir }}"
             rsync_opts:
                 - "--exclude=*.j2"
+                - "--exclude=.venv"
 
       - name: Copy docker Caddy config
         become: true
