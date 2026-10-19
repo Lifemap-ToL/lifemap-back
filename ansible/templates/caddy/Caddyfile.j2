@@ -37,11 +37,17 @@
         Cache-Control "public, max-age=86400"
     }
 
-
     # --- SOLR ---
-
+    @options {
+        method OPTIONS
+    }
     redir /solr /solr/
-    reverse_proxy /solr/* 127.0.0.1:8983
+    handle /solr/* {
+        reverse_proxy 127.0.0.1:8983
+        # Solr doesn't respond correctly to OPTIONS,
+        # which can lead to CORS errors
+        respond @options 204
+    }
 
     # --- MOD_TILE ---
 
