@@ -9,7 +9,6 @@ import check_ranks
 import db
 import export_data
 import export_metadata
-import GetAllTilesCoord
 import getTrees
 import Traverse
 from config import (
@@ -120,11 +119,6 @@ def lifemap_build(
 
     # Garbage collect
     gc.collect()
-
-    ## Get New coordinates for generating tiles
-    logger.info("-- Get new tiles coordinates")
-    GetAllTilesCoord.get_all_coords()
-    logger.info("-- Done")
 
     # Export metadata to metadata.json
     logger.info("-- Export metadata.json")
