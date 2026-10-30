@@ -21,19 +21,12 @@
             update_cache: true
             state: latest
 
-      - name: Rsync ncbi
-        become: true
-        ansible.posix.synchronize:
-            src: "../front/HTTP-NCBI/"
-            dest: "{{ front_root_dir }}/ncbi"
-
-      - name: Copy server-address-ncbi.js to ncbi front
-        become: true
-        ansible.builtin.template:
-            src: templates/server-address-ncbi.js.j2
-            dest: "{{ front_root_dir }}/ncbi/server-address.js"
-            mode: preserve
-            force: true
+      - name: Create bbox front directory
+        ansible.builtin.file:
+            path: "{{ front_root_dir }}/bbox"
+            state: directory
+            owner: "{{ ansible_user }}"
+            mode: "0775"
 
       - name: Rsync bbox
         become: true

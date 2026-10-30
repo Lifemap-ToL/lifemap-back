@@ -86,13 +86,6 @@
         file_server
     }
 
-    redir /ncbi /ncbi/
-
-    handle_path /ncbi/* {
-        root /front/ncbi
-        file_server
-    }
-
     # --- HEALTH ENDPOINT ---
 
     handle /health {
