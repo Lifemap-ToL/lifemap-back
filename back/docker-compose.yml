@@ -36,21 +36,6 @@ services:
                 max-size: "50m"
                 max-file: "5"
                 compress: "true"
-    mod_tile:
-        image: lifemap_mod_tile
-        container_name: lifemap-mod_tile
-        restart: unless-stopped
-        build:
-            context: ./mod_tile_deepzoom
-        env_file:
-            - path: .env
-              required: true
-        ports:
-            - 127.0.0.1:8888:80
-        volumes:
-            - ../builder_results:/opt/build_results
-        depends_on:
-            - postgis
     bbox:
         container_name: lifemap-bbox
         image: sourcepole/bbox-server-qgis:v0.6.2

@@ -49,12 +49,6 @@
         respond @options 204
     }
 
-    # --- MOD_TILE ---
-
-    reverse_proxy /osm_tiles/* 127.0.0.1:8888
-    reverse_proxy /nolabels/* 127.0.0.1:8888
-    reverse_proxy /onlylabels/* 127.0.0.1:8888
-
     # --- BBOX ---
 
     handle_path /vector_tiles/* {
@@ -112,22 +106,6 @@
 lifemap.univ-lyon1.fr, lifemap-ncbi.univ-lyon1.fr, lifemap-fr.univ-lyon1.fr,
 lifemap.univ-lyon1.fr:80, lifemap-ncbi.univ-lyon1.fr:80, lifemap-fr.univ-lyon1.fr:80  {
 
-
-    # lmdata redirection for lifemapR
-    handle /data* {
-        redir https://lifemap-back.univ-lyon1.fr{uri}
-    }
-
-    # Raster tiles redirections
-    handle /osm_tiles* {
-        redir https://lifemap-back.univ-lyon1.fr{uri}
-    }
-    handle /nolabels* {
-        redir https://lifemap-back.univ-lyon1.fr{uri}
-    }
-    handle /onlylabels* {
-        redir https://lifemap-back.univ-lyon1.fr{uri}
-    }
 
     # Redirection links from NCBI website
     @root_tid {
