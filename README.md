@@ -4,7 +4,9 @@ This repository allows to deploy a lifemap backend.
 
 ## Deployment with ansible
 
-You must first [install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html), for example with [pipx](https://pipx.pypa.io/latest/installation/):
+You must first
+[install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html),
+for example with [pipx](https://pipx.pypa.io/latest/installation/):
 
 ```sh
 pipx install --include-deps ansible
@@ -19,23 +21,30 @@ uv tool install ansible
 
 The backend is composed of several elements:
 
-- A postgis server, deployed with docker. The database contains "build" tables (`points`, `lines` and
-  `polygons` tables), as well as "production" tables (`points_prod`, `lines_prod` and `polygons_prod` tables).
-  When the tree is updated, build tables are emptied and recreated, and production tables are copied from
-  build tables only if the update process is successful.
-- A solr server, deployed with docker. The server contains two cores, `taxo` for tree data and `addi` for
-  additional data.
-- A [bbox](https://www.bbox.earth/index.html) vector tiles server, deployed with docker.
+- A postgis server, deployed with docker. The database contains "build" tables
+  (`points`, `lines` and `polygons` tables), as well as "production" tables
+  (`points_prod`, `lines_prod` and `polygons_prod` tables). When the tree is
+  updated, build tables are emptied and recreated, and production tables are
+  copied from build tables only if the update process is successful.
+- A solr server, deployed with docker. The server contains two cores, `taxo` for
+  tree data and `addi` for additional data.
+- A [bbox](https://www.bbox.earth/index.html) vector tiles server, deployed with
+  docker.
 
-These elements are build and deployed with docker compose, from `back/docker-compose.yml`.
+These elements are build and deployed with docker compose, from
+`back/docker-compose.yml`.
 
-Another element deployed to the backend is the `builder`, a set of Python and shell scripts that download and process data to build both the tree data in postgis and additional informations stored in solr.
+Another element deployed to the backend is the `builder`, a set of Python and
+shell scripts that download and process data to build both the tree data in
+postgis and additional informations stored in solr.
 
-The backend should be deployable on any recent debian-based distribution by following these steps:
+The backend should be deployable on any recent debian-based distribution by
+following these steps:
 
 1. Copy the file `ansible/inventory_example.yml` to `ansible/inventory.yml`.
 
-2. Edit `ansible/inventory.yml` and change the values of `backend_hostname`, `ansible-user`, `postgresql_password` and `solr_password`.
+2. Edit `ansible/inventory.yml` and change the values of `backend_hostname`,
+   `ansible-user`, `postgresql_password` and `solr_password`.
 
 3. Install the base system by running:
 
@@ -57,7 +66,10 @@ ansible-playbook -i ansible/inventory.yml ansible/install_builder.yml
 
 ### Optional test frontend deployment
 
-This repository also contains a test frontend which is deployable on the backend server (it should also be possible to deploy them on another machine). This is a development frontend, the real one is in the [lifemap-front](https://github.com/Lifemap-ToL/lifemap-front) repository.
+This repository also contains a test frontend which is deployable on the backend
+server (it should also be possible to deploy them on another machine). This is a
+development frontend, the real one is in the
+[lifemap-front](https://github.com/Lifemap-ToL/lifemap-front) repository.
 
 To deploy these frontends:
 
@@ -76,7 +88,8 @@ cd ~/builder/
 ./update_lifemap.sh
 ```
 
-The `~/builder/cron_update.sh` can be used to automate updates. To have an automated weekly update each sunday at 2am, you can create a cronjob such as:
+The `~/builder/cron_update.sh` can be used to automate updates. To have an
+automated weekly update each sunday at 2am, you can create a cronjob such as:
 
 ```text
 0 2 * * 1 user . /home/user/.profile && cd /home/user/builder && ./cron_update.sh
@@ -95,9 +108,11 @@ The `~/builder/cron_update.sh` can be used to automate updates. To have an autom
 ### Health endpoints
 
 - Global backend health endpoint is at `/health`
-- Solr health endpointsare at `/solr/taxo/admin/ping` and `/solr/addi/admin/ping`
+- Solr health endpointsare at `/solr/taxo/admin/ping` and
+  `/solr/addi/admin/ping`
 - Bbox health endpoint is at `/vector_tiles/health`
 
 ## Notes
 
-- Vernacular taxonomic french names are automatically imported from <https://github.com/Lifemap-ToL/taxonomy-fr/blob/master/TAXONOMIC-VERNACULAR-FR-LATEST.txt>
+- Vernacular taxonomic french names are automatically imported from
+  <https://github.com/Lifemap-ToL/taxonomy-fr/blob/master/TAXONOMIC-VERNACULAR-FR-LATEST.txt>
