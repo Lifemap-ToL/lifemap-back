@@ -7,3 +7,4 @@
 /.ansible/
 /out/
 __pycache__/
+*.py[oc]
