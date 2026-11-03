@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
 import api.routes.taxa
+import api.routes.tiles
 from api.utils.lifespan import lifespan
 
 app = FastAPI(
@@ -14,6 +15,7 @@ app = FastAPI(
 )
 
 app.include_router(api.routes.taxa.router)
+app.include_router(api.routes.tiles.router)
 
 
 @app.get("/health")

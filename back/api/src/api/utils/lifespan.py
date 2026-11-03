@@ -12,18 +12,34 @@ SETTINGS = Settings()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None]:
-    async with httpx2.AsyncClient(
-        base_url=SETTINGS.solr_url,
-        timeout=httpx2.Timeout(5.0, connect=1.0),
-        limits=httpx2.Limits(max_connections=100, max_keepalive_connections=50),
-        headers={"Accept-Encoding": "identity"},
-    ) as solr_client:
+    async with (
+        httpx2.AsyncClient(
+            base_url=SETTINGS.solr_url,
+            timeout=httpx2.Timeout(5.0, connect=1.0),
+            limits=httpx2.Limits(max_connections=100, max_keepalive_connections=50),
+            headers={"Accept-Encoding": "identity"},
+        ) as solr_client,
+        httpx2.AsyncClient(
+            base_url=SETTINGS.bbox_url,
+            timeout=httpx2.Timeout(5.0, connect=1.0),
+            limits=httpx2.Limits(max_connections=100, max_keepalive_connections=50),
+            headers={"Accept-Encoding": "identity"},
+        ) as bbox_client,
+    ):
         app.state.solr_client = solr_client
+        app.state.bbox_client = bbox_client
         yield
+        await app.state.solr_client.aclose()
+        await app.state.bbox_client.aclose()
 
 
 def get_solr_client(request: Request) -> httpx2.AsyncClient:
     return request.app.state.solr_client
 
 
+def get_bbox_client(request: Request) -> httpx2.AsyncClient:
+    return request.app.state.bbox_client
+
+
 SolrClient = Annotated[httpx2.AsyncClient, Depends(get_solr_client)]
+BboxClient = Annotated[httpx2.AsyncClient, Depends(get_bbox_client)]
