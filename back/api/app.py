@@ -2,7 +2,7 @@ from fastapi import FastAPI
 
 import api.routes.taxa
 import api.routes.tiles
-from api.utils.lifespan import lifespan
+from api.lib.lifespan import lifespan
 
 app = FastAPI(
     title="Lifemap API",

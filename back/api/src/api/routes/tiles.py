@@ -8,8 +8,8 @@ import httpx2
 from fastapi import APIRouter, HTTPException, Path
 
 from api.config import Settings
-from api.utils.lifespan import BboxClient
-from api.utils.types import ProtobufResponse, TilesType, TreeName, XYZType
+from api.lib.lifespan import BboxClient
+from api.lib.types import ProtobufResponse, TilesType, TreeName, XYType, ZoomType
 
 SETTINGS = Settings()
 
@@ -31,9 +31,9 @@ router = APIRouter(prefix="/v1/tiles", tags=["tiles"])
 async def vector_tiles(
     tree: Annotated[TreeName, Path(description="Tree id")],
     type: Annotated[TilesType, Path(description="Tiles type")],
-    x: Annotated[XYZType, Path(description="Tile x coordinate")],
-    y: Annotated[XYZType, Path(description="Tile y coordinate")],
-    z: Annotated[XYZType, Path(description="Tile zoom level")],
+    x: Annotated[XYType, Path(description="Tile x coordinate")],
+    y: Annotated[XYType, Path(description="Tile y coordinate")],
+    z: Annotated[ZoomType, Path(description="Tile zoom level")],
     bbox: BboxClient,
 ) -> ProtobufResponse:
     """

@@ -13,9 +13,18 @@ class TilesType(str, Enum):
     composite = "composite"
 
 
+class LangType(str, Enum):
+    fr = "fr"
+    en = "en"
+    de = "de"
+    es = "es"
+    el = "el"
+
+
 TaxidType = Annotated[PositiveInt, Query(lt=1e9)]
 
-XYZType = Annotated[int, Field(ge=0)]
+XYType = Annotated[int, Field(ge=0)]
+ZoomType = Annotated[int, Field(ge=0, le=42)]
 
 
 class ScinamesMap(RootModel[dict[str, str]]):
