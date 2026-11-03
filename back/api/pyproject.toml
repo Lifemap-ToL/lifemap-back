@@ -5,14 +5,15 @@ description = "Add your description here"
 requires-python = ">=3.14"
 authors = [{ name = "Julien Barnier", email = "julien.barnier@cnrs.fr" }]
 dependencies = [
-    "fastapi[standard]>=0.143.2",
-    "httpx2>=2.14.0",
-    "msgspec>=0.22.0",
+  "fastapi[standard]>=0.143.2",
+  "httpx2>=2.14.0",
+  "msgspec>=0.22.0",
+  "pydantic-settings>=2.16.0",
 ]
-
-[build-system]
-requires = ["uv_build>=0.12.19,<0.13.0"]
-build-backend = "uv_build"
 
 [dependency-groups]
 dev = []
+
+[build-system]
+requires = ["uv_build>=0.12.19,<0.14.0"]
+build-backend = "uv_build"

@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 5
 requires-python = ">=3.14"
 
 [[package]]
@@ -50,6 +50,7 @@ dependencies = [
     { name = "fastapi", extra = ["standard"] },
     { name = "httpx2" },
     { name = "msgspec" },
+    { name = "pydantic-settings" },
 ]
 
 [package.metadata]
@@ -57,6 +58,7 @@ requires-dist = [
     { name = "fastapi", extras = ["standard"], specifier = ">=0.143.2" },
     { name = "httpx2", specifier = ">=2.14.0" },
     { name = "msgspec", specifier = ">=0.22.0" },
+    { name = "pydantic-settings", specifier = ">=2.16.0" },
 ]
 
 [package.metadata.requires-dev]
