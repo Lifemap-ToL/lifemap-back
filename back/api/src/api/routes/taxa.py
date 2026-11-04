@@ -6,6 +6,7 @@ from collections.abc import Sequence
 from typing import Annotated, Any
 
 from fastapi import APIRouter, Path, Query
+from pydantic import PositiveInt
 
 from api.config import Settings
 from api.lib.lifespan import SolrClient
@@ -41,6 +42,7 @@ async def sci_name(
     tree: Annotated[TreeName, Path(description="Tree id")],
     taxid: Annotated[list[TaxidType], Query(description="Taxid values")],
     solr: SolrClient,
+    rows: Annotated[PositiveInt, Query(description="Maximum number of rows returned")] = SETTINGS.rows,
 ) -> ScinamesMap:
     """
     Route which returns the scientific names of a set of taxids as a dict.
@@ -49,9 +51,9 @@ async def sci_name(
     params = {
         "q": "*:*",
         "fq": f"taxid:({' '.join([str(id) for id in taxid])})",
-        "wt": "json",
-        "rows": 20,
         "fl": "taxid,sci_name",
+        "wt": "json",
+        "rows": rows,
     }
     res = await solr_query(SETTINGS.taxo_path, params=params, solr=solr)
     scinames_dict: dict[str, str] = {str(d["taxid"][0]): d["sci_name"][0] for d in res["response"]["docs"]}
@@ -75,6 +77,7 @@ async def extent(
         "zoom",
         "sci_name",
     ),
+    rows: Annotated[PositiveInt, Query(description="Maximum number of rows returned")] = SETTINGS.rows,
 ):
     """
     Route which returns taxa located in a certain extent.
@@ -83,9 +86,9 @@ async def extent(
     params = {
         "q": "*:*",
         "fq": [f"zoom:[{zoom_min} TO {zoom_max}]", f"lat:[{y_min} TO {y_max}]", f"lon:[{x_min} TO {x_max}]"],
-        "wt": "json",
-        "rows": 1000,
         "fl": ",".join(fields),
+        "wt": "json",
+        "rows": rows,
     }
     res = await solr_query(SETTINGS.taxo_path, params=params, solr=solr)
     docs = [doc for doc in res["response"]["docs"]]
