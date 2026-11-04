@@ -18,7 +18,7 @@ app.include_router(api.routes.taxa.router)
 app.include_router(api.routes.tiles.router)
 
 
-@app.get("/health")
+@app.get("/health", tags=["utils"])
 async def health() -> dict[str, str]:
     """
     Route Handler that outputs health status.
