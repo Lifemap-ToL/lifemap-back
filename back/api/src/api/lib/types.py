@@ -28,9 +28,7 @@ ZoomType = Annotated[int, Field(ge=0, le=42)]
 
 
 class ScinamesMap(RootModel[dict[str, str]]):
-    model_config = ConfigDict(
-        json_schema_extra={"examples": [{"2": "Bacteria", "9538": "Erythrocebus patas"}]}
-    )
+    model_config = ConfigDict(json_schema_extra={"examples": [{"2": "Bacteria", "9682": "Felis"}]})
 
 
 class ProtobufResponse(Response):
