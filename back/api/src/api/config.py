@@ -1,7 +1,7 @@
 import os
 from functools import lru_cache
 
-from pydantic import HttpUrl
+from pydantic import HttpUrl, PositiveInt
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -12,6 +12,8 @@ class Settings(BaseSettings):
     solr_prod_url: HttpUrl
     bbox_dev_url: HttpUrl
     bbox_prod_url: HttpUrl
+
+    rows: PositiveInt = 10_000
 
     taxo_path: str = "/taxo/select"
     addi_path: str = "/addi/select"
