@@ -70,7 +70,8 @@ async def extent(
     zoom_max: Annotated[ZoomType, Query(description="Maximum zoom level")],
     fields: Annotated[Sequence[str], Query(description="Fields to retrieve for each taxon")] = (
         "taxid",
-        "coordinates",
+        "lon",
+        "lat",
         "zoom",
         "sci_name",
     ),
@@ -86,7 +87,6 @@ async def extent(
         "rows": 1000,
         "fl": ",".join(fields),
     }
-    print(params)
     res = await solr_query(SETTINGS.taxo_path, params=params, solr=solr)
     docs = [doc for doc in res["response"]["docs"]]
     docs = [{k: flatten(v) for k, v in doc.items()} for doc in docs]
