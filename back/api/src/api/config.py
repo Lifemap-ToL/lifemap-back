@@ -1,13 +1,17 @@
 import os
 from functools import lru_cache
+from pathlib import Path
 
 from pydantic import HttpUrl, PositiveInt
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+# Use absolute path to .env for pytest 
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
 
 @lru_cache
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env")
+    model_config = SettingsConfigDict(env_file=BASE_DIR / ".env")
     solr_dev_url: HttpUrl
     solr_prod_url: HttpUrl
     bbox_dev_url: HttpUrl
