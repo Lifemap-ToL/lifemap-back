@@ -51,7 +51,7 @@ def decode_cursor(cursor: str) -> tuple[str, int | None]:
     try:
         d = json.loads(base64.urlsafe_b64decode(cursor.encode()))
         return d["m"], d["r"]
-    except ValueError, JSONDecodeError:
+    except ValueError, KeyError, JSONDecodeError:
         raise HTTPException(400, "Invalid cursor")
 
 
