@@ -7,22 +7,24 @@ from typing import Annotated, Any, overload
 import httpx2
 import msgspec
 from fastapi import Depends, HTTPException, Query
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from requests import JSONDecodeError
 
 from api.lib.lifespan import SolrClient
 
 # --- PAGINATION ---
 
+MAX_PAGE_SIZE = 50_000
+
 
 class PaginationParams(BaseModel):
-    page_size: int
-    cursor: str | None
-    limit: int | None
+    page_size: int = Field(ge=1, le=MAX_PAGE_SIZE)
+    cursor: str | None = None
+    limit: int | None = Field(ge=1)
 
 
 def pagination_params(
-    page_size: int = Query(1000, ge=1, le=50000),
+    page_size: int = Query(1000, ge=1, le=MAX_PAGE_SIZE),
     cursor: str | None = Query(None, description="Opaque cursor from a previous response"),
     limit: int | None = Query(None, ge=1, description="Maximum number of rows to retrieve (first call only)"),
 ) -> PaginationParams:
