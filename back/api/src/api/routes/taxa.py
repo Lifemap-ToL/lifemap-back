@@ -10,7 +10,7 @@ from pydantic import ConfigDict
 
 from api.config import Settings
 from api.lib.lifespan import SolrClient
-from api.lib.solr import DictPage, ListPage, Pagination, solr_dict_page, solr_list_page
+from api.lib.pagination import DictPage, ListPage, Pagination, solr_dict_page, solr_list_page
 from api.lib.types import TaxidType, TreeName, ZoomType
 
 SETTINGS = Settings()

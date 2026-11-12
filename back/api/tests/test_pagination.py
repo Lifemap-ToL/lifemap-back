@@ -4,7 +4,7 @@ from conftest import N_DOCS, PATH
 from fastapi import FastAPI, HTTPException
 
 from api.lib.lifespan import get_solr_client
-from api.lib.solr import (
+from api.lib.pagination import (
     DictPage,
     ListPage,
     Pagination,
