@@ -2,13 +2,13 @@
 Taxa related routes.
 """
 
-from collections.abc import Sequence
 from typing import Annotated, Any
 
-from fastapi import APIRouter, Path, Query
+from fastapi import APIRouter, Depends, Path, Query
 from pydantic import ConfigDict
 
 from api.config import Settings
+from api.lib.fields import TaxoFieldType, fields_param
 from api.lib.lifespan import SolrClient
 from api.lib.pagination import DictPage, ListPage, Pagination, solr_dict_page, solr_list_page
 from api.lib.types import TaxidType, TreeName, ZoomType
@@ -31,8 +31,6 @@ def flatten(x: Any) -> Any:
     -------
     Any
         x[0] if x is a list of length 1, otherwise x
-
-
     """
     return x[0] if isinstance(x, list) and len(x) == 1 else x
 
@@ -80,13 +78,20 @@ async def extent(
     y_max: Annotated[float, Query(description="Maximum y coordinates (latitude)")],
     zoom_min: Annotated[ZoomType, Query(description="Minimum zoom level")],
     zoom_max: Annotated[ZoomType, Query(description="Maximum zoom level")],
-    fields: Annotated[Sequence[str], Query(description="Fields to retrieve for each taxon")] = (
-        "taxid",
-        "lon",
-        "lat",
-        "zoom",
-        "sci_name",
-    ),
+    fields: Annotated[
+        list[TaxoFieldType],
+        Depends(
+            fields_param(
+                [
+                    TaxoFieldType.taxid,
+                    TaxoFieldType.sci_name,
+                    TaxoFieldType.zoom,
+                    TaxoFieldType.lat,
+                    TaxoFieldType.lon,
+                ]
+            )
+        ),
+    ],
 ) -> ListPage[dict]:
     """
     Route which returns taxa located in a certain extent.
