@@ -114,5 +114,5 @@ automated weekly update each sunday at 2am, you can create a cronjob such as:
 
 ## Notes
 
-- Vernacular taxonomic french names are automatically imported from
-  <https://github.com/Lifemap-ToL/taxonomy-fr/blob/master/TAXONOMIC-VERNACULAR-FR-LATEST.txt>
+- Translated vernacular taxonomic names are automatically imported from
+  <https://github.com/Lifemap-ToL/taxonomy-all/>
