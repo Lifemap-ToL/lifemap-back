@@ -67,6 +67,47 @@ async def sci_name(
     )
 
 
+class TaxidsList(ListPage[dict[str, Any]]):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "examples": [
+                {
+                    "items": [{"taxid": "2", "sci_name": "Bacteria"}, {"taxid": "9682", "sci_name": "Felis"}],
+                    "next_cursor": "string",
+                    "total": 2,
+                }
+            ]
+        }
+    )
+
+
+@router.get("/{tree}/taxids/", response_model=TaxidsList)
+async def taxids(
+    solr_client: SolrClient,
+    pg: Pagination,
+    tree: Annotated[TreeName, Path(description="Tree id")],
+    taxid: Annotated[list[TaxidType], Query(description="Taxid values")],
+    fields: Annotated[
+        list[TaxoFieldType], Depends(fields_param([TaxoFieldType.taxid, TaxoFieldType.sci_name]))
+    ],
+) -> ListPage[dict]:
+    """
+    Route which returns taxonomic field values for a set of taxids.
+    """
+
+    def process_doc(doc: dict) -> dict:
+        return {k: flatten(v) for k, v in doc.items()}
+
+    params = {
+        "q": "*:*",
+        "fq": f"taxid:({' '.join([str(id) for id in taxid])})",
+        "fl": ",".join(fields),
+    }
+    return await solr_list_page(
+        client=solr_client, path=SETTINGS.taxo_path, params=params, transform=process_doc, pg=pg
+    )
+
+
 @router.get("/{tree}/extent/", response_model=ListPage[dict])
 async def extent(
     solr_client: SolrClient,
