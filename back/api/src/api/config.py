@@ -5,7 +5,9 @@ from pathlib import Path
 from pydantic import HttpUrl, PositiveInt
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-# Use absolute path to .env for pytest 
+from api.lib.types import LangType
+
+# Use absolute path to .env for pytest
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
@@ -21,6 +23,20 @@ class Settings(BaseSettings):
 
     taxo_path: str = "/taxo/select"
     addi_path: str = "/addi/select"
+    suggester_path: dict[LangType, str] = {
+        LangType.en: "/taxo/suggesthandler",
+        LangType.fr: "/taxo/suggesthandlerfr",
+        LangType.de: "/taxo/suggesthandlerde",
+        LangType.es: "/taxo/suggesthandleres",
+        LangType.el: "/taxo/suggesthandlerel",
+    }
+    suggester_name: dict[LangType, str] = {
+        LangType.en: "mySuggester",
+        LangType.fr: "mySuggesterFr",
+        LangType.de: "mySuggesterDe",
+        LangType.es: "mySuggesterEs",
+        LangType.el: "mySuggesterEl",
+    }
 
     @property
     def solr_url(self) -> str:

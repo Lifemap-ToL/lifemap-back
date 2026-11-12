@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+import api.routes.suggesters
 import api.routes.taxa
 import api.routes.tiles
 from api.lib.lifespan import lifespan
@@ -22,7 +23,9 @@ app.add_middleware(
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
+
 app.include_router(api.routes.taxa.router)
+app.include_router(api.routes.suggesters.router)
 app.include_router(api.routes.tiles.router)
 
 
