@@ -37,22 +37,25 @@
         Cache-Control "public, max-age=86400"
     }
 
+    @options {
+        method OPTIONS
+    }
+
+
     # --- API ---
 
     redir /api /api/
-    handle_path /api/* {
+    handle /api/* {
         cache {
             ttl 1h
         }
         header Cache-Control "public, max-age=3600"
         reverse_proxy 127.0.0.1:8081
+        respond @options 204
     }
 
 
     # --- SOLR ---
-    @options {
-        method OPTIONS
-    }
     redir /solr /solr/
     handle /solr/* {
         reverse_proxy 127.0.0.1:8983
