@@ -87,7 +87,7 @@ async def taxids(
     pg: Pagination,
     tree: Annotated[TreeName, Path(description="Tree id")],
     taxid: Annotated[list[TaxidType], Query(description="Taxid values")],
-    fields: Annotated[
+    field: Annotated[
         list[TaxoFieldType], Depends(fields_param([TaxoFieldType.taxid, TaxoFieldType.sci_name]))
     ],
 ) -> ListPage[dict]:
@@ -101,7 +101,7 @@ async def taxids(
     params = {
         "q": "*:*",
         "fq": f"taxid:({' '.join([str(id) for id in taxid])})",
-        "fl": ",".join(fields),
+        "fl": ",".join(field),
     }
     return await solr_list_page(
         client=solr_client, path=SETTINGS.taxo_path, params=params, transform=process_doc, pg=pg
@@ -119,7 +119,7 @@ async def extent(
     y_max: Annotated[float, Query(description="Maximum y coordinates (latitude)")],
     zoom_min: Annotated[ZoomType, Query(description="Minimum zoom level")],
     zoom_max: Annotated[ZoomType, Query(description="Maximum zoom level")],
-    fields: Annotated[
+    field: Annotated[
         list[TaxoFieldType],
         Depends(
             fields_param(
@@ -144,7 +144,7 @@ async def extent(
     params = {
         "q": "*:*",
         "fq": [f"zoom:[{zoom_min} TO {zoom_max}]", f"lat:[{y_min} TO {y_max}]", f"lon:[{x_min} TO {x_max}]"],
-        "fl": ",".join(fields),
+        "fl": ",".join(field),
     }
     return await solr_list_page(
         client=solr_client, path=SETTINGS.taxo_path, params=params, transform=process_doc, pg=pg

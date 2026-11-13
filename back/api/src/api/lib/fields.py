@@ -29,14 +29,14 @@ def fields_param(
 ) -> Callable[..., list[str]]:
 
     def dependency(
-        fields: Annotated[list[TaxoFieldType], Query(description="Fields to retrieve")] = default,
+        field: Annotated[list[TaxoFieldType], Query(description="Fields to retrieve")] = default,
         lang: Annotated[
             LangType, Query(description="Language to use for translated field values")
         ] = LangType.en,
     ) -> list[str]:
 
         str_fields = [
-            f.value if f not in TRANSLATED_FIELDS else f"{f.value}:{f.value}_{lang.value}" for f in fields
+            f.value if f not in TRANSLATED_FIELDS else f"{f.value}:{f.value}_{lang.value}" for f in field
         ]
         if "taxid" not in str_fields:
             str_fields = ["taxid"] + str_fields

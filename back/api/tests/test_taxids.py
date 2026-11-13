@@ -56,7 +56,7 @@ class TestTaxids:
         with client:
             params = {
                 "taxid": [2, 9682],
-                "fields": ["zoom"],
+                "field": ["zoom"],
             }
             response = client.get(self.url, params=params)
             assert response.status_code == 200
@@ -78,7 +78,7 @@ class TestTaxids:
 
     def test_taxids_lang(self, client: TestClient):
         with client:
-            params = {"taxid": [2, 9682], "fields": ["taxid", "rank"], "lang": "fr"}
+            params = {"taxid": [2, 9682], "field": ["taxid", "rank"], "lang": "fr"}
             response = client.get(self.url, params=params)
             assert response.status_code == 200
             res = response.json()
@@ -112,7 +112,7 @@ class TestTaxids:
             # Invalid fields
             params = {
                 "taxid": [2, 9682],
-                "fields": ["invalid"],
+                "field": ["invalid"],
             }
             response = client.get(self.url, params=params)
             assert response.status_code == 422

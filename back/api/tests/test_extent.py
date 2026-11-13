@@ -65,7 +65,7 @@ class TestExtent:
                 "x_max": 50,
                 "y_min": -15,
                 "y_max": 15,
-                "fields": ["taxid", "zoom"],
+                "field": ["taxid", "zoom"],
             }
             response = client.get(self.url, params=params)
             assert response.status_code == 200
@@ -98,7 +98,7 @@ class TestExtent:
                 "x_max": 50,
                 "y_min": -15,
                 "y_max": 15,
-                "fields": ["taxid", "common_name"],
+                "field": ["taxid", "common_name"],
                 "lang": "fr",
             }
             response = client.get(self.url, params=params)
@@ -142,9 +142,9 @@ class TestExtent:
             response = client.get(self.url, params=params)
             assert response.status_code == 422
 
-            # Invalid fields
+            # Invalid field
             params = {
-                "fields": ["invalid"],
+                "field": ["invalid"],
                 "zoom_min": 0,
                 "zoom_max": 6,
                 "x_min": -50,
