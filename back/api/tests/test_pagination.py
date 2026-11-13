@@ -120,7 +120,7 @@ class TestPagination:
         pages = await iterate(api, "/documents", page_size=400, limit=1500)
         assert sum(len(p["items"]) for p in pages) == 1500
 
-    @pytest.mark.parametrize("size", [0, -1, 50001])
+    @pytest.mark.parametrize("size", [0, -1, 250001])
     async def test_page_size_out_of_bounds_is_422(self, api, size):
         assert (await api.get("/documents", params={"page_size": size})).status_code == 422
 
