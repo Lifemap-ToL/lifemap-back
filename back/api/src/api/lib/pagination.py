@@ -92,7 +92,7 @@ async def solr_fetch(
         "wt": "json",
     }
     try:
-        r = await client.get(path, params=query)
+        r = await client.post(path, data=query)
         # Cursor pagination error
         if r.status_code == 400:
             raise HTTPException(400, "Invalid query or cursor")
