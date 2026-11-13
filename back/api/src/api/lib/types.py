@@ -2,7 +2,7 @@ from enum import Enum
 from typing import Annotated
 
 from fastapi import Query, Response
-from pydantic import Field, PositiveInt
+from pydantic import Field
 
 
 class TreeName(str, Enum):
@@ -21,10 +21,10 @@ class LangType(str, Enum):
     el = "el"
 
 
-TaxidType = Annotated[PositiveInt, Query(lt=1e9)]
+TaxidType = Annotated[int, Query(ge=0, lt=1e9)]
 
 XYType = Annotated[int, Field(ge=0)]
-ZoomType = Annotated[int, Field(ge=0, le=42)]
+ZoomType = Annotated[int, Field(ge=0, le=50)]
 
 
 class ProtobufResponse(Response):
