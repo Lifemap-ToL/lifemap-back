@@ -18,7 +18,7 @@ class TestSuggest:
     url_bad_lang = "/v1/suggest/lifemap/invalid_lang/"
     url_bad_tree = "/v1/suggest/invalid_tree/en/"
 
-    def test_suggest(self, client: TestClient):
+    def test_suggest_en(self, client: TestClient):
         with client:
             params = {"search": "small cats"}
             response = client.get(self.url_en, params=params)
@@ -27,6 +27,8 @@ class TestSuggest:
             assert len(res) == 6
             assert res[0]["taxid"] == "9682"
 
+    def test_suggest_fr(self, client: TestClient):
+        with client:
             params = {"search": "chat"}
             response = client.get(self.url_fr, params=params)
             assert response.status_code == 200
@@ -34,6 +36,8 @@ class TestSuggest:
             assert len(res) == 10
             assert res[0]["taxid"] == "9682"
 
+    def test_suggest_de(self, client: TestClient):
+        with client:
             params = {"search": "katze"}
             response = client.get(self.url_de, params=params)
             assert response.status_code == 200
@@ -41,6 +45,8 @@ class TestSuggest:
             assert len(res) == 10
             assert res[0]["taxid"] == "9682"
 
+    def test_suggest_es(self, client: TestClient):
+        with client:
             params = {"search": "gatos"}
             response = client.get(self.url_es, params=params)
             assert response.status_code == 200
@@ -48,6 +54,8 @@ class TestSuggest:
             assert len(res) == 6
             assert res[0]["taxid"] == "9682"
 
+    def test_suggest_el(self, client: TestClient):
+        with client:
             params = {"search": "Γάτα"}
             response = client.get(self.url_el, params=params)
             assert response.status_code == 200
@@ -62,6 +70,31 @@ class TestSuggest:
             assert response.status_code == 200
             res = response.json()
             assert len(res) == 3
+
+    def test_suggest_markup(self, client: TestClient):
+        with client:
+            params = {"search": "streptophytina", "remove_markup": False}
+            response = client.get(self.url_en, params=params)
+            assert response.status_code == 200
+            res = response.json()
+            assert len(res) == 1
+            assert res == [
+                {
+                    "sci_name": "<b>Streptophytina</b>",
+                    "common_name": "",
+                    "rank": "subphylum",
+                    "taxid": "131221",
+                }
+            ]
+
+            params = {"search": "streptophytina", "remove_markup": True}
+            response = client.get(self.url_en, params=params)
+            assert response.status_code == 200
+            res = response.json()
+            assert len(res) == 1
+            assert res == [
+                {"sci_name": "Streptophytina", "common_name": "", "rank": "subphylum", "taxid": "131221"}
+            ]
 
     def test_suggest_robustness(self, client: TestClient):
         with client:

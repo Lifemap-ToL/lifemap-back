@@ -24,6 +24,7 @@ async def suggest(
     tree: Annotated[TreeName, Path(description="Tree id")],
     lang: Annotated[LangType, Path(description="Suggestions language")],
     search: Annotated[str, Query(description="Text to search for taxa suggestions")],
+    remove_markup: Annotated[bool, Query(description="Wether to keep bold markup added by Solr")] = True,
     n: Annotated[int, Query(ge=1, le=15, description="Number of suggestions to fetch")] = 10,
 ) -> list[dict[str, str]]:
     """
@@ -50,13 +51,16 @@ async def suggest(
 
     suggestions = res["suggest"][SETTINGS.suggester_name[lang]][search]["suggestions"]
     suggestions = [[t.strip() for t in s["term"].split("|")] for s in suggestions[0:n]]
-
-    return [
+    suggestions = [
         {
-            "sci_name": re.sub(r"</?b>", "", s[0]),
+            "sci_name": s[0],
             "common_name": s[1],
             "rank": s[2],
             "taxid": s[3],
         }
         for s in suggestions
     ]
+    if remove_markup:
+        suggestions = [{k: re.sub(r"</?b>", "", v) for k, v in s.items()} for s in suggestions]
+
+    return suggestions
