@@ -32,7 +32,7 @@ class TestTaxids:
     def test_taxids_post(self, client: TestClient):
         with client:
             params = {"taxid": [2, 9682]}
-            response = client.post(self.url, params=params)
+            response = client.post(self.url, json=params)
             assert response.status_code == 200
             res = response.json()
             assert res["total"] == 2
@@ -94,7 +94,7 @@ class TestTaxids:
                 "taxid": [2, 9682],
                 "field": ["zoom"],
             }
-            response = client.post(self.url, params=params)
+            response = client.post(self.url, json=params)
             assert response.status_code == 200
             res = response.json()
             assert res["total"] == 2
@@ -136,7 +136,7 @@ class TestTaxids:
     def test_taxids_lang_post(self, client: TestClient):
         with client:
             params = {"taxid": [2, 9682], "field": ["taxid", "rank"], "lang": "fr"}
-            response = client.post(self.url, params=params)
+            response = client.post(self.url, json=params)
             assert response.status_code == 200
             res = response.json()
             assert res["total"] == 2

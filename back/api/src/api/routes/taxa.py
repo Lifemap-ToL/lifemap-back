@@ -4,7 +4,7 @@ Taxa related routes.
 
 from typing import Annotated, Any
 
-from fastapi import APIRouter, Depends, Path, Query
+from fastapi import APIRouter, Body, Depends, Path, Query
 from pydantic import ConfigDict
 
 from api.config import Settings
@@ -81,32 +81,58 @@ class TaxidsList(ListPage[dict[str, Any]]):
     )
 
 
+async def get_taxids_page(
+    solr_client: SolrClient,
+    pg: Pagination,
+    taxid: list[TaxidType],
+    field: list[str],
+) -> ListPage[dict]:
+    params = {
+        "q": "*:*",
+        "fq": f"taxid:({' '.join(str(id) for id in taxid)})",
+        "fl": ",".join(field),
+    }
+
+    def process_doc(doc: dict) -> dict:
+        return {k: flatten(v) for k, v in doc.items()}
+
+    return await solr_list_page(
+        client=solr_client,
+        path=SETTINGS.taxo_path,
+        params=params,
+        transform=process_doc,
+        pg=pg,
+    )
+
+
 @router.get("/{tree}/taxids/", response_model=TaxidsList)
-@router.post("/{tree}/taxids/", response_model=TaxidsList)
-async def taxids(
+async def taxids_get(
     solr_client: SolrClient,
     pg: Pagination,
     tree: Annotated[TreeName, Path(description="Tree id")],
     taxid: Annotated[list[TaxidType], Query(description="Taxid values")],
+    field: Annotated[list[str], Depends(fields_param([TaxoFieldType.taxid, TaxoFieldType.sci_name]))],
+) -> ListPage[dict]:
+    """
+    Route which returns taxonomic field values for a set of taxids.
+    """
+    return await get_taxids_page(solr_client, pg, taxid, field)
+
+
+@router.post("/{tree}/taxids/", response_model=TaxidsList)
+async def taxids_post(
+    solr_client: SolrClient,
+    pg: Pagination,
+    tree: Annotated[TreeName, Path(description="Tree id")],
+    taxid: Annotated[list[TaxidType], Body(description="Taxid values")],
     field: Annotated[
-        list[TaxoFieldType], Depends(fields_param([TaxoFieldType.taxid, TaxoFieldType.sci_name]))
+        list[str], Depends(fields_param([TaxoFieldType.taxid, TaxoFieldType.sci_name], source="body"))
     ],
 ) -> ListPage[dict]:
     """
     Route which returns taxonomic field values for a set of taxids.
     """
-
-    def process_doc(doc: dict) -> dict:
-        return {k: flatten(v) for k, v in doc.items()}
-
-    params = {
-        "q": "*:*",
-        "fq": f"taxid:({' '.join([str(id) for id in taxid])})",
-        "fl": ",".join(field),
-    }
-    return await solr_list_page(
-        client=solr_client, path=SETTINGS.taxo_path, params=params, transform=process_doc, pg=pg
-    )
+    return await get_taxids_page(solr_client, pg, taxid, field)
 
 
 @router.get("/{tree}/extent/", response_model=ListPage[dict])

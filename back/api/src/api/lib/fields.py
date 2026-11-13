@@ -1,8 +1,8 @@
 from collections.abc import Callable
 from enum import Enum
-from typing import Annotated
+from typing import Annotated, Literal
 
-from fastapi import Query
+from fastapi import Body, Query
 
 from api.lib.types import LangType
 
@@ -26,12 +26,16 @@ TRANSLATED_FIELDS = (TaxoFieldType.rank, TaxoFieldType.common_name)
 
 def fields_param(
     default: Annotated[list[TaxoFieldType], Query(description="Fields to retrieve")],
+    source: Literal["query", "body"] = "query",
 ) -> Callable[..., list[str]]:
 
+    # source is "query" for GET requests, "body" for POST
+    Param = Query if source == "query" else Body
+
     def dependency(
-        field: Annotated[list[TaxoFieldType], Query(description="Fields to retrieve")] = default,
+        field: Annotated[list[TaxoFieldType], Param(description="Fields to retrieve")] = default,
         lang: Annotated[
-            LangType, Query(description="Language to use for translated field values")
+            LangType, Param(description="Language to use for translated field values")
         ] = LangType.en,
     ) -> list[str]:
 
