@@ -9,7 +9,7 @@ from api.lib.lifespan import lifespan
 app = FastAPI(
     title="Lifemap API",
     version="0.0.1",
-    description="Lifemap trees and data API",
+    description=Path("README.md").read_text(encoding="utf-8"),
     lifespan=lifespan,
     openapi_url="/openapi.json",
     docs_url="/docs",
