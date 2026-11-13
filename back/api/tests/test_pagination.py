@@ -49,8 +49,9 @@ async def api(indexed_solr):
 
 
 async def iterate(api, url, **params):
-    pages, cursor = [], None
-    first_call = True
+    FIRST_CALL_ONLY = {"limit", "page_size"}
+    pages = []
+    query = params
     while True:
         if not first_call and "limit" in params:
             del params["limit"]
