@@ -14,7 +14,7 @@ from api.lib.lifespan import SolrClient
 
 # --- PAGINATION ---
 
-MAX_PAGE_SIZE = 50_000
+MAX_PAGE_SIZE = 100_000
 
 
 class PaginationParams(BaseModel):
