@@ -37,7 +37,7 @@ async def vector_tiles(
     bbox: BboxClient,
 ) -> ProtobufResponse:
     """
-    Route which returns a Mapbox vector tile (MVT) as a protobuf binary.
+    Returns a Mapbox vector tile (MVT) as a protobuf binary.
     """
 
     tile_url: str = f"/xyz/composite/{z}/{x}/{y}.pbf"

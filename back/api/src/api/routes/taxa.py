@@ -51,7 +51,7 @@ async def sci_name(
     taxid: Annotated[list[TaxidType], Query(description="Taxid values")],
 ) -> DictPage[str, str]:
     """
-    Route which returns the scientific names of a set of taxids as a dict.
+    Returns the scientific names of a set of taxids as a dict.
     """
 
     def process_doc(doc: dict) -> tuple[str, str]:
@@ -114,7 +114,7 @@ async def taxids_get(
     field: Annotated[list[str], Depends(fields_param([TaxoFieldType.taxid, TaxoFieldType.sci_name]))],
 ) -> ListPage[dict]:
     """
-    Route which returns taxonomic field values for a set of taxids.
+    Returns taxonomic field values for a set of taxids.
     """
     return await get_taxids_page(solr_client, pg, taxid, field)
 
@@ -130,7 +130,7 @@ async def taxids_post(
     ],
 ) -> ListPage[dict]:
     """
-    Route which returns taxonomic field values for a set of taxids.
+    Returns taxonomic field values for a set of taxids.
     """
     return await get_taxids_page(solr_client, pg, taxid, field)
 
@@ -162,7 +162,7 @@ async def extent(
     ],
 ) -> ListPage[dict]:
     """
-    Route which returns taxa located in a certain extent.
+    Returns taxa located in a certain spatial extent.
     """
 
     def process_doc(doc: dict) -> dict:

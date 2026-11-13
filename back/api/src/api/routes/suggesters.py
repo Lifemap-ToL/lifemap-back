@@ -28,7 +28,7 @@ async def suggest(
     n: Annotated[int, Query(ge=1, le=15, description="Number of suggestions to fetch")] = 10,
 ) -> list[dict[str, str]]:
     """
-    Route which returns taxa suggestions from a string.
+    Returns taxa suggestions from a string.
     """
 
     params = {
