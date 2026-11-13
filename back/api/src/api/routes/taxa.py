@@ -82,6 +82,7 @@ class TaxidsList(ListPage[dict[str, Any]]):
 
 
 @router.get("/{tree}/taxids/", response_model=TaxidsList)
+@router.post("/{tree}/taxids/", response_model=TaxidsList)
 async def taxids(
     solr_client: SolrClient,
     pg: Pagination,

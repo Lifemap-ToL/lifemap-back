@@ -17,10 +17,22 @@ def equal_sorted(target: list[dict], obtained: list[dict]) -> bool:
 class TestTaxids:
     url = "/v1/taxa/lifemap/taxids/"
 
-    def test_taxids_base(self, client: TestClient):
+    def test_taxids_get(self, client: TestClient):
         with client:
             params = {"taxid": [2, 9682]}
             response = client.get(self.url, params=params)
+            assert response.status_code == 200
+            res = response.json()
+            assert res["total"] == 2
+            assert equal_sorted(
+                res["items"],
+                [{"taxid": 2, "sci_name": "Bacteria"}, {"taxid": 9682, "sci_name": "Felis"}],
+            )
+
+    def test_taxids_post(self, client: TestClient):
+        with client:
+            params = {"taxid": [2, 9682]}
+            response = client.post(self.url, params=params)
             assert response.status_code == 200
             res = response.json()
             assert res["total"] == 2
@@ -76,10 +88,55 @@ class TestTaxids:
                 ],
             )
 
+    def test_taxids_fields_post(self, client: TestClient):
+        with client:
+            params = {
+                "taxid": [2, 9682],
+                "field": ["zoom"],
+            }
+            response = client.post(self.url, params=params)
+            assert response.status_code == 200
+            res = response.json()
+            assert res["total"] == 2
+            assert equal_sorted(
+                res["items"],
+                [
+                    {
+                        "taxid": 2,
+                        "zoom": 6,
+                    },
+                    {
+                        "taxid": 9682,
+                        "zoom": 25,
+                    },
+                ],
+            )
+
     def test_taxids_lang(self, client: TestClient):
         with client:
             params = {"taxid": [2, 9682], "field": ["taxid", "rank"], "lang": "fr"}
             response = client.get(self.url, params=params)
+            assert response.status_code == 200
+            res = response.json()
+            assert res["total"] == 2
+            assert equal_sorted(
+                res["items"],
+                [
+                    {
+                        "taxid": 2,
+                        "rank": "domaine",
+                    },
+                    {
+                        "taxid": 9682,
+                        "rank": "genre",
+                    },
+                ],
+            )
+
+    def test_taxids_lang_post(self, client: TestClient):
+        with client:
+            params = {"taxid": [2, 9682], "field": ["taxid", "rank"], "lang": "fr"}
+            response = client.post(self.url, params=params)
             assert response.status_code == 200
             res = response.json()
             assert res["total"] == 2
