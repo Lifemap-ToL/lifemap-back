@@ -53,17 +53,16 @@ async def iterate(api, url, **params):
     pages = []
     query = params
     while True:
-        if not first_call and "limit" in params:
-            del params["limit"]
-        q = {**params, **({"cursor": cursor} if cursor else {})}
-        r = await api.get(url, params=q)
+        r = await api.get(url, params=query)
         assert r.status_code == 200, r.text
-        body = r.json()
-        pages.append(body)
-        cursor = body["next_cursor"]
-        first_call = False
-        if not cursor:
+        page = r.json()
+        pages.append(page)
+        if not (cursor := page["next_cursor"]):
             return pages
+        query = {
+            **{k: v for k, v in params.items() if k not in FIRST_CALL_ONLY},
+            "cursor": cursor,
+        }
 
 
 class TestCursor:
