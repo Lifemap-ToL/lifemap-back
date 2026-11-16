@@ -68,10 +68,10 @@ services:
             dockerfile: Dockerfile
         restart: unless-stopped
         network_mode: "host"
-        ports:
-            - "80:80"
-            - "443:443"
-            - "443:443/udp"
+        # ports:
+        #     - "80:80"
+        #     - "443:443"
+        #     - "443:443/udp"
         volumes:
             - ./caddy/Caddyfile:/etc/caddy/Caddyfile
             - ./caddy/data:/data
