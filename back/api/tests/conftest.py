@@ -1,3 +1,4 @@
+import os
 import time
 
 import httpx2
@@ -9,6 +10,8 @@ SOLR_IMAGE = "solr:9"
 CORE = "taxo"
 PATH = f"/solr/{CORE}/select"
 N_DOCS = 2500
+
+os.environ.setdefault("FASTAPI_ENV", "development")
 
 
 @pytest.fixture(scope="session")
