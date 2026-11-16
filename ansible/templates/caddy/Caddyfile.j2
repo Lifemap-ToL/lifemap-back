@@ -5,6 +5,7 @@
 }
 
 {
+    order rate_limit before basicauth
     order cache before rewrite
     # debug
     # log {
@@ -30,15 +31,44 @@
 
     import logging_back
 
+    encode zstd gzip
+
     header {
         Access-Control-Allow-Origin *
         Access-Control-Allow-Methods *
         Access-Control-Allow-Headers *
-        Cache-Control "public, max-age=86400"
     }
 
     @options {
         method OPTIONS
+    }
+
+    rate_limit {
+        zone tiles {
+            match {
+                path /api/v1/tiles/* /vector_tiles/*
+                not path /api/v1/tiles/*
+            }
+            key    {client_ip}
+            events 200
+            window 1s
+        }
+        zone api {
+            match {
+                path /api/* /solr/*
+            }
+            key    {client_ip}
+            events 20
+            window 1s
+        }
+        zone static {
+            match {
+                path /static/*
+            }
+            key    {client_ip}
+            events 20
+            window 1m
+        }
     }
 
 
@@ -49,15 +79,16 @@
         cache {
             ttl 1h
         }
-        header Cache-Control "public, max-age=3600"
         reverse_proxy 127.0.0.1:8081
         respond @options 204
     }
 
 
     # --- SOLR ---
+
     redir /solr /solr/
     handle /solr/* {
+        header Cache-Control "public, max-age=300"
         reverse_proxy 127.0.0.1:8983
         # Solr doesn't respond correctly to OPTIONS,
         # which can lead to CORS errors
@@ -81,18 +112,20 @@
         reverse_proxy 127.0.0.1:8080
     }
 
-    # --- METADATA ---
-
-    handle_path /static/* {
-        root /static
-        file_server
-    }
-
-    # --- TEST FRONT ---
+    # --- STATIC / METADATA ---
 
     handle /data/* {
         redir https://{{ backend_hostname }}/static/{uri}
     }
+
+    handle_path /static/* {
+        header Cache-Control "public, max-age=21600"
+        root /static
+        file_server
+    }
+
+
+    # --- TEST FRONTEND ---
 
     redir /bbox /bbox/
 
