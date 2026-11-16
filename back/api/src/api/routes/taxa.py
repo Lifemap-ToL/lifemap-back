@@ -8,6 +8,7 @@ from fastapi import APIRouter, Body, Depends, Path, Query
 from pydantic import ConfigDict
 
 from api.config import Settings
+from api.lib.cache import cache_for
 from api.lib.fields import TaxoFieldType, fields_param
 from api.lib.lifespan import SolrClient
 from api.lib.pagination import DictPage, ListPage, Pagination, solr_dict_page, solr_list_page
@@ -43,7 +44,7 @@ class ScinamesMap(DictPage[str, str]):
     )
 
 
-@router.get("/{tree}/sci_name/", response_model=ScinamesMap)
+@router.get("/{tree}/sci_name/", response_model=ScinamesMap, dependencies=[Depends(cache_for(3600))])
 async def sci_name(
     solr_client: SolrClient,
     pg: Pagination,
@@ -105,7 +106,7 @@ async def get_taxids_page(
     )
 
 
-@router.get("/{tree}/taxids/", response_model=TaxidsList)
+@router.get("/{tree}/taxids/", response_model=TaxidsList, dependencies=[Depends(cache_for(3600))])
 async def taxids_get(
     solr_client: SolrClient,
     pg: Pagination,
@@ -135,7 +136,7 @@ async def taxids_post(
     return await get_taxids_page(solr_client, pg, taxid, field)
 
 
-@router.get("/{tree}/extent/", response_model=ListPage[dict])
+@router.get("/{tree}/extent/", response_model=ListPage[dict], dependencies=[Depends(cache_for(3600))])
 async def extent(
     solr_client: SolrClient,
     pg: Pagination,

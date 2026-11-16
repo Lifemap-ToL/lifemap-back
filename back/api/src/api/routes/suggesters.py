@@ -7,9 +7,10 @@ from typing import Annotated
 
 import httpx2
 import msgspec
-from fastapi import APIRouter, HTTPException, Path, Query
+from fastapi import APIRouter, Depends, HTTPException, Path, Query
 
 from api.config import Settings
+from api.lib.cache import cache_for
 from api.lib.lifespan import SolrClient
 from api.lib.types import LangType, TreeName
 
@@ -18,7 +19,7 @@ SETTINGS = Settings()
 router = APIRouter(prefix="/v1/suggest", tags=["suggest"])
 
 
-@router.get("/{tree}/{lang}/", response_model=list[dict[str, str]])
+@router.get("/{tree}/{lang}/", response_model=list[dict[str, str]], dependencies=[Depends(cache_for(3600))])
 async def suggest(
     solr_client: SolrClient,
     tree: Annotated[TreeName, Path(description="Tree id")],

@@ -5,9 +5,10 @@ Tiles related routes.
 from typing import Annotated
 
 import httpx2
-from fastapi import APIRouter, HTTPException, Path
+from fastapi import APIRouter, Depends, HTTPException, Path
 
 from api.config import Settings
+from api.lib.cache import cache_for
 from api.lib.lifespan import BboxClient
 from api.lib.types import ProtobufResponse, TilesType, TreeName, XYType, ZoomType
 
@@ -27,6 +28,7 @@ router = APIRouter(prefix="/v1/tiles", tags=["tiles"])
         204: {"description": "Empty tile"},
         502: {"description": "Upstream error"},
     },
+    dependencies=[Depends(cache_for(86400))],
 )
 async def vector_tiles(
     tree: Annotated[TreeName, Path(description="Tree id")],
