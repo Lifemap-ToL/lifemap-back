@@ -71,6 +71,14 @@
             path: "{{ docker_dir }}/docker-compose.yml"
         register: docker_compose
 
+      - name: Rsync docker files
+        ansible.posix.synchronize:
+            src: "../back/"
+            dest: "{{ docker_dir }}"
+            rsync_opts:
+                - "--exclude=*.j2"
+                - "--exclude=.venv"
+
       - name: Build containers
         become: true
         ansible.builtin.command:
@@ -85,14 +93,6 @@
             cmd: docker compose -f docker-compose.yml down
         changed_when: true
         when: docker_compose.stat.exists
-
-      - name: Rsync docker files
-        ansible.posix.synchronize:
-            src: "../back/"
-            dest: "{{ docker_dir }}"
-            rsync_opts:
-                - "--exclude=*.j2"
-                - "--exclude=.venv"
 
       - name: Copy docker Caddy config
         become: true
