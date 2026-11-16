@@ -1,5 +1,4 @@
 from enum import Enum
-from pathlib import Path
 from typing import Annotated
 
 from fastapi import Query, Response
@@ -21,8 +20,6 @@ class LangType(str, Enum):
     es = "es"
     el = "el"
 
-
-METADATA_PATHS: dict[TreeName, Path] = {TreeName.lifemap: Path("/static/metadats.json")}
 
 TaxidType = Annotated[int, Query(ge=0, lt=1e9)]
 

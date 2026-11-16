@@ -9,16 +9,16 @@ def client() -> TestClient:
     return TestClient(app)
 
 
-class TestSciname:
+class TestTiles:
     url = "/v1/tiles/lifemap/composite"
 
-    def test_sciname(self, client: TestClient):
+    def test_tiles(self, client: TestClient):
         with client:
             tile_url = f"{self.url}/4/0/8.pbf"
             response = client.get(tile_url)
             assert response.status_code == 200
 
-    def test_sciname_robustness(self, client: TestClient):
+    def test_tiles_robustness(self, client: TestClient):
         with client:
             # Invalid zoom level
             tile_url = f"{self.url}/400/0/8.pbf"

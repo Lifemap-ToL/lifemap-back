@@ -37,11 +37,3 @@ app.include_router(api.routes.metadata.router)
 app.include_router(api.routes.suggesters.router)
 app.include_router(api.routes.taxa.router)
 app.include_router(api.routes.tiles.router)
-
-
-@app.get("/health", tags=["utils"])
-async def health() -> dict[str, str]:
-    """
-    Route Handler that outputs health status.
-    """
-    return {"status": "ok"}

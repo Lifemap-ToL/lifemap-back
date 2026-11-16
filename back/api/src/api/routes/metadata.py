@@ -12,7 +12,8 @@ from requests import JSONDecodeError
 
 from api.config import Settings
 from api.lib.cache import cache_for
-from api.lib.types import METADATA_PATHS, TreeName
+from api.lib.lifespan import BboxClient, SolrClient
+from api.lib.types import TreeName
 
 SETTINGS = Settings()
 
@@ -20,7 +21,7 @@ router = APIRouter(prefix="/v1/meta", tags=["metadata"])
 
 
 def get_metadata_path(tree: TreeName) -> pathlib.Path:
-    return METADATA_PATHS[tree]
+    return SETTINGS.metadata_path[tree]
 
 
 def read_metadata(path: pathlib.Path) -> dict:
@@ -71,3 +72,48 @@ async def tree_species(
     if "species" not in metadata:
         raise HTTPException(502, "Malformed metadata")
     return SpeciesMap({"species": metadata["species"]})
+
+
+class HealthMap(dict[str, str]):
+    model_config = ConfigDict(
+        json_schema_extra={"examples": [{"data": "OK", "tiles": "OK", "metadata": "ERROR"}]}
+    )
+
+
+@router.get("/{tree}/health/", response_model=dict[str, str], dependencies=[Depends(cache_for(3600))])
+async def tree_health(
+    tree: Annotated[TreeName, Path(description="Tree id")],
+    metadata_path: Annotated[pathlib.Path, Depends(get_metadata_path)],
+    solr: SolrClient,
+    bbox: BboxClient,
+) -> HealthMap:
+    """
+    Returns health status of a tree.
+    """
+    health = {"data": "OK", "tiles": "OK", "metadata": "OK"}
+
+    # Metadata
+    try:
+        _ = read_metadata(metadata_path)
+    except HTTPException:
+        health["metadata"] = "ERROR"
+
+    # Vector tiles
+    try:
+        r = await bbox.get("/health")
+        r.raise_for_status()
+    except HTTPException:
+        health["tiles"] = "ERROR"
+    if r.status_code != 200 or r.text != "OK":
+        health["tiles"] = "ERROR"
+
+    # Solr data
+    try:
+        r = await solr.get("/")
+        r.raise_for_status()
+    except HTTPException:
+        health["data"] = "ERROR"
+    if r.status_code != 200:
+        health["data"] = "ERROR"
+
+    return HealthMap(health)

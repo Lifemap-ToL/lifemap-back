@@ -5,7 +5,7 @@ from pathlib import Path
 from pydantic import HttpUrl, PositiveInt
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from api.lib.types import LangType
+from api.lib.types import LangType, TreeName
 
 # Use absolute path to .env for pytest
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -37,6 +37,7 @@ class Settings(BaseSettings):
         LangType.es: "mySuggesterEs",
         LangType.el: "mySuggesterEl",
     }
+    metadata_path: dict[TreeName, Path] = {TreeName.lifemap: Path("/static/metadata.json")}
 
     @property
     def solr_url(self) -> str:
