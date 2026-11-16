@@ -4,6 +4,7 @@ from pathlib import Path
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+import api.routes.metadata
 import api.routes.suggesters
 import api.routes.taxa
 import api.routes.tiles
@@ -31,8 +32,10 @@ if os.getenv("FASTAPI_ENV") == "development":
         allow_headers=["*"],
     )
 
-app.include_router(api.routes.taxa.router)
+
+app.include_router(api.routes.metadata.router)
 app.include_router(api.routes.suggesters.router)
+app.include_router(api.routes.taxa.router)
 app.include_router(api.routes.tiles.router)
 
 

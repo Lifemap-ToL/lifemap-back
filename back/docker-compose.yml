@@ -61,6 +61,8 @@ services:
         depends_on:
             - bbox
             - solr
+        volumes:
+            - ../www/static:/static
     caddy:
         container_name: lifemap-caddy
         build:
