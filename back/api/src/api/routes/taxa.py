@@ -11,7 +11,7 @@ from api.config import Settings
 from api.lib.cache import cache_for
 from api.lib.fields import TaxoFieldType, fields_param
 from api.lib.lifespan import SolrClient
-from api.lib.pagination import DictPage, ListPage, Pagination, solr_dict_page, solr_list_page
+from api.lib.pagination import ListPage, Pagination, solr_list_page
 from api.lib.types import TaxidType, TreeName, ZoomType
 
 SETTINGS = Settings()
@@ -34,38 +34,6 @@ def flatten(x: Any) -> Any:
         x[0] if x is a list of length 1, otherwise x
     """
     return x[0] if isinstance(x, list) and len(x) == 1 else x
-
-
-class ScinamesMap(DictPage[str, str]):
-    model_config = ConfigDict(
-        json_schema_extra={
-            "examples": [{"items": {"2": "Bacteria", "9682": "Felis"}, "next_cursor": "string", "total": 2}]
-        }
-    )
-
-
-@router.get("/{tree}/sci_name/", response_model=ScinamesMap, dependencies=[Depends(cache_for(3600))])
-async def sci_name(
-    solr_client: SolrClient,
-    pg: Pagination,
-    tree: Annotated[TreeName, Path(description="Tree id")],
-    taxid: Annotated[list[TaxidType], Query(description="Taxid values")],
-) -> DictPage[str, str]:
-    """
-    Returns the scientific names of a set of taxids as a dict.
-    """
-
-    def process_doc(doc: dict) -> tuple[str, str]:
-        return str(doc["taxid"][0]), str(doc["sci_name"][0])
-
-    params = {
-        "q": "*:*",
-        "fq": f"taxid:({' '.join([str(id) for id in taxid])})",
-        "fl": "taxid,sci_name",
-    }
-    return await solr_dict_page(
-        client=solr_client, path=SETTINGS.taxo_path, params=params, transform=process_doc, pg=pg
-    )
 
 
 class TaxidsList(ListPage[dict[str, Any]]):
