@@ -4,10 +4,10 @@ General tree metadata routes.
 
 import json
 import pathlib
-from typing import Annotated
+from typing import Annotated, Literal
 
 from fastapi import APIRouter, Depends, HTTPException, Path
-from pydantic import ConfigDict
+from pydantic import BaseModel, ConfigDict
 from requests import JSONDecodeError
 
 from api.config import Settings
@@ -32,25 +32,27 @@ def read_metadata(path: pathlib.Path) -> dict:
     return metadata
 
 
-class UpdateMap(dict[str, str]):
+class UpdateMap(BaseModel):
+    update: str
     model_config = ConfigDict(json_schema_extra={"examples": [{"update": "2026-11-16"}]})
 
 
-@router.get("/{tree}/update/", response_model=dict[str, str], dependencies=[Depends(cache_for(3600))])
+@router.get("/{tree}/update/", dependencies=[Depends(cache_for(3600))], summary="Date of last tree update")
 async def tree_update(
     tree: Annotated[TreeName, Path(description="Tree id")],
     metadata_path: Annotated[pathlib.Path, Depends(get_metadata_path)],
 ) -> UpdateMap:
     """
-    Returns update date of tree.
+    Returns the date of the last update of a tree.
     """
     metadata = read_metadata(metadata_path)
     if "update" not in metadata:
         raise HTTPException(502, "Malformed metadata")
-    return UpdateMap({"update": metadata["update"]})
+    return UpdateMap(update=metadata["update"])
 
 
-class SpeciesMap(dict[str, dict]):
+class SpeciesMap(BaseModel):
+    species: dict[str, int]
     model_config = ConfigDict(
         json_schema_extra={
             "examples": [
@@ -60,27 +62,32 @@ class SpeciesMap(dict[str, dict]):
     )
 
 
-@router.get("/{tree}/species/", response_model=dict[str, dict], dependencies=[Depends(cache_for(3600))])
+@router.get("/{tree}/species/", dependencies=[Depends(cache_for(3600))], summary="Species count of a tree")
 async def tree_species(
     tree: Annotated[TreeName, Path(description="Tree id")],
     metadata_path: Annotated[pathlib.Path, Depends(get_metadata_path)],
 ) -> SpeciesMap:
     """
-    Returns number of species (taxa) in tree.
+    Returns the number of species (taxa) in a tree.
     """
     metadata = read_metadata(metadata_path)
     if "species" not in metadata:
         raise HTTPException(502, "Malformed metadata")
-    return SpeciesMap({"species": metadata["species"]})
+    return SpeciesMap(species=metadata["species"])
 
 
-class HealthMap(dict[str, str]):
+class HealthMap(BaseModel):
+    data: Literal["OK", "ERROR"]
+    tiles: Literal["OK", "ERROR"]
+    metadata: Literal["OK", "ERROR"]
     model_config = ConfigDict(
         json_schema_extra={"examples": [{"data": "OK", "tiles": "OK", "metadata": "ERROR"}]}
     )
 
 
-@router.get("/{tree}/health/", response_model=dict[str, str], dependencies=[Depends(cache_for(3600))])
+@router.get(
+    "/{tree}/health/", dependencies=[Depends(cache_for(3600))], summary="Technical health status of a tree"
+)
 async def tree_health(
     tree: Annotated[TreeName, Path(description="Tree id")],
     metadata_path: Annotated[pathlib.Path, Depends(get_metadata_path)],
@@ -88,32 +95,35 @@ async def tree_health(
     bbox: BboxClient,
 ) -> HealthMap:
     """
-    Returns health status of a tree.
+    Returns health status (online availability) of the different components of a tree:
+    metadata, taxonomic data, and tiles.
     """
-    health = {"data": "OK", "tiles": "OK", "metadata": "OK"}
 
     # Metadata
+    metadata = "OK"
     try:
         _ = read_metadata(metadata_path)
     except HTTPException:
-        health["metadata"] = "ERROR"
+        metadata = "ERROR"
 
     # Vector tiles
+    tiles = "OK"
     try:
         r = await bbox.get("/health")
         r.raise_for_status()
     except HTTPException:
-        health["tiles"] = "ERROR"
+        tiles = "ERROR"
     if r.status_code != 200 or r.text != "OK":
-        health["tiles"] = "ERROR"
+        tiles = "ERROR"
 
     # Solr data
+    data = "OK"
     try:
         r = await solr.get("/")
         r.raise_for_status()
     except HTTPException:
-        health["data"] = "ERROR"
+        data = "ERROR"
     if r.status_code != 200:
-        health["data"] = "ERROR"
+        data = "ERROR"
 
-    return HealthMap(health)
+    return HealthMap(data=data, tiles=tiles, metadata=metadata)

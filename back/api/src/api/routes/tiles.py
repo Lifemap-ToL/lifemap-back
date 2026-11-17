@@ -29,6 +29,7 @@ router = APIRouter(prefix="/v1/tiles", tags=["tiles"])
         502: {"description": "Upstream error"},
     },
     dependencies=[Depends(cache_for(86400))],
+    summary="Vector tile at coordinates",
 )
 async def vector_tiles(
     tree: Annotated[TreeName, Path(description="Tree id")],
@@ -39,7 +40,8 @@ async def vector_tiles(
     bbox: BboxClient,
 ) -> ProtobufResponse:
     """
-    Returns a Mapbox vector tile (MVT) as a protobuf binary.
+    Returns a Mapbox vector tile (MVT) as a protobuf binary for a given tree
+    and x / y / zoom values.
     """
 
     tile_url: str = f"/xyz/composite/{z}/{x}/{y}.pbf"

@@ -19,7 +19,12 @@ SETTINGS = Settings()
 router = APIRouter(prefix="/v1/suggest", tags=["suggest"])
 
 
-@router.get("/{tree}/{lang}/", response_model=list[dict[str, str]], dependencies=[Depends(cache_for(3600))])
+@router.get(
+    "/{tree}/{lang}/",
+    response_model=list[dict[str, str]],
+    dependencies=[Depends(cache_for(3600))],
+    summary="Taxa suggestions",
+)
 async def suggest(
     solr_client: SolrClient,
     tree: Annotated[TreeName, Path(description="Tree id")],
@@ -29,7 +34,8 @@ async def suggest(
     n: Annotated[int, Query(ge=1, le=15, description="Number of suggestions to fetch")] = 10,
 ) -> list[dict[str, str]]:
     """
-    Returns taxa suggestions from a string.
+    Returns taxa suggestions from a string. Taxa are searched for in different data fields:
+    scientific name, common name, taxid, etc.
     """
 
     params = {

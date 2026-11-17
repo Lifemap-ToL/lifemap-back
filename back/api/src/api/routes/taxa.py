@@ -74,7 +74,12 @@ async def get_taxids_page(
     )
 
 
-@router.get("/{tree}/taxids/", response_model=TaxidsList, dependencies=[Depends(cache_for(3600))])
+@router.get(
+    "/{tree}/taxids/",
+    response_model=TaxidsList,
+    dependencies=[Depends(cache_for(3600))],
+    summary="Taxonomic data for a set of taxids (GET)",
+)
 async def taxids_get(
     solr_client: SolrClient,
     pg: Pagination,
@@ -83,12 +88,19 @@ async def taxids_get(
     field: Annotated[list[str], Depends(fields_param([TaxoFieldType.taxid, TaxoFieldType.sci_name]))],
 ) -> ListPage[dict]:
     """
-    Returns taxonomic field values for a set of taxids.
+    Returns a set of taxonomic field values for a set of taxids.
+
+    As it uses GET method, the number of taxids is limited by the maximum size of a URL.
+    Use the POST route instead if you have a great number of taxids to query.
     """
     return await get_taxids_page(solr_client, pg, taxid, field)
 
 
-@router.post("/{tree}/taxids/", response_model=TaxidsList)
+@router.post(
+    "/{tree}/taxids/",
+    response_model=TaxidsList,
+    summary="Taxonomic data for a set of taxids (POST)",
+)
 async def taxids_post(
     solr_client: SolrClient,
     pg: Pagination,
@@ -99,12 +111,19 @@ async def taxids_post(
     ],
 ) -> ListPage[dict]:
     """
-    Returns taxonomic field values for a set of taxids.
+    Returns a set of taxonomic field values for a set of taxids.
+
+    Suitable for a large number of taxids.
     """
     return await get_taxids_page(solr_client, pg, taxid, field)
 
 
-@router.get("/{tree}/extent/", response_model=ListPage[dict], dependencies=[Depends(cache_for(3600))])
+@router.get(
+    "/{tree}/extent/",
+    response_model=ListPage[dict],
+    dependencies=[Depends(cache_for(3600))],
+    summary="Get taxids in a given spatial extent",
+)
 async def extent(
     solr_client: SolrClient,
     pg: Pagination,
@@ -131,7 +150,9 @@ async def extent(
     ],
 ) -> ListPage[dict]:
     """
-    Returns taxa located in a certain spatial extent.
+    Returns taxonomic field values for taxa located in a certain spatial extent.
+
+    The extent is defined by minimum and maximum x, y and zoom values.
     """
 
     def process_doc(doc: dict) -> dict:
