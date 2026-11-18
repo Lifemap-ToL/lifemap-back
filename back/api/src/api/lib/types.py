@@ -1,19 +1,19 @@
-from enum import Enum
+from enum import StrEnum
 from typing import Annotated
 
 from fastapi import Query, Response
 from pydantic import Field
 
 
-class TreeName(str, Enum):
+class TreeName(StrEnum):
     lifemap = "lifemap"
 
 
-class TilesType(str, Enum):
+class TilesType(StrEnum):
     composite = "composite"
 
 
-class LangType(str, Enum):
+class LangType(StrEnum):
     fr = "fr"
     en = "en"
     de = "de"

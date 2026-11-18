@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from enum import Enum
+from enum import StrEnum
 from typing import Annotated, Literal
 
 from fastapi import Body, Query
@@ -7,7 +7,7 @@ from fastapi import Body, Query
 from api.lib.types import LangType
 
 
-class TaxoFieldType(str, Enum):
+class TaxoFieldType(StrEnum):
     taxid = "taxid"
     sci_name = "sci_name"
     authority = "auhority"
@@ -39,9 +39,7 @@ def fields_param(
         ] = LangType.en,
     ) -> list[str]:
 
-        str_fields = [
-            f.value if f not in TRANSLATED_FIELDS else f"{f.value}:{f.value}_{lang.value}" for f in field
-        ]
+        str_fields = [f.value if f not in TRANSLATED_FIELDS else f"{f}:{f}_{lang}" for f in field]
         if "taxid" not in str_fields:
             str_fields = ["taxid"] + str_fields
         return str_fields
