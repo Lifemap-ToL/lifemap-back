@@ -8,7 +8,6 @@
 import json
 import logging
 import math
-from typing import Literal
 
 import numpy as np
 import polars as pl
@@ -21,6 +20,10 @@ from tqdm import tqdm
 # print args
 
 logger = logging.getLogger("LifemapBuilder")
+
+LUCA_X = 0.0
+LUCA_Y = -4.226497
+ROOT_DISTANCE = 10.0
 
 
 def simplify_tree(arbre):
@@ -243,11 +246,34 @@ def node2json(node) -> str:
     return json.dumps(document, ensure_ascii=False)
 
 
+def get_root_positions(number_of_roots):
+    positions = []
+
+    if number_of_roots == 1:
+        positions.append((0.0, 0.0, 90.0, 20.0))
+        return positions
+
+    ray = ROOT_DISTANCE * math.sin(math.pi / number_of_roots) / math.sin(math.pi / 3)
+    angle_step = 360.0 / number_of_roots
+
+    for number in range(number_of_roots):
+        alpha = 30.0 + number * angle_step
+        x = LUCA_X + ROOT_DISTANCE * math.cos(rad(alpha))
+        y = LUCA_Y + ROOT_DISTANCE * math.sin(rad(alpha))
+        positions.append((x, y, alpha, ray))
+
+    return positions
+
+
 def _traverse_one_tree(
     tree: dict,
-    groupnb: Literal["1", "2", "3"],
+    groupnb: str,
     starti: int,
     root_id: str,
+    x: float,
+    y: float,
+    alpha: float,
+    ray: float,
     disable_progress: bool = False,
     json_file=None,
     first=True,
@@ -259,8 +285,8 @@ def _traverse_one_tree(
     ----------
     tree : dict
         Taxonomy tree
-    groupnb : {'1', '2', '3'}
-        Number of the root currently being traversed
+    groupnb : str
+        Internal number of the root currently being traversed
     starti : int
         index of the first node met in the tree
     disable_progress : bool
@@ -275,21 +301,10 @@ def _traverse_one_tree(
 
     t = tree[root_id].copy()
     logger.info("Tree rooted at %s (%s)", root_id, t.props["sci_name"])
-    if groupnb == "1":
-        t.props["x"] = 6.0
-        t.props["y"] = 9.660254 - 10.0
-        t.props["alpha"] = 30.0
-        t.props["ray"] = 10.0
-    elif groupnb == "2":
-        t.props["x"] = -6.0
-        t.props["y"] = 9.660254 - 10.0
-        t.props["alpha"] = 150.0
-        t.props["ray"] = 10.0
-    else:
-        t.props["x"] = 0.0
-        t.props["y"] = -11.0
-        t.props["alpha"] = 270.0
-        t.props["ray"] = 10.0
+    t.props["x"] = x
+    t.props["y"] = y
+    t.props["alpha"] = alpha
+    t.props["ray"] = ray
 
     t.props["zoomview"] = np.ceil(np.log2(30 / t.props["ray"]))
 
@@ -442,7 +457,7 @@ def _traverse_one_tree(
 
     ##we add the way from LUCA to the root of the subtreeS
     ndid = ndid + 1
-    command = f"INSERT INTO branches (id, branch, zoomview, ref, way) VALUES ({ndid},'TRUE', '4', '{groupnb}', ST_Transform(ST_GeomFromText('LINESTRING(0 -4.226497, {t.props['x']:.20f} {t.props['y']:.20f})', 4326), 3857));"
+    command = f"INSERT INTO branches (id, branch, zoomview, ref, way) VALUES ({ndid},'TRUE', '4', '{groupnb}', ST_Transform(ST_GeomFromText('LINESTRING({LUCA_X:.20f} {LUCA_Y:.20f}, {t.props['x']:.20f} {t.props['y']:.20f})', 4326), 3857));"
     cur.execute(command)  # type: ignore
     conn.commit()
 
@@ -466,14 +481,20 @@ def traverse_tree(
     json_file = open(output_directory / "TreeFeatures.json", "w")
     json_file.write("[")
     first = True
+    root_positions = get_root_positions(len(roots))
 
     for number, root_id in enumerate(roots, start=1):
+        x, y, alpha, ray = root_positions[number - 1]
         ndid, first = _traverse_one_tree(
             tree,
             groupnb=str(number),
             starti=ndid,
             disable_progress=disable_progress,
             root_id=root_id,
+            x=x,
+            y=y,
+            alpha=alpha,
+            ray=ray,
             json_file=json_file,
             first=first,
         )
