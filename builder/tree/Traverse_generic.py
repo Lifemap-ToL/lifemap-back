@@ -1,0 +1,483 @@
+# FEV, 5 2016
+# WE REMOVE THE WRITING TO JSON AND trees. This is performed by another code.
+# This code is more complete than the previous one.
+# I switched to ete3
+# We read the tree from external file (trees are retrieved with the code called "gettrees.py").
+# Added possibility to have groups containing only one descendants to be visible. Adds a few zoom levels (not so many)
+
+import json
+import logging
+import math
+from typing import Literal
+
+import numpy as np
+import polars as pl
+
+# import cPickle as pickle
+from config import BUILD_DIRECTORY, LANG_LIST
+from db import db_connection
+from tqdm import tqdm
+
+# print args
+
+logger = logging.getLogger("LifemapBuilder")
+
+
+def simplify_tree(arbre):
+    logger.info("Simplifying tree...")
+    initialSize = len(arbre)
+    for n in arbre.traverse():
+        if n.is_leaf and (n.props["rank_en"] == "no rank"):
+            n.detach()
+        else:
+            if (
+                ("Unclassified" in n.props["sci_name"])
+                or ("unclassified" in n.props["sci_name"])
+                or ("uncultured" in n.props["sci_name"])
+                or ("Uncultured" in n.props["sci_name"])
+                or ("unidentified" in n.props["sci_name"])
+                or ("Unidentified" in n.props["sci_name"])
+                or ("environmental" in n.props["sci_name"])
+                or ("sp." in n.props["sci_name"])
+            ):
+                n.detach()
+    logger.info("Tree HAS BEEN simplified")
+    finalSize = len(arbre)
+    diffInSize = initialSize - finalSize
+    logger.info(
+        str(diffInSize)
+        + " tips have been removed ("
+        + str(round(float(diffInSize) / float(initialSize) * 100, 2))
+        + "%)"
+    )
+    logger.info("FINAL TREE SIZE: " + str(finalSize))
+    return arbre
+
+
+def midpoint(x1, y1, x2, y2):
+    # Input values as degrees
+    # Convert to radians
+    lat1 = math.radians(x1)
+    lon1 = math.radians(y1)
+    lat2 = math.radians(x2)
+    lon2 = math.radians(y2)
+    cos1 = math.cos(lat1)
+    cos2 = math.cos(lat2)
+    bx = cos2 * math.cos(lon2 - lon1)
+    by = cos2 * math.sin(lon2 - lon1)
+    lat3 = math.atan2(
+        math.sin(lat1) + math.sin(lat2),
+        math.sqrt((cos1 + bx) * (cos1 + bx) + by**2),
+    )
+    lon3 = lon1 + math.atan2(by, cos1 + bx)
+    return [math.degrees(lat3), math.degrees(lon3)]
+
+
+def rad(deg):
+    return (deg * np.pi) / 180
+
+
+def halfCircle(x, y, r, start, end, nsteps):
+    rs = np.linspace(start, end, num=nsteps)
+    xc = x + r * np.cos(rs)
+    yc = y + r * np.sin(rs)
+    return (xc, yc)
+
+
+def ellipse(x, y, r, alpha, nsteps):
+    start = 0
+    end = np.pi + start
+    rs = np.linspace(start, end, num=nsteps)
+    a = r
+    b = (
+        float(r) / 6
+    )  ##Change this value to change the shape of polygons. This controls how flat is the elliptic side of the polygon. The other side is always a half cricle.
+    xs = a * np.cos(rs)
+    ys = b * np.sin(rs)
+    ##rotation
+    cosa = np.cos(alpha)
+    sina = np.sin(alpha)
+    xs2 = x + (xs * cosa - ys * sina)
+    ys2 = y + (xs * sina + ys * cosa)
+    return (xs2, ys2)
+
+
+def HalfCircPlusEllips(x, y, r, alpha, start, end, nsteps):
+    circ = halfCircle(x, y, r, start, end, nsteps)
+    elli = ellipse(x, y, r, alpha, nsteps)
+    return (np.concatenate((circ[0], elli[0])), np.concatenate((circ[1], elli[1])))
+
+
+def get_way_record(node, id, groupnb):
+    # Create branch names
+    Upsci_name = node.up.props["sci_name"]
+    Upcommon_name_en = node.up.props["common_name"]["en"]
+    Downsci_name = node.props["sci_name"]
+    Downcommon_name_en = node.props["common_name"]["en"]
+    left = Upsci_name + " " + Upcommon_name_en
+    right = Downsci_name + " " + Downcommon_name_en
+    if node.props["x"] >= node.up.props["x"]:  # we are on the right
+        wayName = "\\u2190  " + left + "     -     " + right + "  \\u2192"
+    else:  # we are on the left
+        wayName = "\\u2190  " + right + "     -     " + left + "  \\u2192"
+
+    ##new with midpoints:
+    midlatlon = midpoint(node.up.props["x"], node.up.props["y"], node.props["x"], node.props["y"])
+
+    record = (
+        id,
+        "TRUE",
+        int(node.props["zoomview"]),
+        groupnb,
+        wayName,
+        f"LINESTRING({node.up.props['x']:.20f} {node.up.props['y']:.20f}, {midlatlon[0]:.20f} {midlatlon[1]:.20f}, {node.props['x']:.20f} {node.props['y']:.20f} )",
+    )
+
+    return record
+
+
+def get_polyg_record(node, ids, groupnb):
+    polyg = HalfCircPlusEllips(
+        node.props["x"],
+        node.props["y"],
+        node.props["ray"],
+        rad(node.props["alpha"]) + np.pi / 2,
+        rad(node.props["alpha"]) - np.pi / 2,
+        rad(node.props["alpha"]) + np.pi / 2,
+        30,
+    )
+    polygcenter = (np.mean(polyg[0]), np.mean(polyg[1]))
+    cooPolyg = "POLYGON((%.20f %.20f " % (polyg[0][0], polyg[1][0])
+    for i in range(1, 59):
+        cooPolyg += ",%.20f %.20f" % (polyg[0][i], polyg[1][i])
+    cooPolyg += ",%.20f %.20f" % (polyg[0][0], polyg[1][0])
+    # to close the ring...
+    cooPolyg += "))"
+    polygon_record = (
+        int(ids[60]),
+        groupnb,
+        True,
+        node.props["taxid"],
+        node.props["sci_name"],
+        node.props["common_name"]["en"],
+        node.props["rank"]["en"],
+        int(node.props["nbdesc"]),
+        int(node.props["zoomview"]),
+        cooPolyg,
+    )
+
+    cladecenter_record = (
+        int(ids[61]),
+        True,
+        node.props["taxid"],
+        node.props["sci_name"],
+        node.props["common_name"]["en"],
+        node.props["rank"]["en"],
+        int(node.props["nbdesc"]),
+        int(node.props["zoomview"]),
+        f"POINT({polygcenter[0]:.20f} {polygcenter[1]:.20f})",
+    )
+
+    # we add a way on which we will write the rank
+    cooLine = "LINESTRING(%.20f %.20f" % (polyg[0][39], polyg[1][39])
+    for i in range(40, 42):
+        cooLine += ",%.20f %.20f" % (polyg[0][i], polyg[1][i])
+    cooLine += ")"
+    start, mid, end = 39, 40, 41
+    if polyg[0][start] > polyg[0][end]:
+        start, end = end, start
+    x1, y1 = polyg[0][start], polyg[1][start]
+    x2, y2 = polyg[0][mid], polyg[1][mid]
+    x3, y3 = polyg[0][end], polyg[1][end]
+    slope1 = (y2 - y1) / (x2 - x1)
+    slope2 = (y3 - y2) / (x3 - x2)
+    convexity = slope1 - slope2
+
+    rank_record = [
+        int(ids[62]),
+        groupnb,
+        True,
+        node.props["taxid"],
+        node.props["sci_name"],
+        int(node.props["zoomview"]),
+    ]
+    for lang in LANG_LIST:
+        rank_record.append(node.props["rank"][lang])
+    rank_record.extend(
+        [
+            int(node.props["nbdesc"]),
+            convexity,
+            cooLine,
+        ]
+    )
+
+    return polygon_record, cladecenter_record, rank_record
+
+
+def node2json(node) -> str:
+    taxid = node.props["taxid"]
+    sci_name = node.props["sci_name"]
+    synonym = node.props["synonym"]
+
+    document = {
+        "taxid": taxid,
+        "sci_name": sci_name,
+        "suggest_weight": str(300 - len(sci_name)),
+        "authority": node.props["authority"],
+        "synonym": synonym,
+        "zoom": int(node.props["zoomview"] + 4),
+        "nbdesc": node.props["nbdesc"],
+        "coordinates": [node.props["y"], node.props["x"]],
+        "lat": node.props["y"],
+        "lon": node.props["x"],
+    }
+
+    for lang in LANG_LIST:
+        common_name = node.props["common_name_long"][lang]
+        rank = node.props["rank"][lang]
+
+        document[f"common_name_{lang}"] = common_name
+        document[f"rank_{lang}"] = rank
+        document[f"all_{lang}"] = f"{sci_name} | {common_name} | {rank} | {taxid} | {synonym}"
+
+    return json.dumps(document, ensure_ascii=False)
+
+
+def _traverse_one_tree(
+    tree: dict,
+    groupnb: Literal["1", "2", "3"],
+    starti: int,
+    root_id: str,
+    disable_progress: bool = False,
+    json_file=None,
+    first=True,
+) -> tuple[int, bool]:
+    """
+    Open taxonomic tree and recode it into PostGRES/PostGIS database for visualisation in Lifemap.
+
+    Parameters
+    ----------
+    tree : dict
+        Taxonomy tree
+    groupnb : {'1', '2', '3'}
+        Number of the root currently being traversed
+    starti : int
+        index of the first node met in the tree
+    disable_progress : bool
+        If True, disable progress bars
+
+    Returns the next node ID and whether the JSON file is still empty.
+    """
+
+    ##let's try to write the tree entirely here, in a file
+
+    logger.info("Loading tree...")
+
+    t = tree[root_id].copy()
+    logger.info("Tree rooted at %s (%s)", root_id, t.props["sci_name"])
+    if groupnb == "1":
+        t.props["x"] = 6.0
+        t.props["y"] = 9.660254 - 10.0
+        t.props["alpha"] = 30.0
+        t.props["ray"] = 10.0
+    elif groupnb == "2":
+        t.props["x"] = -6.0
+        t.props["y"] = 9.660254 - 10.0
+        t.props["alpha"] = 150.0
+        t.props["ray"] = 10.0
+    else:
+        t.props["x"] = 0.0
+        t.props["y"] = -11.0
+        t.props["alpha"] = 270.0
+        t.props["ray"] = 10.0
+
+    t.props["zoomview"] = np.ceil(np.log2(30 / t.props["ray"]))
+
+    # species and node ids
+    nbsp = len(t)
+    spid = starti
+    ndid = starti + nbsp
+    maxZoomView = 0
+
+    logger.info("Tree traversal 1/2...")
+    points_records = []
+    for n in tqdm(t.traverse(), total=len(t)):
+        special = 0
+        n.props["dist"] = 1.0
+        tot = 0.0
+        if n.is_leaf:
+            spid = spid + 1
+            n.props["id"] = spid
+        else:
+            ndid = ndid + 1
+            n.props["id"] = ndid
+        child = n.children
+        ##NEW  -->|
+        if (len(child) == 1) & (len(n) > 1):
+            special = 1
+        if (len(child) == 1) & (len(n) == 1):
+            special = 2
+        ## |<-- NEW
+        for i in child:
+            tot = tot + np.sqrt(len(i))
+        nbdesc = len(n)
+        n.props["nbdesc"] = nbdesc
+
+        angles = []
+        ray = n.props["ray"]
+        for i in child:
+            # i.ang = 180*(len(i)/float(nbdesc))/2;
+            i.props["ang"] = 180 * (np.sqrt(len(i)) / tot) / 2
+            # using sqrt we decrease difference between large and small groups
+            angles.append(i.props["ang"])
+            if special == 1:
+                i.props["ray"] = ray - (ray * 20) / 100
+            else:
+                if special == 2:
+                    i.props["ray"] = ray - (ray * 50) / 100
+                else:
+                    i.props["ray"] = (ray * np.sin(rad(i.props["ang"])) / np.cos(rad(i.props["ang"]))) / (
+                        1 + (np.sin(rad(i.props["ang"])) / np.cos(rad(i.props["ang"])))
+                    )
+            i.props["dist"] = ray - i.props["ray"]
+        ang = np.repeat(angles, 2)
+        ang = np.cumsum(ang)
+        ang = ang[0::2]
+        ang = [i - (90 - n.props["alpha"]) for i in ang]
+        cpt = 0
+        for i in child:
+            i.props["alpha"] = ang[cpt]
+            i.props["x"] = n.props["x"] + i.props["dist"] * np.cos(rad(i.props["alpha"]))
+            i.props["y"] = n.props["y"] + i.props["dist"] * np.sin(rad(i.props["alpha"]))
+            i.props["zoomview"] = np.ceil(np.log2(30 / i.props["ray"]))
+            if i.props["zoomview"] <= 0:
+                i.props["zoomview"] = 0
+                maxZoomView = max(maxZoomView, i.props["zoomview"])
+            cpt = cpt + 1
+        # Append node info to postgis COPY records
+        points_records.append(
+            (
+                n.props["id"],
+                n.props["taxid"],
+                groupnb,
+                n.props["sci_name"],
+                n.props["common_name"]["en"],
+                n.props["rank"]["en"],
+                n.props["nbdesc"],
+                int(n.props["zoomview"]),
+                n.is_leaf,
+                f"POINT({n.props['x']:.20f} {n.props['y']:.20f})",
+            )
+        )
+
+    # Postgis connection
+    conn = db_connection()
+    cur = conn.cursor()
+
+    logger.info("Inserting points data into postgis")
+    with cur.copy(
+        "COPY points (id, taxid, ref, sci_name, common_name_en, rank_en, nbdesc, zoomview, tip,geom_txt) FROM STDIN"
+    ) as copy:
+        for record in tqdm(points_records, disable=disable_progress):
+            copy.write_row(record)
+    conn.commit()
+
+    logger.info("Tree traversal 2/2... ")
+
+    lines_records = []
+    polygons_records = []
+    cladecenters_records = []
+    ranks_records = []
+
+    ##LAST LOOP TO write coords of polygs and JSON file
+    for n in tqdm(t.traverse(), total=len(t), disable=disable_progress):
+        if first:
+            first = False
+        else:
+            json_file.write(",")
+        if not n.is_root:
+            ndid = ndid + 1
+            lines_records.append(get_way_record(n, ndid, groupnb))
+        if not n.is_leaf:
+            indexes = np.linspace(ndid + 1, ndid + 63, num=63)
+            polygon_record, cladecenter_record, rank_record = get_polyg_record(n, indexes, groupnb)
+            polygons_records.append(polygon_record)
+            cladecenters_records.append(cladecenter_record)
+            ranks_records.append(rank_record)
+            ndid = ndid + 63
+        json_file.write(node2json(n))
+
+    logger.info("Inserting branches data into postgis...")
+    with cur.copy("COPY branches (id, branch, zoomview, ref, name, geom_txt) FROM STDIN") as copy:
+        for record in tqdm(lines_records, disable=disable_progress):
+            copy.write_row(record)
+    conn.commit()
+
+    logger.info("Inserting polygons data into postgis...")
+    with cur.copy(
+        "COPY polygons (id, ref, clade, taxid, sci_name, common_name_en, rank_en, nbdesc,zoomview, geom_txt) FROM STDIN"
+    ) as copy:
+        for record in tqdm(polygons_records, disable=disable_progress):
+            copy.write_row(record)
+    conn.commit()
+
+    logger.info("Inserting cladecenters data into postgis...")
+    with cur.copy(
+        "COPY cladecenters (id, cladecenter, taxid, sci_name, common_name_en, rank_en, nbdesc,zoomview, geom_txt) FROM STDIN"
+    ) as copy:
+        for record in tqdm(cladecenters_records, disable=disable_progress):
+            copy.write_row(record)
+    conn.commit()
+
+    logger.info("Inserting ranks data into postgis...")
+    rank_columns = ""
+    for lang in LANG_LIST:
+        rank_columns += f", rank_{lang}"
+    with cur.copy(
+        f"COPY ranks (id, ref, rankname, taxid, sci_name, zoomview{rank_columns}, nbdesc, convex, geom_txt) FROM STDIN"
+    ) as copy:
+        for record in tqdm(ranks_records, disable=disable_progress):
+            copy.write_row(record)
+    conn.commit()
+
+    ##we add the way from LUCA to the root of the subtreeS
+    ndid = ndid + 1
+    command = f"INSERT INTO branches (id, branch, zoomview, ref, way) VALUES ({ndid},'TRUE', '4', '{groupnb}', ST_Transform(ST_GeomFromText('LINESTRING(0 -4.226497, {t.props['x']:.20f} {t.props['y']:.20f})', 4326), 3857));"
+    cur.execute(command)  # type: ignore
+    conn.commit()
+
+    logger.info(f"DONE - ndid:{ndid} - spid:{spid} - Max zoom view: {maxZoomView}")
+
+    conn.close()
+    return ndid, first
+
+
+def traverse_tree(
+    tree: dict,
+    roots: list[str],
+    source: str,
+    starti: int = 1,
+    disable_progress: bool = False,
+) -> int:
+    """Traverse the subtrees starting at the given root IDs."""
+    ndid = starti
+    output_directory = BUILD_DIRECTORY / source
+    output_directory.mkdir(parents=True, exist_ok=True)
+    json_file = open(output_directory / "TreeFeatures.json", "w")
+    json_file.write("[")
+    first = True
+
+    for number, root_id in enumerate(roots, start=1):
+        ndid, first = _traverse_one_tree(
+            tree,
+            groupnb=str(number),
+            starti=ndid,
+            disable_progress=disable_progress,
+            root_id=root_id,
+            json_file=json_file,
+            first=first,
+        )
+
+    json_file.write("]")
+    json_file.close()
+    return ndid
