@@ -6,7 +6,7 @@ from pydantic import Field
 
 
 class TreeName(StrEnum):
-    lifemap = "lifemap"
+    ncbi = "ncbi"
 
 
 class TilesType(StrEnum):

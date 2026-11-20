@@ -37,7 +37,7 @@ class Settings(BaseSettings):
         LangType.es: "mySuggesterEs",
         LangType.el: "mySuggesterEl",
     }
-    metadata_path: dict[TreeName, Path] = {TreeName.lifemap: Path("/static/metadata.json")}
+    metadata_path: dict[TreeName, Path] = {TreeName.ncbi: Path("/static/metadata.json")}
 
     @property
     def solr_url(self) -> str:
