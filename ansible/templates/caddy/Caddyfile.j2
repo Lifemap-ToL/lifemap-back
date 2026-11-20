@@ -98,7 +98,7 @@
     # --- BBOX ---
 
     handle_path /vector_tiles/* {
-        header Cache-Control "public, max-age=300"
+        header Cache-Control "public, max-age=1800"
         # Only cache composite vector tiles from zoom levels 0 to 8
         @cacheable {
             path_regexp ^/xyz/composite/[0-8]/.*$
@@ -107,7 +107,7 @@
             cache {
                 ttl 1d
             }
-            header Cache-Control "public, max-age=86400"
+            header Cache-Control "public, max-age=1800"
         }
         reverse_proxy 127.0.0.1:8080
     }
@@ -119,7 +119,7 @@
     }
 
     handle_path /static/* {
-        header Cache-Control "public, max-age=21600"
+        header Cache-Control "public, max-age=3600"
         root /static
         file_server
     }
